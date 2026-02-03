@@ -8,10 +8,11 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import { Sheet, SheetClose, SheetContent, SheetHeader, SheetTrigger } from '@/components/ui/sheet';
-import { UserMenuContent } from '@/components/admin-menu-content';
+
 import { useInitials } from '@/hooks/use-initials';
 import { login, register } from '@/routes';
 import { type SharedData } from '@/types';
+import { UserMenuContent } from '@/components/user-menu-content copy';
 
 
 export function AuthHeader() {
@@ -29,7 +30,7 @@ export function AuthHeader() {
         <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/80 backdrop-blur-md">
             <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-8">
                 <div className="flex items-center gap-8">
-                    <Link href="/" className="transition-transform active:scale-95">
+                    <Link href={route('home')} className="transition-transform active:scale-95">
                         <AppLogo />
                     </Link>
 
