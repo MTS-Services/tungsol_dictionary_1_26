@@ -52,13 +52,13 @@ export function FrontendHeader() {
         <div className="flex items-center gap-3">
           <div className="hidden md:flex items-center gap-4">
             <a
-              href="Sing_in.html"
+              href={route('login')}
               className="text-gray-700 hover:text-gray-900 text-sm font-medium"
             >
               Login
             </a>
             <a
-              href="Sing_up.html"
+              href={ route('register')}
               className=" bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium
                               transition-colors"
             >
@@ -103,7 +103,7 @@ export function FrontendHeader() {
                     ? (
                       <>
                         <Link
-                          href={login()}
+                          href={route('login')}
                           className="block w-full"
                           onClick={() => setIsMobileMenuOpen(false)}
                         >
@@ -115,7 +115,7 @@ export function FrontendHeader() {
                           </Button>
                         </Link>
                         <Link
-                          href={register()}
+                          href={route('register')}
                           className="block w-full"
                           onClick={() => setIsMobileMenuOpen(false)}
                         >
