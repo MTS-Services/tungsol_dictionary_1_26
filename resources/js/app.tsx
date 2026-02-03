@@ -10,7 +10,6 @@ import { Toaster } from 'sonner';
 
 import ErrorFallback from './components/error-fallback';
 import { ErrorBadge, ErrorOverlay } from './components/error-overlay';
-import { initializeTheme } from './hooks/use-appearance';
 import { ErrorObservabilityProvider } from './lib/errors/error-context';
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
