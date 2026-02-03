@@ -3,7 +3,6 @@ import { Menu, XIcon } from 'lucide-react';
 import { useState } from 'react';
 
 import AppLogo from '@/components/app-logo';
-import AppearanceToggleDropdown from '@/components/appearance-dropdown';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
@@ -48,7 +47,6 @@ export function AuthHeader() {
                 </div>
 
                 <div className="flex items-center gap-3">
-                    <AppearanceToggleDropdown />
 
                     <div className="hidden h-6 w-[1px] bg-border md:block" /> {/* Divider */}
 
