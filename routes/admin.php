@@ -16,6 +16,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('/all', [AdminController::class, 'allAdmin'])->name('all');
         Route::get('/view/detail/{id}', [AdminController::class, 'viewAdmin'])->name('view.detail');
         Route::get('/view/edit/{id}', [AdminController::class, 'editAdmin'])->name('edit');
+        Route::get('/create', [AdminController::class, 'createAdmin'])->name('create');
+        Route::post('/store', [AdminController::class, 'storeAdmin'])->name('store');
         Route::post('/update', [AdminController::class, 'updateAdmin'])->name('update');
         Route::post('/delete/{id}', [AdminController::class, 'deleteAdmin'])->name('delete');
         Route::post('/logout', [AdminAuthController::class, 'logout'])->name('logout');
