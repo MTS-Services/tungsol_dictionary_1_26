@@ -41,6 +41,7 @@
     --color-text-color-1: var(--text-color-1);
     --color-text-color-2: var(--text-color-2);
     --color-btn-primary: var(--btn-primary);
+    --color-btn-secondary: var(--btn-secondary);
 
 
     --color-card: var(--card);
@@ -157,6 +158,7 @@
     --text-color-1: #008236;
     --text-color-2: #8200DB;
     --btn-primary: #155DFC;
+    --btn-secondary: #BA0FFE;
 
 }
 
