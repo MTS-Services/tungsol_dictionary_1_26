@@ -3,6 +3,7 @@ import * as React from 'react';
 
 import AppLogo from '@/components/app-logo';
 import { login } from '@/routes';
+import { useAppearance } from '@/hooks/Appearance';
 
 interface AuthLayoutProps {
     children: React.ReactNode;
@@ -17,6 +18,12 @@ export default function AuthLayout({
     title,
     description,
 }: AuthLayoutProps) {
+
+        const {appearance, updateAppearance} = useAppearance();
+    
+        React.useEffect(() => {
+            if(appearance != 'light') updateAppearance('light');
+        }, [appearance, updateAppearance]);
     return (
         <div className="min-h-screen flex items-center justify-center p-4 relative bg-background overflow-hidden">
 
