@@ -192,12 +192,8 @@ export default function Login({ status }: LoginProps) {
                 <div className="text-center mt-6">
                   <p className="text-gray-600 text-sm">
                     Already have an account?
-                    <a
-                      href="#"
-                      className="text-blue-600 hover:text-blue-700 font-medium"
-                    >
-                      Sign up
-                    </a>
+                   
+                    <Link href={route('register')} className="text-blue-600 hover:text-blue-700 font-medium">Register</Link>
                   </p>
                 </div>
               </div>
