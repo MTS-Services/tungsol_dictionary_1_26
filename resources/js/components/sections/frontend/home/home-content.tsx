@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 
  function HomeContent() {
   return (
@@ -6,29 +7,30 @@
     className="relative lg:py-20 py-8 px-4 bg-cover bg-center overflow-hidden"
     style={{
       backgroundImage:
-        'linear-gradient(to bottom right, rgba(147, 196, 253, 0.37), rgb(0, 64, 201)), url("img/images.png")'
+        'linear-gradient(to bottom right, rgba(147, 196, 253, 0.37), rgb(0, 64, 201)), url("assets/images/backgrounds.png")'
     }}
   >
     <div className="container mx-auto relative z-10 ">
-      <h1 className="lg:text-6xl text-3xl font-bold text-gray-900 text-center mb-4 ">
+      <h1 className="lg:text-6xl text-3xl font-bold font-vardana text-text-primary text-center mb-4 ">
         Discover the Power of Words
       </h1>
-      <p className="text-center text-gray-600 mb-4 mx-auto font-medium">
+      <p className="text-center text-text-secondary mb-4 mx-auto font-medium">
         Search meanings, play word games, and enhance your vocabulary.
       </p>
       <div className="max-w-2xl mx-auto lg:mb-12 mb-6">
         <div className="  rounded-lg lg:p-4 flex flex-col sm:flex-row gap-3">
           <div className="flex gap-3 justify-center">
-            <button className="transition duration-150 ease-in-out bg-[#BA0FFE] hover:bg-pink-600 text-white px-4 py-2 rounded-lg font-semibold text-sm whitespace-nowrap transition-colors">
+            
+            <Button className="bg-btn-secondary font-arial text-text-white font-normal text-sm lg:text-base px-6 py-3.5 rounded-lg cursor-pointer ">
               Dictionary
-            </button>
-            <button className="bg-blue-700 hover:bg-blue-600 text-white px-4 py-2 rounded-lg font-semibold text-sm whitespace-nowrap transition-colors">
+            </Button>
+            <Button className="bg-btn-primary font-arial text-text-white  font-normal text-sm lg:text-base px-6 py-3.5 rounded-lg cursor-pointer ">
               Thesaurus
-            </button>
+            </Button>
           </div>
-          <div className="flex-1 relative">
+          <div className="flex-1 relative ">
             <svg
-              className="absolute right-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400"
+              className="absolute right-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-text-secondary"
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
@@ -44,12 +46,12 @@
             <input
               type="text "
               placeholder="Search for synonyms and antonyms"
-              className="w-full text-sm px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
+              className="w-full text-sm px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white "
             />
           </div>
         </div>
         <div className="flex flex-col sm:flex-row justify-center gap-4 mt-6">
-          <button className="bg-white hover:bg-gray-100 text-gray-900 px-6 py-2 rounded-lg font-semibold flex items-center justify-center gap-2 shadow-md transition-all active:scale-95">
+          <button className="bg-accent text-secondary-foreground font-arial px-6 py-2 text-sm lg:text-base rounded-lg font-semibold flex items-center justify-center gap-2 shadow-md transition-all active:scale-95">
             <svg
               className="w-8 h-8 text-blue-600"
               xmlns="http://www.w3.org/2000/svg"
@@ -66,7 +68,7 @@
             </svg>
             Explore Dictionary
           </button>
-          <button className="bg-[#00A63E] hover:bg-green-600 text-white px-6 py-2 rounded-lg font-medium flex items-center justify-center gap-2 shadow-md transition-all active:scale-95">
+          <button className="bg-bg-color-1 hover:bg-green-600 text-white font-arial px-6 py-2 text-sm lg:text-base rounded-lg font-medium flex items-center justify-center gap-2 shadow-md transition-all active:scale-95">
             <svg
               width={20}
               height={20}
@@ -88,7 +90,7 @@
       </div>
       <div className="max-w-6xl mx-auto bg-white/95 backdrop-blur-md rounded-xl shadow-2xl p-8 relative overflow-hidden border border-white/20">
         <div className="flex justify-between items-start mb-4">
-          <span className="bg-[#155DFC] text-white px-3 py-1 rounded text-xs font-medium uppercase tracking-wider">
+          <span className="bg-btn-primary text-white px-2 py-1 rounded text-sm font-normal uppercase tracking-wider font-arial">
             Word of the Day
           </span>
           <button className="text-gray-400 hover:text-gray-600">
@@ -108,22 +110,22 @@
             </svg>
           </button>
         </div>
-        <h2 className="text-3xl font-medium text-gray-900 mb-2">
+        <h2 className="text-3xl font-arial font-regular text-text-primary mb-2">
           Perspicacious
         </h2>
-        <p className="text-gray-500 text-sm mb-4">
-          <span className="font-semibold italic">per·spi·ca·cious</span>
+        <p className="text-text-secondary  text-sm mb-4">
+          <span className="font-regular italic">per·spi·ca·cious</span>
           <br /> • adjective
         </p>
-        <p className="text-gray-800 text-lg font-medium mb-4 leading-relaxed">
+        <p className="text-text-primary text-lg font-medium mb-4 leading-relaxed">
           Having a ready insight into and understanding of things: mentally
           sharp or keen.
         </p>
         <div className=" bg-gray-100 p-4 rounded pt-4">
-          <p className="text-gray-500 text-xs font-bold uppercase mb-2">
+          <p className="text-text-secondary text-xs font-regular uppercase mb-2">
             Example:
           </p>
-          <p className="text-gray-700 italic">
+          <p className="text-text-secondary ">
             "The perspicacious detective noticed the tiny clue that everyone
             else had missed."
           </p>
@@ -132,20 +134,23 @@
     </div>
   </section>
   <section>
-    <section className="relative lg:py-20 py-8 px-4 overflow-hidden">
+
+    <section className="relative lg:py-20 py-8 z-10 px-4 overflow-hidden">
+
       {/* Background Image */}
-      <div className="absolute inset-0 -z-10">
+      <div className="absolute inset-0 -z-10 w-full h-full">
         <img
-          src="img/Crop.png"
+          src="/assets/images/background2.png"
           alt="Background"
           className="w-full h-full object-cover opacity-20"
         />
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-40/90 via-blue-100/90 to-indigo-100/90" />
+        <div className="absolute inset-2 bg-gradient-to-br from-blue-40/50 via-blue-100/50 to-indigo-100/50" />
       </div>
+
       <div className="container mx-auto relative">
         {/* Trending Words Section */}
-        <div className="bg-white/5 backdrop-blur-sm rounded-3xl lg:p-12 p-8 lg:mb-12 mb-6 shadow-lg">
-          <h2 className="text-3xl font-medium text-gray-800 mb-6 flex items-center gap-2">
+        <div className="bg-white/5 backdrop-blur-sm rounded-3xl lg:p-12 p-8 lg:mb-12 mb-6 border border-blue-600/10">
+          <h2 className="text-3xl font-arial font-regular text-text-primary mb-6 flex items-center gap-2">
             <svg
               className="w-8 h-8 text-blue-600"
               fill="none"
@@ -162,47 +167,47 @@
             Trending Words
           </h2>
           <div className="flex flex-wrap gap-3">
-            <span className="px-5 py-2.5 bg-white rounded-full text-gray-700 font-medium shadow-sm hover:shadow-md transition-shadow cursor-pointer">
+            <span className="px-5 py-2.5 bg-background rounded-full text-text-primary font-arial font-medium shadow-sm hover:shadow-md transition-shadow cursor-pointer border border-gray-200/100 border-2">
               serendipity
             </span>
-            <span className="px-5 py-2.5 bg-white rounded-full text-gray-700 font-medium shadow-sm hover:shadow-md transition-shadow cursor-pointer">
+            <span className="px-5 py-2.5 bg-background rounded-full text-text-primary font-arial font-medium shadow-sm hover:shadow-md transition-shadow cursor-pointer border border-gray-200/100 border-2">
               ephemeral
             </span>
-            <span className="px-5 py-2.5 bg-white rounded-full text-gray-700 font-medium shadow-sm hover:shadow-md transition-shadow cursor-pointer">
+            <span className="px-5 py-2.5 bg-background rounded-full text-text-primary font-arial font-medium shadow-sm hover:shadow-md transition-shadow cursor-pointer border border-gray-200/100 border-2">
               resilience
             </span>
-            <span className="px-5 py-2.5 bg-white rounded-full text-gray-700 font-medium shadow-sm hover:shadow-md transition-shadow cursor-pointer">
+            <span className="px-5 py-2.5 bg-background rounded-full text-text-primary font-arial font-medium shadow-sm hover:shadow-md transition-shadow cursor-pointer border border-gray-200/100 border-2">
               paradigm
             </span>
-            <span className="px-5 py-2.5 bg-white rounded-full text-gray-700 font-medium shadow-sm hover:shadow-md transition-shadow cursor-pointer">
+            <span className="px-5 py-2.5 bg-background rounded-full text-text-primary font-arial font-medium shadow-sm hover:shadow-md transition-shadow cursor-pointer border border-gray-200/100 border-2">
               ubiquitous
             </span>
-            <span className="px-5 py-2.5 bg-white rounded-full text-gray-700 font-medium shadow-sm hover:shadow-md transition-shadow cursor-pointer">
+            <span className="px-5 py-2.5 bg-background rounded-full text-text-primary font-arial font-medium shadow-sm hover:shadow-md transition-shadow cursor-pointer border border-gray-200/100 border-2">
               eloquent
             </span>
-            <span className="px-5 py-2.5 bg-white rounded-full text-gray-700 font-medium shadow-sm hover:shadow-md transition-shadow cursor-pointer">
+            <span className="px-5 py-2.5 bg-background rounded-full text-text-primary font-arial font-medium shadow-sm hover:shadow-md transition-shadow cursor-pointer border border-gray-200/100 border-2">
               enigma
             </span>
-            <span className="px-5 py-2.5 bg-white rounded-full text-gray-700 font-medium shadow-sm hover:shadow-md transition-shadow cursor-pointer">
+            <span className="px-5 py-2.5 bg-background rounded-full text-text-primary font-arial font-medium shadow-sm hover:shadow-md transition-shadow cursor-pointer border border-gray-200/100 border-2">
               nostalgia
             </span>
-            <span className="px-5 py-2.5 bg-white rounded-full text-gray-700 font-medium shadow-sm hover:shadow-md transition-shadow cursor-pointer">
+            <span className="px-5 py-2.5 bg-background rounded-full text-text-primary font-arial font-medium shadow-sm hover:shadow-md transition-shadow cursor-pointer border border-gray-200/100 border-2">
               aesthetic
             </span>
-            <span className="px-5 py-2.5 bg-white rounded-full text-gray-700 font-medium shadow-sm hover:shadow-md transition-shadow cursor-pointer">
+            <span className="px-5 py-2.5 bg-background rounded-full text-text-primary font-arial font-medium shadow-sm hover:shadow-md transition-shadow cursor-pointer border border-gray-200/100 border-2">
               ambiguous
             </span>
           </div>
         </div>
         {/* How It Works Section */}
-        <h2 className=" lg:text-4xl text-2xl font-bold text-center text-gray-800 lg:mb-12 mb-6">
+        <h2 className=" lg:text-4xl text-2xl font-arial font-bold text-center text-text-primary lg:mb-12 mb-6">
           How It Works
         </h2>
         {/* Feature Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:mb-16 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:mb-16 mb-8 ">
           {/* Comprehensive Dictionary */}
-          <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow">
-            <div className="w-14 h-14 bg-blue-100 rounded-xl flex items-center justify-center mb-6">
+          <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-8 transition-shadow border border-gray-200/100">
+            <div className="w-14 h-14  rounded-xl flex items-center justify-center mb-6">
               <svg
                 className="w-8 h-8 text-blue-600"
                 fill="none"
@@ -217,17 +222,17 @@
                 ></path>
               </svg>
             </div>
-            <h3 className="text-xl font-bold text-gray-800 mb-3">
+            <h3 className="text-xl font-arial font-regular text-text-primary mb-3">
               Comprehensive Dictionary
             </h3>
-            <p className="text-gray-600 leading-relaxed">
+            <p className="text-text-secondary font-inter font-regular leading-relaxed">
               Search thousands of words with detailed definitions,
               pronunciations, and examples.
             </p>
           </div>
           {/* Thesaurus & Synonyms */}
-          <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow">
-            <div className="w-14 h-14 bg-blue-100 rounded-xl flex items-center justify-center mb-6">
+          <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-8 transition-shadow border border-gray-200/100">
+            <div className="w-14 h-14 rounded-xl flex items-center justify-center mb-6">
               <svg
                 className="w-8 h-8 text-blue-600"
                 fill="none"
@@ -242,17 +247,17 @@
                 />
               </svg>
             </div>
-            <h3 className="text-xl font-bold text-gray-800 mb-3">
+            <h3 className="text-xl font-arial font-regular text-text-primary mb-3">
               Thesaurus &amp; Synonyms
             </h3>
-            <p className="text-gray-600 leading-relaxed">
+            <p className="text-text-secondary font-inter font-regular leading-relaxed">
               Discover related words, synonyms, and antonyms to expand your
               vocabulary.
             </p>
           </div>
           {/* Word Games */}
-          <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow">
-            <div className="w-14 h-14 bg-blue-100 rounded-xl flex items-center justify-center mb-6">
+          <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-8 transition-shadow border border-gray-200/100">
+            <div className="w-14 h-14 rounded-xl flex items-center justify-center mb-6">
               <svg
                 className="w-8 h-8 text-blue-600"
                 fill="none"
@@ -273,15 +278,17 @@
                 />
               </svg>
             </div>
-            <h3 className="text-xl font-bold text-gray-800 mb-3">Word Games</h3>
-            <p className="text-gray-600 leading-relaxed">
+            <h3 className="text-xl font-arial font-regular text-text-primary mb-3">
+              Word Games
+            </h3>
+            <p className="text-text-secondary font-inter font-regular leading-relaxed">
               Challenge yourself with fun word games and improve your language
               skills.
             </p>
           </div>
           {/* Learning Resources */}
-          <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow">
-            <div className="w-14 h-14 bg-blue-100 rounded-xl flex items-center justify-center mb-6">
+          <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-8 transition-shadow border border-gray-200/100">
+            <div className="w-14 h-14 rounded-xl flex items-center justify-center mb-6">
               <svg
                 className="w-8 h-8 text-blue-600"
                 fill="none"
@@ -308,25 +315,25 @@
                 ></path>
               </svg>
             </div>
-            <h3 className="text-xl font-bold text-gray-800 mb-3">
+            <h3 className="text-xl font-arial font-regular text-text-primary mb-3">
               Learning Resources
             </h3>
-            <p className="text-gray-600 leading-relaxed">
+            <p className="text-text-secondary font-inter font-regular leading-relaxed">
               Access educational content, word lists, and study materials.
             </p>
           </div>
         </div>
         {/* CTA Section */}
-        <div className="max-w-6xl mx-auto bg-gradient-to-r from-blue-600 to-blue-700 rounded-3xl p-12 text-center shadow-2xl">
-          <h2 className="text-2xl lg:text-4xl font-bold text-white mb-4">
+        <div className="max-w-6xl mx-auto bg-btn-primary rounded-3xl p-12 text-center shadow-2xl font-arial">
+          <h2 className=" font-regular font-arial lg:text-4xl text-2xl text-text-white mb-4">
             Ready to Expand Your Vocabulary?
           </h2>
-          <p className="text-blue-100 text-lg mb-8">
+          <p className="text-text-white text-md font-regular font-arial mb-8">
             Join thousands of word enthusiasts improving their language skills
           </p>
           <a
             href="#"
-            className="inline-flex items-center gap-2 bg-white text-blue-600 px-8 py-3.5 rounded-xl font-semibold hover:bg-blue-50 transition-colors shadow-lg"
+            className="font-regular font-arial inline-flex font-sm items-center gap-2 bg-white text-blue-600 px-8 py-3.5 rounded-xl hover:bg-blue-50 transition-colors shadow-lg"
           >
             Get Started Free
             <svg
@@ -346,6 +353,8 @@
         </div>
       </div>
     </section>
+
+
   </section>
     </>
   )

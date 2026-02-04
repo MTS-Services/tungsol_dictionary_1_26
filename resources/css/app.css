@@ -1,4 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
 
 @import 'tailwindcss';
 
@@ -15,10 +17,10 @@
         'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
         'Noto Color Emoji';
 
-    --font-open-sans: 'Open Sans', ui-sans-serif, system-ui, sans-serif;
-    --font-montserrat: 'Montserrat', ui-sans-serif, system-ui, sans-serif;
-    --font-inter: 'Inter', ui-sans-serif, system-ui, sans-serif;
+    --font-arial: 'Arial', ui-sans-serif, system-ui, sans-serif;
 
+    --font-inter: 'Inter', ui-sans-serif, system-ui, sans-serif;
+    
     --radius-lg: var(--radius);
     --radius-md: calc(var(--radius) - 2px);
     --radius-sm: calc(var(--radius) - 4px);
@@ -29,6 +31,9 @@
 
     --color-background: var(--background);
     --color-foreground: var(--foreground);
+
+
+
 
     --color-card: var(--card);
     --color-card-foreground: var(--card-foreground);
@@ -69,6 +74,7 @@
     --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
     --color-sidebar-border: var(--sidebar-border);
     --color-sidebar-ring: var(--sidebar-ring);
+    --color-parpal: var(--parpal);
 
     --color-text-primary: var(--text-primary);
     --color-text-primary-foreground: var(--text-primary-foreground);
@@ -77,13 +83,32 @@
     --color-text-muted: var(--text-muted);
 
     --shadow-card: var(--shadow-card);
+    --color-bg-color-1: var(--bg-color-1);
+    --color-bg-color-2: var(--bg-color-2);
+    --color-secondary-background2: var(--secondary-background2);
 
     --color-primary-background: var(--primary-background);
+
+
+    --color-bg-primary: var(--primary-background);
+    --color-bg-secondary: var(--secondary-background);
+
+    --color-text-primary: var(--text-primary);
+    --color-text-secondary: var(--text-secondary);
+    --color-text-white: var(--text-white);
+    --color-text-color-1: var(--text-color-1);
+    --color-text-color-2: var(--text-color-2);
+    --color-btn-primary: var(--btn-primary);
+    --color-btn-secondary: var(--btn-secondary);
+    --color-bg-background2: var(--bg-background2);
+    --color-garayasa: var(--garayasa);
 }
 
 :root {
-    --background: #F9FAFB;
-    --foreground: #121711;
+    --garayasa: #F3F4F6;
+    --color-parpal: #BA0FFE;
+    --background: #FFFFFF;
+    --foreground: #121711; 
 
     --card: oklch(1 0 0);
     --card-foreground: oklch(0.145 0 0);
@@ -133,7 +158,18 @@
 
     --shadow-card: 0 7px 29px 0px #64646F33;
 
-    --primary-background: #faf7ef;
+    --primary-background: #FFFFFF;
+    --bg-color-1: #008236;
+    --bg-color-2: #8200DB;
+    --bg-background2: #F9FAFB;
+
+    --text-primary: #0A0A0A;
+    --text-secondary: #666666;
+    --text-white: #FFFFFF;
+    --text-color-1: #008236;
+    --text-color-2: #8200DB;
+    --btn-primary: #155DFC;
+    --btn-secondary: #BA0FFE;
 
 }
 
@@ -176,11 +212,11 @@
 
 @layer base {
     * {
-        @apply border-border font-open-sans;
+        @apply border-border font-arial;
     }
 
     body {
-        @apply bg-background text-foreground font-open-sans;
+        @apply bg-background text-foreground font-arial;
     }
 
     h1,
@@ -190,7 +226,7 @@
     h5,
     h6,
     button {
-        @apply font-montserrat;
+        @apply font-inter;
     }
 }
 
