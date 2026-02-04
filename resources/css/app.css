@@ -32,15 +32,7 @@
     --color-background: var(--background);
     --color-foreground: var(--foreground);
 
-    --color-bg-primary: var(--primary-background);
-    --color-bg-secondary: var(--secondary-background);
 
-    --color-text-primary: var(--text-primary);
-    --color-text-secondary: var(--text-secondary);
-    --color-text-white: var(--text-white);
-    --color-text-color-1: var(--text-color-1);
-    --color-text-color-2: var(--text-color-2);
-    --color-btn-primary: var(--btn-primary);
 
 
     --color-card: var(--card);
@@ -82,6 +74,7 @@
     --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
     --color-sidebar-border: var(--sidebar-border);
     --color-sidebar-ring: var(--sidebar-ring);
+    --color-parpal: var(--parpal);
 
     --color-text-primary: var(--text-primary);
     --color-text-primary-foreground: var(--text-primary-foreground);
@@ -90,13 +83,32 @@
     --color-text-muted: var(--text-muted);
 
     --shadow-card: var(--shadow-card);
+    --color-bg-color-1: var(--bg-color-1);
+    --color-bg-color-2: var(--bg-color-2);
+    --color-secondary-background2: var(--secondary-background2);
 
     --color-primary-background: var(--primary-background);
+
+
+    --color-bg-primary: var(--primary-background);
+    --color-bg-secondary: var(--secondary-background);
+
+    --color-text-primary: var(--text-primary);
+    --color-text-secondary: var(--text-secondary);
+    --color-text-white: var(--text-white);
+    --color-text-color-1: var(--text-color-1);
+    --color-text-color-2: var(--text-color-2);
+    --color-btn-primary: var(--btn-primary);
+    --color-btn-secondary: var(--btn-secondary);
+    --color-bg-background2: var(--bg-background2);
+    --color-garayasa: var(--garayasa);
 }
 
 :root {
-    --background: ##FFFFFF;
-    --foreground: #121711;
+    --garayasa: #F3F4F6;
+    --color-parpal: #BA0FFE;
+    --background: #FFFFFF;
+    --foreground: #121711; 
 
     --card: oklch(1 0 0);
     --card-foreground: oklch(0.145 0 0);
@@ -147,7 +159,9 @@
     --shadow-card: 0 7px 29px 0px #64646F33;
 
     --primary-background: #FFFFFF;
-    --secondary-background: #F9FAFBF;
+    --bg-color-1: #008236;
+    --bg-color-2: #8200DB;
+    --bg-background2: #F9FAFB;
 
     --text-primary: #0A0A0A;
     --text-secondary: #666666;
@@ -155,6 +169,7 @@
     --text-color-1: #008236;
     --text-color-2: #8200DB;
     --btn-primary: #155DFC;
+    --btn-secondary: #BA0FFE;
 
 }
 
