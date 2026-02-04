@@ -147,7 +147,7 @@
     --shadow-card: 0 7px 29px 0px #64646F33;
 
     --primary-background: #FFFFFF;
-    --secondary-background: #F9FAFB;
+    --secondary-background: #F9FAFBF;
 
     --text-primary: #0A0A0A;
     --text-secondary: #666666;
@@ -197,7 +197,7 @@
 
 @layer base {
     * {
-        @apply border-border font-arial\;
+        @apply border-border font-arial;
     }
 
     body {
