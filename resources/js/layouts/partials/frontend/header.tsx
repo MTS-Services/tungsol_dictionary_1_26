@@ -51,19 +51,32 @@ export function FrontendHeader() {
           )}
           <div className="flex items-center gap-3">
             <div className="hidden md:flex items-center gap-4">
-              <a
-                href="Sing_in.html"
-                className="text-gray-700 hover:text-gray-900 text-sm font-medium"
-              >
-                Login
-              </a>
-              <a
-                href="Sing_up.html"
-                className=" bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium
-                              transition-colors"
-              >
-                Sign Up
-              </a>
+              {!auth.user ? (
+                <>
+                <a
+                  href={route('login')}
+                  className="text-gray-700 hover:text-gray-900 text-sm font-medium"
+                >
+                  Login
+                </a>
+                <a
+                  href="route('register')"
+                  className=" bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium
+                                transition-colors"
+                >
+                  Sign Up
+                </a>
+                </>
+              ) : (
+                <Link
+                  href={route("dashboard")}
+                  method="post"
+                  as="button"
+                  className="text-gray-700 hover:text-gray-900 text-sm font-medium"
+                >
+                  Get started
+                </Link>
+              )}
             </div>
 
             {/* Mobile Menu Trigger */}
