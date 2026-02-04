@@ -32,16 +32,7 @@
     --color-background: var(--background);
     --color-foreground: var(--foreground);
 
-    --color-bg-primary: var(--primary-background);
-    --color-bg-secondary: var(--secondary-background);
 
-    --color-text-primary: var(--text-primary);
-    --color-text-secondary: var(--text-secondary);
-    --color-text-white: var(--text-white);
-    --color-text-color-1: var(--text-color-1);
-    --color-text-color-2: var(--text-color-2);
-    --color-btn-primary: var(--btn-primary);
-    --color-btn-secondary: var(--btn-secondary);
 
 
     --color-card: var(--card);
@@ -94,6 +85,18 @@
     --shadow-card: var(--shadow-card);
 
     --color-primary-background: var(--primary-background);
+
+
+    --color-bg-primary: var(--primary-background);
+    --color-bg-secondary: var(--secondary-background);
+
+    --color-text-primary: var(--text-primary);
+    --color-text-secondary: var(--text-secondary);
+    --color-text-white: var(--text-white);
+    --color-text-color-1: var(--text-color-1);
+    --color-text-color-2: var(--text-color-2);
+    --color-btn-primary: var(--btn-primary);
+    --color-btn-secondary: var(--btn-secondary);
 }
 
 :root {

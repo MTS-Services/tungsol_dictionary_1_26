@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 
  function HomeContent() {
   return (
@@ -19,12 +20,13 @@
       <div className="max-w-2xl mx-auto lg:mb-12 mb-6">
         <div className="  rounded-lg lg:p-4 flex flex-col sm:flex-row gap-3">
           <div className="flex gap-3 justify-center">
-            <button className="transition duration-150 ease-in-out bg-parpal  text-white px-4 py-2 rounded-lg font-semibold text-sm whitespace-nowrap transition-colors">
+            
+            <Button className="bg-btn-secondary font-arial text-text-white  font-normal text-sm lg:text-base px-6 py-3.5 rounded-lg cursor-pointer ">
               Dictionary
-            </button>
-            <button className="bg-blue-700 hover:bg-blue-600 text-white px-4 py-2 rounded-lg font-semibold text-sm whitespace-nowrap transition-colors">
+            </Button>
+            <Button className="bg-btn-primary font-arial text-text-white  font-normal text-sm lg:text-base px-6 py-3.5 rounded-lg cursor-pointer ">
               Thesaurus
-            </button>
+            </Button>
           </div>
           <div className="flex-1 relative">
             <svg
