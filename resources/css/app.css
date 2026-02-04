@@ -101,9 +101,11 @@
     --color-btn-primary: var(--btn-primary);
     --color-btn-secondary: var(--btn-secondary);
     --color-bg-background2: var(--bg-background2);
+    --color-garayasa: var(--garayasa);
 }
 
 :root {
+    --garayasa: #F3F4F6;
     --color-parpal: #BA0FFE;
     --background: #FFFFFF;
     --foreground: #121711; 
