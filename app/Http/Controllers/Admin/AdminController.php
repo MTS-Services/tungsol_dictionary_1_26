@@ -8,9 +8,13 @@ use App\Services\DataTableService;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
+use App\Concerns\PasswordValidationRules;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rule;
 
 class AdminController extends Controller
 {
+    use PasswordValidationRules;
     //
 
     public function __construct(protected DataTableService $dataTableService){}
@@ -31,7 +35,7 @@ class AdminController extends Controller
         ]);
 
 
-        return Inertia::render('admin/all', [
+        return Inertia::render('admin/admin-management/all', [
             'admins' => $result['data'],
             'pagination' => $result['pagination'],
             'offset' => $result['offset'],
@@ -48,7 +52,7 @@ class AdminController extends Controller
         if(!$admin) {
             abort(404);
         }
-        return Inertia::render('admin/view', [
+        return Inertia::render('admin/admin-management/view', [
             'admin' => $admin
         ]);
     }
@@ -58,10 +62,33 @@ class AdminController extends Controller
         if(!$admin) {
             abort(404);
         }
-        return Inertia::render('admin/edit', [
+        return Inertia::render('admin/admin-management/edit', [
             'admin' => $admin
         ]);
     }
+
+    public function createAdmin()
+    {
+        return Inertia::render('admin/admin-management/create');
+    }
+
+    public function storeAdmin(Request $request)
+    {
+        $data = $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', Rule::unique(Admin::class)],
+            'password' => $this->passwordRules(),
+        ]);
+
+        Admin::create([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'password' => Hash::make($data['password']),
+        ]);
+
+        return redirect()->route('admin.all')->with('success', 'Admin created successfully.');
+    }
+
     public function updateAdmin(Request $request){
 
      $data = $request->validate([

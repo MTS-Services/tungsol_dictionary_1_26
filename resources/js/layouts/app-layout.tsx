@@ -3,6 +3,7 @@ import { type ReactNode } from 'react';
 
 import { Toaster } from "@/components/ui/sonner"
 import { type BreadcrumbItem } from '@/types';
+import { useAppearance } from '@/hooks/Appearance';
 
 interface AppLayoutProps {
     children: ReactNode;
@@ -10,6 +11,11 @@ interface AppLayoutProps {
 }
 
 export default function AppLayout({ children }: AppLayoutProps) {
+    const {appearance, updateAppearance} = useAppearance();
+
+    React.useEffect(() => {
+        if(appearance != 'light') updateAppearance('light');
+    }, [appearance, updateAppearance]);
 
     return (
         <div className="flex min-h-screen">

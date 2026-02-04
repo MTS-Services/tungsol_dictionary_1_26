@@ -2,6 +2,8 @@ import * as React from 'react';
 import { AdminSidebar } from '@/layouts/partials/admin/sidebar';
 import { AdminHeader } from '@/layouts/partials/admin/header';
 import { AdminFooter } from './partials/admin/footer';
+import { useAppearance } from '@/hooks/Appearance';
+
 
 interface AdminLayoutProps {
     children: React.ReactNode;
@@ -18,6 +20,12 @@ export default function AdminLayout({ children, activeSlug }: AdminLayoutProps) 
         return false;
     });
 
+    const {appearance, updateAppearance} = useAppearance();
+
+    React.useEffect(() => {
+        if(appearance != 'light') updateAppearance('light');
+    }, [appearance, updateAppearance]);
+
     // Save sidebar state to localStorage
     React.useEffect(() => {
         if (typeof window !== 'undefined') {
@@ -25,6 +33,11 @@ export default function AdminLayout({ children, activeSlug }: AdminLayoutProps) 
         }
     }, [isCollapsed]);
 
+    React.useEffect(() => {
+        // document.getElementsByTagName('html')[0].classList.remove('dark');
+        
+    })
+    
     return (
         <div className="relative flex h-full max-h-screen min-h-screen bg-background">
             <AdminSidebar isCollapsed={isCollapsed} activeSlug={activeSlug} />
