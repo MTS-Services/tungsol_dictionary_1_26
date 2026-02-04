@@ -68,14 +68,23 @@ export function FrontendHeader() {
                 </a>
                 </>
               ) : (
+                <>
+                <Link href={route('logout')} method="post">
+                  <button className="text-gray-700 hover:text-gray-900 text-sm font-medium cursor-pointer">
+                    Logout
+                  </button>
+                </Link>
+                
                 <Link
-                  href={route("dashboard")}
-                  method="post"
+                  href={route("user.dashboard")}
+                 
                   as="button"
-                  className="text-gray-700 hover:text-gray-900 text-sm font-medium"
+                  className=" bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium
+                                transition-colors cursor-pointer"
                 >
                   Get started
                 </Link>
+                </>
               )}
             </div>
 
