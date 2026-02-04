@@ -19,7 +19,7 @@
       <div className="max-w-2xl mx-auto lg:mb-12 mb-6">
         <div className="  rounded-lg lg:p-4 flex flex-col sm:flex-row gap-3">
           <div className="flex gap-3 justify-center">
-            <button className="transition duration-150 ease-in-out bg-[#BA0FFE]  text-white px-4 py-2 rounded-lg font-semibold text-sm whitespace-nowrap transition-colors">
+            <button className="transition duration-150 ease-in-out bg-parpal  text-white px-4 py-2 rounded-lg font-semibold text-sm whitespace-nowrap transition-colors">
               Dictionary
             </button>
             <button className="bg-blue-700 hover:bg-blue-600 text-white px-4 py-2 rounded-lg font-semibold text-sm whitespace-nowrap transition-colors">
