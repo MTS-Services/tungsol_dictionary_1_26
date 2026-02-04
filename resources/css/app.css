@@ -83,6 +83,9 @@
     --color-text-muted: var(--text-muted);
 
     --shadow-card: var(--shadow-card);
+    --color-bg-color-1: var(--bg-color-1);
+    --color-bg-color-2: var(--bg-color-2);
+    --color-secondary-background2: var(--secondary-background2);
 
     --color-primary-background: var(--primary-background);
 
@@ -97,12 +100,13 @@
     --color-text-color-2: var(--text-color-2);
     --color-btn-primary: var(--btn-primary);
     --color-btn-secondary: var(--btn-secondary);
+    --color-bg-background2: var(--bg-background2);
 }
 
 :root {
     --color-parpal: #BA0FFE;
-    --background: ##FFFFFF;
-    --foreground: #121711;
+    --background: #FFFFFF;
+    --foreground: #121711; 
 
     --card: oklch(1 0 0);
     --card-foreground: oklch(0.145 0 0);
@@ -153,7 +157,9 @@
     --shadow-card: 0 7px 29px 0px #64646F33;
 
     --primary-background: #FFFFFF;
-    --secondary-background: #F9FAFBF;
+    --bg-color-1: #008236;
+    --bg-color-2: #8200DB;
+    --bg-background2: #F9FAFB;
 
     --text-primary: #0A0A0A;
     --text-secondary: #666666;
