@@ -9,15 +9,15 @@ export default function Contact() {
         className="relative px-4 bg-cover bg-center overflow-hidden p-8"
         style={{
           backgroundImage:
-            "linear-gradient(to bottom right, rgba(147, 196, 253, 0.37), rgb(0, 64, 201)), url(\"img/images.png\")",
+            "linear-gradient(to bottom right, rgba(147, 196, 253, 0.37), rgb(0, 64, 201)), url('assets/images/backgrounds.png')",
         }}
       >
         <div className="max-w-6xl mx-auto">
           <div className=" rounded-2xl md:rounded-3xl p-2  ">
             <div className="flex justify-center mb-6">
-              <div className="w-16 h-16  rounded-2xl flex items-center justify-center">
+              <div className="w-16 h-16  rounded-2xl flex items-center justify-center bg-blue-500/10 rounded-full">
                 <svg
-                  className="w-6 h-6 text-blue-600"
+                  className="w-10 h-10 text-blue-600"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -32,10 +32,10 @@ export default function Contact() {
                 </svg>
               </div>
             </div>
-            <h1 className="text-3xl md:text-5xl font-bold text-gray-900 text-center mb-4">
+            <h1 className="lg:text-5xl text-4xl font-bold text-gray-900 text-center mb-4">
               Contact Us
             </h1>
-            <p className="text-gray-600 text-base  text-center mb-8 md:mb-10 max-w-1xl mx-auto">
+            <p className="text-gray-600 font-medium text-base  text-center mb-8 md:mb-10 max-w-1xl mx-auto">
               Have a question, suggestion, or feedback? We'd love to hear from you.
             </p>
           </div>
@@ -51,8 +51,8 @@ export default function Contact() {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
                       {/* Name Field */}
                       <div>
-                        <label className="block text-gray-800 font-medium mb-2">
-                          Name <span className="text-red-500">*</span>
+                        <label className="block text-secondary-foreground font-medium mb-2">
+                          Name <span className="text-secondary-foreground">*</span>
                         </label>
                         <input
                           type="text"
@@ -62,8 +62,8 @@ export default function Contact() {
                       </div>
                       {/* Email Field */}
                       <div>
-                        <label className="block text-gray-800 font-medium mb-2">
-                          Email <span className="text-red-500">*</span>
+                        <label className="block text-secondary-foreground font-medium mb-2">
+                          Email <span className="text-secondary-foreground">*</span>
                         </label>
                         <input
                           type="email"
@@ -74,8 +74,8 @@ export default function Contact() {
                     </div>
                     {/* Subject Field */}
                     <div className="mb-6">
-                      <label className="block text-gray-800 font-medium mb-2">
-                        Subject <span className="text-red-500">*</span>
+                      <label className="block text-secondary-foreground font-medium mb-2">
+                        Subject <span className="text-secondary-foreground">*</span>
                       </label>
                       <input
                         type="text"
@@ -85,8 +85,8 @@ export default function Contact() {
                     </div>
                     {/* Message Field */}
                     <div className="mb-6">
-                      <label className="block text-gray-800 font-medium mb-2">
-                        Message <span className="text-red-500">*</span>
+                      <label className="block text-secondary-foreground font-medium mb-2">
+                        Message <span className="text-secondary-foreground">*</span>
                       </label>
                       <textarea
                         rows={4}
@@ -98,7 +98,7 @@ export default function Contact() {
                     {/* Submit Button */}
                     <button
                       type="submit"
-                      className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-6 rounded-lg transition flex items-center justify-center gap-2"
+                      className="w-full bg-btn-primary hover:bg-blue-700 text-white font-medium py-3 px-6 rounded-lg transition flex items-center justify-center gap-2"
                     >
                       <svg
                         className="w-5 h-5"
@@ -138,15 +138,15 @@ export default function Contact() {
                       </path>
                     </svg>
                   </div>
-                  <h3 className="text-lg font-semibold text-gray-800 mb-3">
+                  <h3 className="text-lg font-medium font-inter text-secondary-foreground mb-3">
                     Email Us
                   </h3>
-                  <p className="text-gray-600 text-sm leading-relaxed mb-3">
+                  <p className="text-gray-500  text-md font-medium leading-relaxed mb-3">
                     For general inquiries and support
                   </p>
                   <a
                     href="mailto:support@wordwise.com"
-                    className="text-blue-600 hover:text-blue-700 font-medium text-sm"
+                    className="text-secondary-foreground font-medium text-sm"
                   >
                     support@wordwise.com
                   </a>
@@ -169,10 +169,10 @@ export default function Contact() {
                       </path>
                     </svg>
                   </div>
-                  <h3 className="text-lg font-semibold text-gray-800 mb-3">
+                  <h3 className="text-lg font-semibold text-secondary-foreground mb-3">
                     Feedback
                   </h3>
-                  <p className="text-gray-600 text-sm leading-relaxed">
+                  <p className="text-gray-500 text-sm leading-relaxed">
                     We value your feedback and continuously work to improve our dictionary. Let us know how we can serve
                     you better.
                   </p>

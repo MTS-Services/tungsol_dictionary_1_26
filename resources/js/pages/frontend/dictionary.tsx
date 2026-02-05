@@ -112,7 +112,7 @@ export default function Dictionary() {
                   
                      
                     {/* Alphabet Grid */}
-                   <div className="max-w-2xl p-8 bg-white rounded-2xl  border-2 border-gray-300">
+                   <div className="max-w-2xl p-8 bg-white rounded-3xl  border-2 border-gray-300">
                     <h2 className="text-1xl font-medium text-foreground mb-6">Browse Alphabetically</h2>
 
                     <div className="flex flex-wrap gap-3 m-2 text-1xl font-medium text-foreground ">
@@ -319,37 +319,38 @@ export default function Dictionary() {
                   Trending Words
                 </h2>
                 <div className="flex flex-wrap gap-2 sm:gap-3 md:gap-4">
-                  <span className="px-4 sm:px-6 md:px-8 lg:px-12 py-2 sm:py-2.5 bg-white rounded-full text-sm sm:text-base text-gray-700 font-medium shadow-sm hover:shadow-md transition-shadow cursor-pointer">
+                  <span className="px-4 sm:px-6 md:px-8 lg:px-12 py-2 sm:py-2.5 bg-white rounded-full text-sm sm:text-base text-foreground font-medium transition-shadow cursor-pointer border border-gray-200/100 border-2">
                     serendipity
                   </span>
-                  <span className="px-4 sm:px-6 md:px-8 lg:px-12 py-2 sm:py-2.5 bg-white rounded-full text-sm sm:text-base text-gray-700 font-medium shadow-sm hover:shadow-md transition-shadow cursor-pointer">
+                  <span className="px-4 sm:px-6 md:px-8 lg:px-12 py-2 sm:py-2.5 bg-white rounded-full text-sm sm:text-base text-foreground font-medium transition-shadow cursor-pointer border border-gray-200/100 border-2">
                     ephemeral
                   </span>
-                  <span className="px-4 sm:px-6 md:px-8 lg:px-12 py-2 sm:py-2.5 bg-white rounded-full text-sm sm:text-base text-gray-700 font-medium shadow-sm hover:shadow-md transition-shadow cursor-pointer">
+                  <span className="px-4 sm:px-6 md:px-8 lg:px-12 py-2 sm:py-2.5 bg-white rounded-full text-sm sm:text-base text-foreground font-medium transition-shadow cursor-pointer border border-gray-200/100 border-2">
                     resilience
                   </span>
-                  <span className="px-4 sm:px-6 md:px-8 lg:px-12 py-2 sm:py-2.5 bg-white rounded-full text-sm sm:text-base text-gray-700 font-medium shadow-sm hover:shadow-md transition-shadow cursor-pointer">
+                  <span className="px-4 sm:px-6 md:px-8 lg:px-12 py-2 sm:py-2.5 bg-white rounded-full text-sm sm:text-base text-foreground font-medium transition-shadow cursor-pointer border border-gray-200/100 border-2">
                     paradigm
                   </span>
-                  <span className="px-4 sm:px-6 md:px-8 lg:px-12 py-2 sm:py-2.5 bg-white rounded-full text-sm sm:text-base text-gray-700 font-medium shadow-sm hover:shadow-md transition-shadow cursor-pointer">
+                  <span className="px-4 sm:px-6 md:px-8 lg:px-12 py-2 sm:py-2.5 bg-white rounded-full text-sm sm:text-base text-foreground font-medium transition-shadow cursor-pointer border border-gray-200/100 border-2">
                     ubiquitous
                   </span>
-                  <span className="px-4 sm:px-6 md:px-8 lg:px-12 py-2 sm:py-2.5 bg-white rounded-full text-sm sm:text-base text-gray-700 font-medium shadow-sm hover:shadow-md transition-shadow cursor-pointer">
+                  <span className="px-4 sm:px-6 md:px-8 lg:px-12 py-2 sm:py-2.5 bg-white rounded-full text-sm sm:text-base text-foreground font-medium transition-shadow cursor-pointer border border-gray-200/100 border-2">
                     eloquent
                   </span>
-                  <span className="px-4 sm:px-6 md:px-8 lg:px-12 py-2 sm:py-2.5 bg-white rounded-full text-sm sm:text-base text-gray-700 font-medium shadow-sm hover:shadow-md transition-shadow cursor-pointer">
+                  <span className="px-4 sm:px-6 md:px-8 lg:px-12 py-2 sm:py-2.5 bg-white rounded-full text-sm sm:text-base text-foreground font-medium transition-shadow cursor-pointer border border-gray-200/100 border-2">
                     enigma
                   </span>
-                  <span className="px-4 sm:px-6 md:px-8 lg:px-12 py-2 sm:py-2.5 bg-white rounded-full text-sm sm:text-base text-gray-700 font-medium shadow-sm hover:shadow-md transition-shadow cursor-pointer">
+                  <span className="px-4 sm:px-6 md:px-8 lg:px-12 py-2 sm:py-2.5 bg-white rounded-full text-sm sm:text-base text-foreground font-medium transition-shadow cursor-pointer border border-gray-200/100 border-2">
                     nostalgia
                   </span>
-                  <span className="px-4 sm:px-6 md:px-8 lg:px-12 py-2 sm:py-2.5 bg-white rounded-full text-sm sm:text-base text-gray-700 font-medium shadow-sm hover:shadow-md transition-shadow cursor-pointer">
+                  <span className="px-4 sm:px-6 md:px-8 lg:px-12 py-2 sm:py-2.5 bg-white rounded-full text-sm sm:text-base text-foreground font-medium transition-shadow cursor-pointer border border-gray-200/100 border-2">
                     aesthetic
                   </span>
-                  <span className="px-4 sm:px-6 md:px-8 lg:px-12 py-2 sm:py-2.5 bg-white rounded-full text-sm sm:text-base text-gray-700 font-medium shadow-sm hover:shadow-md transition-shadow cursor-pointer">
+                  <span className="px-4 sm:px-6 md:px-8 lg:px-12 py-2 sm:py-2.5 bg-white rounded-full text-sm sm:text-base text-foreground font-medium transition-shadow cursor-pointer border border-gray-200/100 border-2">
                     ambiguous
                   </span>
                 </div>
+                
               </div>
         {/* How It Works Section */}
         <h2 className=" lg:text-4xl text-2xl font-arial font-bold text-center text-text-primary lg:mb-12 mb-6">
