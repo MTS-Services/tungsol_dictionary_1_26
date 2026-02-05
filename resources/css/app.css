@@ -102,9 +102,11 @@
     --color-btn-secondary: var(--btn-secondary);
     --color-bg-background2: var(--bg-background2);
     --color-garayasa: var(--garayasa);
+    --cofy-gray: var(--cofy-gray);
 }
 
 :root {
+    --cofy-gray: #030213;
     --garayasa: #F3F4F6;
     --color-parpal: #BA0FFE;
     --background: #FFFFFF;
