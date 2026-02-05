@@ -29,6 +29,11 @@ class FrontendController extends Controller
           return Inertia::render('frontend/game');
      }
 
+     public function game2(): Response
+     {
+          return Inertia::render('frontend/game2');
+     }
+
      public function learn(): Response
      {
           return Inertia::render('frontend/learn');

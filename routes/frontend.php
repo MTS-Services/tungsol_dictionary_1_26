@@ -10,6 +10,7 @@ Route::controller(FrontendController::class)->group(function () {
         Route::get('/dictionary', 'dictionary')->name('dictionary');
         Route::get('/thesaurus', 'thesaurus')->name('thesaurus');
         Route::get('/games', 'game')->name('game');
+        Route::get('/games2', 'game2')->name('game2');
         Route::get('/learn', 'learn')->name('learn');
         Route::get('/about', 'about')->name('about');
         Route::get('/contact', 'contact')->name('contact');

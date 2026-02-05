@@ -18,6 +18,7 @@ export function FrontendHeader() {
     { name: "Dictionary", href: route("dictionary"), slug: "/" },
     { name: "Thesaurus", href: route("thesaurus"), slug: "/" },
     { name: "Games", href: route("game"), slug: "/" },
+    { name: "Games 2", href: route("game2"), slug: "/" },
     { name: "Learn", href: route("learn"), slug: "/" },
     { name: "About", href: route("about"), slug: "/" },
     { name: "Contact", href: route("contact"), slug: "/" },

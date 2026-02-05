@@ -84,7 +84,7 @@ export default function ForgotPassword({ status }: { status?: string }) {
                   </Button>
                 </form>
                 <div className="text-center mt-6">
-                  <p className="text-gray-600 text-sm">
+                  <p className="text-foreground/80 font-arial text-sm">
                   
 
                     <Link href={route("login")} className="text-blue-600 hover:text-blue-700 font-medium">

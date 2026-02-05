@@ -7,7 +7,7 @@ export default function Game() {
 
       
 <div
-        className=" relative lg:py-20 py-5 px-4 bg-cover bg-center overflow-hidden"
+        className=" relative lg:pb-20 py-10 px-4 bg-cover bg-center overflow-hidden"
         style={{
           backgroundImage:
             "linear-gradient(to bottom right, rgba(147, 196, 253, 0.37), rgb(0, 64, 201)), url('assets/images/backgrounds.png')",
