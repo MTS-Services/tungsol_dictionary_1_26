@@ -25,7 +25,7 @@ export default function Register() {
     return (
       <>
           <section
-        className="relative py-20 px-4 bg-cover bg-center overflow-hidden"
+        className="relative py-8 px-4 bg-cover bg-center overflow-hidden"
         style={{
           backgroundImage:
             "linear-gradient(to bottom right, rgba(147, 196, 253, 0.37), rgb(0, 64, 201)), url(\"img/images.png\")",
@@ -34,9 +34,9 @@ export default function Register() {
         <div className="container mx-auto relative z-10">
           <section className="flex items-center justify-center">
             <div className="w-full max-w-md">
-              <div className="bg-white rounded-2xl shadow-lg p-8">
+              <div className="bg-white rounded-2xl shadow-lg p-4">
                 {/* Logo and Header */}
-                <div className="text-center mb-8">
+                <div className="text-center mb-2">
                   <div className="inline-flex items-center justify-center w-16 h-16 bg-blue-100 rounded-full mb-4">
                     <svg
                       className="w-8 h-8 text-blue-600"
@@ -54,18 +54,18 @@ export default function Register() {
                       </path>
                     </svg>
                   </div>
-                  <h1 className="text-2xl font-semibold text-text-primary mb-2">
+                  <h1 className="text-2xl font-medium text-text-primary font-arial">
                     Create Account
                   </h1>
-                  <p className="text-text-secondary text-sm">
+                  <p className="text-text-secondary font-inter text-md font-medium">
                     Join WordWise and expand your vocabulary
                   </p>
                 </div>
                 {/* Sign Up Form */}
-                <form className="space-y-4" onSubmit={handleSubmit}>
+                <form className="space-y-2" onSubmit={handleSubmit}>
                   {/* Username Field */}
                   <div>
-                    <label className="block text-gray-800 font-medium text-sm mb-2">
+                    <label className="block text-text-primary font-inter font-medium text-sm mb-1">
                       Username
                     </label>
                     <div className="relative">
@@ -99,7 +99,7 @@ export default function Register() {
                   </div>
                   {/* Email Field */}
                   <div>
-                    <label className="block text-gray-800 font-medium text-sm mb-2">
+                    <label className="block text-text-primary font-inter font-medium text-sm mb-2">
                       Email
                     </label>
                     <div className="relative">
@@ -130,7 +130,7 @@ export default function Register() {
                   </div>
                   {/* Password Field */}
                   <div>
-                    <label className="block text-gray-800 font-medium text-sm mb-2">
+                    <label className="block text-text-primary font-inter font-medium text-sm mb-2">
                       Password
                     </label>
                     <div className="relative">
@@ -158,15 +158,11 @@ export default function Register() {
                         className="w-full pl-10 pr-4 py-6.5 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
                       />
                       <InputError message={errors.password} />
-
-
-
-
                     </div>
                   </div>
                   {/* Confirm Password Field */}
                   <div>
-                    <label className="block text-gray-800 font-medium text-sm mb-2">
+                    <label className="block text-text-primary font-inter font-medium text-sm mb-2">
                       Confirm Password
                     </label>
                     <div className="relative">
@@ -231,7 +227,7 @@ export default function Register() {
                     <div className="w-full border-t border-gray-200" />
                   </div>
                   <div className="relative flex justify-center text-sm">
-                    <span className="px-4 bg-white text-gray-500">
+                    <span className="px-4 bg-white text-text-secondary">
                       Or sign up with
                     </span>
                   </div>
@@ -258,7 +254,7 @@ export default function Register() {
                         d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
                       />
                     </svg>
-                    <span className="text-gray-700 font-medium text-sm">Google</span>
+                    <span className="text-text-secondary font-medium text-sm">Google</span>
                   </button>
                   {/* Facebook Button */}
                   <button className="flex items-center justify-center gap-2 px-4 py-3 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition">
@@ -269,14 +265,14 @@ export default function Register() {
                     >
                       <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
                     </svg>
-                    <span className="text-gray-700 font-medium text-sm">
+                    <span className="text-text-secondary font-medium text-sm">
                       Facebook
                     </span>
                   </button>
                 </div>
                 {/* Sign In Link */}
                 <div className="text-center mt-6">
-                  <p className="text-gray-600 text-sm">
+                  <p className="text-text-secondary text-sm">
                     Already have an account?
                     
                     <Link href={route('login')} className="text-blue-600 hover:text-blue-700 font-medium"> Sign</Link>
