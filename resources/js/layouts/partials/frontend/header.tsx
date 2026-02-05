@@ -15,10 +15,12 @@ export function FrontendHeader() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const navLinks = [
     { name: "Home", href: route("home"), slug: "/" },
+    // { name: "Home 2", href: route("home2"), slug: "/" },
     { name: "Dictionary", href: route("dictionary"), slug: "/" },
     { name: "Thesaurus", href: route("thesaurus"), slug: "/" },
+    // { name: "Thesaurus 2", href: route("thesaurus2"), slug: "/" },
     { name: "Games", href: route("game"), slug: "/" },
-    { name: "Games 2", href: route("game2"), slug: "/" },
+    // { name: "Games 2", href: route("game2"), slug: "/" },
     { name: "Learn", href: route("learn"), slug: "/" },
     { name: "About", href: route("about"), slug: "/" },
     { name: "Contact", href: route("contact"), slug: "/" },

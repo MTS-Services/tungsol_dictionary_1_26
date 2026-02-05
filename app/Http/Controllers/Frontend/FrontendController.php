@@ -14,6 +14,12 @@ class FrontendController extends Controller
      {
           return Inertia::render('frontend/index');
      }
+     
+     public function home2(): Response
+     {
+          return Inertia::render('frontend/home2');
+     }
+     
      public function dictionary(): Response
      {
           return Inertia::render('frontend/dictionary');
@@ -22,6 +28,11 @@ class FrontendController extends Controller
      public function thesaurus(): Response
      {
           return Inertia::render('frontend/thesaurus');
+     }
+
+     public function thesaurus2(): Response
+     {
+          return Inertia::render('frontend/thesaurus2');
      }
 
      public function game(): Response
