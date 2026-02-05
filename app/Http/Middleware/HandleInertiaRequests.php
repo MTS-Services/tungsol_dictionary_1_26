@@ -43,6 +43,7 @@ class HandleInertiaRequests extends Middleware
                 'user' => $request->user(),
                 'admin' => $request->user('admin'),
             ],
+            'activeSlug' => $request->route()->parameter('slug'),
             'sidebarOpen' => ! $request->hasCookie('sidebar_state') || $request->cookie('sidebar_state') === 'true',
             'features' => [
                 // 'canRegister' => Features::enabled(Features::registration()),

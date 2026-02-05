@@ -6,22 +6,25 @@ import { login, register } from "@/routes";
 import { type SharedData } from "@/types";
 import { Link, usePage } from "@inertiajs/react";
 import { ArrowRight, Menu, XIcon } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export function FrontendHeader() {
-  const { auth } = usePage<SharedData>().props;
+  const { auth , activeSlug } = usePage<SharedData>().props;
+
+
   const { url } = usePage();
-  console.log(url);
+
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const navLinks = [
     { name: "Home", href: route("home"), slug: "/" },
-    { name: "Dictionary", href: route("dictionary"), slug: "/" },
-    { name: "Thesaurus", href: route("thesaurus"), slug: "/" },
-    { name: "Games", href: route("game"), slug: "/" },
-    { name: "Learn", href: route("learn"), slug: "/" },
-    { name: "About", href: route("about"), slug: "/" },
-    { name: "Contact", href: route("contact"), slug: "/" },
+    { name: "Dictionary", href: route("dictionary"), slug: "/dictionary" },
+    { name: "Thesaurus", href: route("thesaurus"), slug: "/thesaurus" },
+    { name: "Games", href: route("game"), slug: "/game" },
+    { name: "Learn", href: route("learn"), slug: "/learn" },
+    { name: "About", href: route("about"), slug: "/about" },
+    { name: "Contact", href: route("contact"), slug: "/contact" },
   ];
+
 
   return (
     <header className="bg-white shadow-sm sticky top-0 z-50">
@@ -38,9 +41,21 @@ export function FrontendHeader() {
                 {navLinks
                   && navLinks.map((link) => (
                     <li>
-                      <Link
+                     <Link
                         href={link.href}
-                        className={`block  text-gray-700  hover:text-blue-600 py-3 px-2 rounded-lg transition-colors font-medium`}
+
+                        className={`
+                          relative inline-block pb-2
+                          font-medium transition-colors duration-300
+                          ${link.slug == url ? 'text-btn-primary' : 'text-gray-700 hover:text-btn-primary'}
+
+                          after:content-['']
+                          after:absolute after:left-0 after:bottom-0
+                          after:h-[2px]
+                          after:bg-btn-primary
+                          after:transition-all after:duration-300 after:ease-in-out 
+                          ${link.slug == url ? 'after:w-full' : 'after:w-0 hover:after:w-full'}
+                        `}
                       >
                         {link.name}
                       </Link>
@@ -51,41 +66,42 @@ export function FrontendHeader() {
           )}
           <div className="flex items-center gap-3">
             <div className="hidden md:flex items-center gap-4">
-              {!auth.user ? (
-                <>
-                <a
-                  href={route('login')}
-                  className="text-gray-700 hover:text-gray-900 text-sm font-medium"
-                >
-                  Login
-                </a>
-                <a
-                  href={route('register')}
-                  className=" bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium
+              {!auth.user
+                ? (
+                  <>
+                    <a
+                      href={route("login")}
+                      className="text-gray-700 hover:text-gray-900 text-sm font-medium"
+                    >
+                      Login
+                    </a>
+                    <a
+                      href={route("register")}
+                      className=" bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium
                                 transition-colors"
-                >
-                  Sign Up
-                </a>
-                </>
-              ) : (
-                <>
-                <Link href={route('logout')} method="post">
-                  <button className="text-gray-700 hover:text-gray-900 text-sm font-medium cursor-pointer">
-                    Logout
-                  </button>
-                </Link>
-                
-                <Link
-                  href={route("user.dashboard")}
-                 
-                  as="button"
-                  className=" bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium
+                    >
+                      Sign Up
+                    </a>
+                  </>
+                )
+                : (
+                  <>
+                    <Link href={route("logout")} method="post">
+                      <button className="text-gray-700 hover:text-gray-900 text-sm font-medium cursor-pointer">
+                        Logout
+                      </button>
+                    </Link>
+
+                    <Link
+                      href={route("user.dashboard")}
+                      as="button"
+                      className=" bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium
                                 transition-colors cursor-pointer"
-                >
-                  Get started
-                </Link>
-                </>
-              )}
+                    >
+                      Get started
+                    </Link>
+                  </>
+                )}
             </div>
 
             {/* Mobile Menu Trigger */}
@@ -107,43 +123,45 @@ export function FrontendHeader() {
                 className="flex w-full flex-col p-0 sm:max-w-sm"
               >
                 <SheetHeader className="flex-row items-center justify-between space-y-0 border-b p-6">
-                  {/* <AppLogo /> */}
+                  <AppLogo className="w-1/3 overflow-hidden" />
                   <div className="flex justify-start items-center gap-4">
-                   {!auth.user ? (
-                          <>
-                            <Link
-                              href={route('login')}
-                              className="hover:text-white hover:bg-blue-700 text-gray-700 px-4 py-2 rounded-lg text-sm font-medium transition-colors"
-                            >
-                              Login
-                            </Link>
+                    {!auth.user
+                      ? (
+                        <div className="flex gap-0">
+                          <Link
+                            href={route("login")}
+                            className="hover:text-white hover:bg-blue-700 text-gray-700 px-4 py-2 rounded-lg text-sm font-medium transition-colors"
+                          >
+                            Login
+                          </Link>
 
-                            <Link
-                              href={route('register')}
-                              className="hover:text-white hover:bg-blue-700 text-gray-700 px-4 py-2 rounded-lg text-sm font-medium transition-colors"
-                            >
-                              Sign Up
-                            </Link>
-                          </>
-                        ) : (
-                            <Link
-                              href={route('register')}
-                              className="text-white bg-blue-700 px-4 py-2 rounded-lg text-sm font-medium transition-colors"
-                            >
-                              Get started
-                            </Link>
-                        )}
+                          <Link
+                            href={route("register")}
+                            className="hover:text-white hover:bg-blue-700 text-gray-700 px-4 py-2 rounded-lg text-sm font-medium transition-colors"
+                          >
+                            Sign Up
+                          </Link>
+                        </div>
+                      )
+                      : (
+                        <Link
+                          href={route("register")}
+                          className="text-white bg-blue-700 px-4 py-2 rounded-lg text-sm font-medium transition-colors"
+                        >
+                          Get started
+                        </Link>
+                      )}
 
+                    <SheetClose asChild>
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        className="rounded-full"
+                      >
+                        <XIcon className="h-5 w-5" />
+                      </Button>
+                    </SheetClose>
                   </div>
-                  <SheetClose asChild>
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      className="rounded-full"
-                    >
-                      <XIcon className="h-5 w-5" />
-                    </Button>
-                  </SheetClose>
                 </SheetHeader>
 
                 <div className="flex flex-1 flex-col justify-between p-6">
@@ -151,14 +169,24 @@ export function FrontendHeader() {
                     {!auth.user
                       ? (
                         <>
-                        
                           <ul className="mt-3 flex flex-col justify-between gap-2">
                             {navLinks
                               && navLinks.map((link) => (
                                 <li>
                                   <Link
                                     href={link.href}
-                                    className="inline-block w-full rounded-full bg-btn-primary px-2 py-2 text-primary hover:text-blue-700 "
+                                    className={`
+                          relative inline-block pb-2
+                          font-medium transition-colors duration-300
+                          ${link.slug == url ? 'text-btn-primary' : 'text-gray-700 hover:text-btn-primary'}
+
+                          after:content-['']
+                          after:absolute after:left-0 after:bottom-0
+                          after:h-[2px]
+                          after:bg-btn-primary
+                          after:transition-all after:duration-300 after:ease-in-out 
+                          ${link.slug == url ? 'after:w-full' : 'after:w-0 hover:after:w-full'}
+                        `}
                                   >
                                     {link.name}
                                   </Link>

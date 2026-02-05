@@ -49,6 +49,7 @@ export interface SharedData {
     admin: Admin;
     sidebarOpen: boolean;
     [key: string]: unknown;
+    activeSlug: string | null;
 }
 
 export interface User {
