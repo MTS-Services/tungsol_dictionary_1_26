@@ -49,6 +49,11 @@ class FrontendController extends Controller
      {
           return Inertia::render('frontend/reset-password');
      }
+     
+     public function resetPasswordSuccessful(): Response
+     {
+          return Inertia::render('frontend/PasswordReset-Successful');
+     }
 
      public function learn(): Response
      {

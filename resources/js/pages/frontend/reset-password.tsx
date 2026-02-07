@@ -14,7 +14,7 @@ const ResetPassword = () => {
     { label: 'Contains number', test: /[0-9]/.test(password) },
     { label: 'Contains special character', test: /[^A-Za-z0-9]/.test(password) },
     { label: 'Passwords match', test: password === confirmPassword },
-  ];    
+  ];        
 
   const allValid = requirements.every(req => req.test);
   const passwordsMatch = password && password === confirmPassword;
@@ -89,7 +89,6 @@ const ResetPassword = () => {
             )}
           </div> 
          
-
           <button
             disabled={!allValid || !passwordsMatch}
             className="font-inter w-full bg-ring  text-white font-medium py-3 rounded-lg transition-colors shadow-lg shadow-ring/20"
