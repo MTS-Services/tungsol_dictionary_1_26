@@ -29,7 +29,7 @@ export function FrontendHeader() {
   ];
 
   return (
-    <header className="bg-white shadow-sm sticky top-0 z-50">
+    <header className="bg-btn-primary shadow-sm sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <div className="flex items-center gap-2">
@@ -45,7 +45,7 @@ export function FrontendHeader() {
                     <li>
                       <Link
                         href={link.href}
-                        className={`block  text-gray-700  hover:text-blue-600 py-3 px-2 rounded-lg transition-colors font-medium`}
+                        className={`block  text-gray-100  hover:text-blue-200 py-3 px-2 rounded-lg transition-colors font-medium`}
                       >
                         {link.name}
                       </Link>
@@ -60,7 +60,7 @@ export function FrontendHeader() {
                 <>
                 <a
                   href={route('login')}
-                  className="text-gray-700 hover:text-gray-900 text-sm font-medium"
+                  className="text-gray-100 hover:text-gray-200 text-sm font-medium"
                 >
                   Login
                 </a>
@@ -75,7 +75,7 @@ export function FrontendHeader() {
               ) : (
                 <>
                 <Link href={route('logout')} method="post">
-                  <button className="text-gray-700 hover:text-gray-900 text-sm font-medium cursor-pointer">
+                  <button className="text-gray-100 hover:text-gray-900 text-sm font-medium cursor-pointer">
                     Logout
                   </button>
                 </Link>
@@ -118,14 +118,14 @@ export function FrontendHeader() {
                           <>
                             <Link
                               href={route('login')}
-                              className="hover:text-white hover:bg-blue-700 text-gray-700 px-4 py-2 rounded-lg text-sm font-medium transition-colors"
+                              className="hover:text-white hover:bg-blue-700 text-gray-100 px-4 py-2 rounded-lg text-sm font-medium transition-colors"
                             >
                               Login
                             </Link>
 
                             <Link
                               href={route('register')}
-                              className="hover:text-white hover:bg-blue-700 text-gray-700 px-4 py-2 rounded-lg text-sm font-medium transition-colors"
+                              className="hover:text-white hover:bg-blue-700 text-gray-100 px-4 py-2 rounded-lg text-sm font-medium transition-colors"
                             >
                               Sign Up
                             </Link>
@@ -163,7 +163,7 @@ export function FrontendHeader() {
                                 <li>
                                   <Link
                                     href={link.href}
-                                    className="inline-block w-full rounded-full bg-btn-primary px-2 py-2 text-primary hover:text-blue-700 "
+                                    className="inline-block w-full rounded-full bg-btn-primary px-2 py-2 text-primary hover:text-white "
                                   >
                                     {link.name}
                                   </Link>
