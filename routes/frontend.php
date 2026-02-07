@@ -13,6 +13,7 @@ Route::controller(FrontendController::class)->group(function () {
         Route::get('/thesaurus2', 'thesaurus2')->name('thesaurus2');    
         Route::get('/games', 'game')->name('game');
         Route::get('/games2', 'game2')->name('game2');
+        Route::get('/reset-password', 'resetPassword')->name('reset-password');
         Route::get('/learn', 'learn')->name('learn');
         Route::get('/about', 'about')->name('about');
         Route::get('/contact', 'contact')->name('contact');

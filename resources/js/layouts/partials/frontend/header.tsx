@@ -24,6 +24,7 @@ export function FrontendHeader() {
     { name: "Learn", href: route("learn"), slug: "/" },
     { name: "About", href: route("about"), slug: "/" },
     { name: "Contact", href: route("contact"), slug: "/" },
+    // { name: "Reset Password", href: route("reset-password"), slug: "/" },
   ];
 
   return (
