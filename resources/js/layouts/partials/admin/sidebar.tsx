@@ -3,7 +3,7 @@ import { NavItem } from '@/components/ui/nav-item';
 import { cn } from '@/lib/utils';
 import { type NavItemType, type SharedData } from '@/types';
 import { Link, usePage } from '@inertiajs/react';
-import { BarChart, BookOpen, LayoutGrid, LogOut, Shield, User, Users, WholeWord } from 'lucide-react';
+import { BarChart, BookOpen, LayoutGrid, LogOut, Shield, Tags, User, Users, WholeWord } from 'lucide-react';
 import * as React from 'react';
 // Navigation configuration
 const adminNavItems: NavItemType[] = [
@@ -46,12 +46,14 @@ const adminNavItems: NavItemType[] = [
                 permission: 'manage admins',
                 slug: 'word-management',
             },
-            {
-                title: 'Users',
-                href: '#',
-                icon: User,
-            },
         ],
+    },
+    {
+        title: 'Categories & Tags',
+        href: route('admin.cm.categories.index'),
+        icon: Tags, // Using BarChart as a placeholder, can be changed
+        permission: 'view analytics', // Assuming similar permission structure
+        slug: 'category&tagmanagement',
     },
     {
         title: 'Inquiries',
