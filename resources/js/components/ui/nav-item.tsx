@@ -102,7 +102,7 @@ export const NavItem = React.memo<NavItemProps>(({
                             'w-full text-left',
                             isCollapsed ? 'justify-center px-2' : '',
                             level > 0 && !isCollapsed && 'ml-4',
-                            itemIsActive && 'bg-primary/10 text-primary hover:bg-primary/15 hover:text-primary',
+                            itemIsActive || isActive && 'text-admin-text-secondary hover:text-admin-text-hover hover:bg-admin-bg-hover',
                             item.disabled && 'opacity-50 cursor-not-allowed hover:bg-transparent',
                             item.className
                         )}
@@ -186,7 +186,7 @@ export const NavItem = React.memo<NavItemProps>(({
                 'w-full text-admin-text-secondary hover:text-admin-text-hover hover:bg-admin-bg-hover',
                 isCollapsed ? 'justify-center px-2' : '',
                 level > 0 && !isCollapsed && 'ml-4',
-                itemIsActive && 'text-admin-text-secondary hover:text-admin-text-hover hover:bg-admin-bg-hover',
+                itemIsActive || isActive && 'text-admin-text-secondary hover:text-admin-text-hover hover:bg-admin-bg-hover',
                 item.disabled && 'opacity-50 cursor-not-allowed pointer-events-none',
                 item.className
             )}

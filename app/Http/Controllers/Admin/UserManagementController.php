@@ -23,7 +23,7 @@ class UserManagementController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('admin/word-management/create');
     }
 
     /**

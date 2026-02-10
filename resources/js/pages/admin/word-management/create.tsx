@@ -1,13 +1,13 @@
 import AdminLayout from "@/layouts/admin-layout";
 import React from "react";
 
-export default function Edit() {
+export default function Create() {
   return (
-    <AdminLayout pageTitle="Word Management Edit">
+    <AdminLayout pageTitle="Word Management Create">
       <div className="bg-gray-50 flex items-center justify-center min-h-screen p-4">
         <div className="bg-white rounded-2xl shadow-xl w-full max-w-3xl p-6 md:p-8">
           <div className="flex justify-between items-center mb-8">
-            <h1 className="text-2xl font-medium text-primary">Edit Word</h1>
+            <h1 className="text-2xl font-medium text-primary">Create Word</h1>
 
             <button className="text-gray-400 hover:text-gray-600">
               <svg
