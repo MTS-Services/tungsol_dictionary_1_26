@@ -7,15 +7,14 @@ use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
 
-class UserManagementController extends Controller
+class WordManagmentController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index(): Response
+    public function index()
     {
-        
-        return Inertia::render('admin/word-management/index');
+        //
     }
 
     /**
@@ -40,7 +39,6 @@ class UserManagementController extends Controller
     public function show(string $id)
     {
         //
-        dd('test');
     }
 
     /**
@@ -48,7 +46,7 @@ class UserManagementController extends Controller
      */
     public function edit(string $id)
     {
-       return Inertia::render('admin/word-management/edit');
+        //
     }
 
     /**

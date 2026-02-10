@@ -44,6 +44,12 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::prefix('user-management' )->name('um.')->group(function () {
             Route::resource( 'users',UserManagementController::class)->only('index','create', 'store', 'edit', 'update', 'destroy');
         });
+
+        
+        // User Managment Routes
+        Route::prefix('word-management' )->name('wm.')->group(function () {
+            Route::resource( 'words',UserManagementController::class)->only('index','create', 'store', 'edit', 'update', 'destroy');
+        });
     });
 
 });
