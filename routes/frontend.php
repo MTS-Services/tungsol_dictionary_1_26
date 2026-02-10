@@ -18,6 +18,7 @@ Route::controller(FrontendController::class)->group(function () {
         Route::get('/learn', 'learn')->name('learn');
         Route::get('/about', 'about')->name('about');
         Route::get('/contact', 'contact')->name('contact');
+        Route::get('/admin-dashboard', 'adminDashboard')->name('admin-dashboard');
         
 
     });
