@@ -36,25 +36,25 @@ export default function About() {
             <h1 className="lg:text-6xl text-4xl  font-bold text-card-foreground text-center mb-4">
               About WordWise
             </h1>
-            <p className="text-chart-2 text-base  text-center max-w-1xl mx-auto">
+            <p className="text-chart-2 text-base  text-center max-w-1xl mx-auto px-12">
               Your trusted companion for exploring the richness of language
             </p>
           </div>
         </div>
-        <section className="  py-4 px-4">
+        <section className="  lg:p-4 p-2 ">
           <div className="max-w-6xl mx-auto space-y-8">
             {/* Our Mission Section */}
-            <div className="bg-white rounded-2xl shadow-lg p-5 mx-4 my-6">
+            <div className="bg-white rounded-2xl shadow-lg p-8  my-6">
               <h2 className="text-center text-xl font-semibold text-secondary-foreground mb-6">
                 Our Mission
               </h2>
               
-              <p className="text-chart-2 text-sm leading-relaxed mb-4 text-center px-4 md:px-40 lg:px-60 py-2 font-medium">
+              <p className="text-chart-2 text-sm leading-relaxed mb-4 text-center   lg:px-50 py-2 font-medium">
                 WordWise is dedicated to making language learning accessible, enjoyable, and enriching for everyone. We
                 believe that understanding words is the foundation of effective communication and lifelong learning.
               </p>
               
-              <p className="text-chart-2 text-sm leading-relaxed text-center px-4 md:px-40 lg:px-60 py-2 font-medium">
+              <p className="text-chart-2 text-sm leading-relaxed text-center  lg:px-50 py-2 font-medium">
                 Whether you're a student expanding your vocabulary, a writer searching for the perfect word, or simply
                 curious about language, WordWise provides the tools and resources you need to explore words with
                 confidence.
@@ -62,7 +62,7 @@ export default function About() {
             </div>
             {/* Why Choose WordWise Section */}
             <div>
-              <h2 className="text-center text-4xl lg:text-5xl font-bold text-secondary-foreground mb-8">
+              <h2 className="text-center text-2xl lg:text-5xl font-bold text-secondary-foreground mb-8">
                 Why Choose WordWise?
               </h2>
               {/* Features Grid */}
