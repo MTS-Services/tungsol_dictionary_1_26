@@ -40,6 +40,11 @@ class FrontendController extends Controller
           return Inertia::render('frontend/thesaurus2');
      }
 
+     public function adminDashboard2(): Response
+     {
+          return Inertia::render('frontend/admin-dashboard2');
+     }
+
      public function game(): Response
      {
           return Inertia::render('frontend/game');
