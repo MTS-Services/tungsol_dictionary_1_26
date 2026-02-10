@@ -47,7 +47,7 @@ export function FrontendHeader() {
                     <li>
                       <Link
                         href={link.href}
-                        className={`block  text-gray-100  hover:text-blue-200 py-3 px-2 rounded-lg transition-colors font-medium`}
+                        className={`block  text-gray-100  hover:text-blue-200 py-3 px-2 rounded-lg transition-colors font-medium hover:underline   `}
                       >
                         {link.name}
                       </Link>

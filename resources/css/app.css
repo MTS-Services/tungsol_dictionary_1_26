@@ -104,9 +104,11 @@
     --color-garayasa: var(--garayasa);
     --cofy-gray: var(--cofy-gray);
     --white-secondary: var(--white-secondary);
+    --mobilebg: var(--mobilebg);
 }
 
 :root {
+    --mobilebg: #f9fafb;
     --white-secondary: #D1D5DC;
     --cofy-gray: #030213;
     --garayasa: #F3F4F6;
