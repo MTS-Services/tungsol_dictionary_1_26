@@ -24,6 +24,11 @@ class FrontendController extends Controller
      {
           return Inertia::render('frontend/dictionary');
      }
+     
+     public function adminDashboard(): Response
+     {
+          return Inertia::render('frontend/admin-dashboard');
+     }
 
      public function thesaurus(): Response
      {

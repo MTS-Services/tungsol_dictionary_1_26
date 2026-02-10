@@ -11,10 +11,10 @@ import { Button } from "@/components/ui/button";
     }}
   >
     <div className="container mx-auto relative z-10 ">
-      <h1 className="lg:text-6xl text-3xl font-bold font-vardana text-text-primary text-center mb-4 ">
+      <h1 className="lg:text-6xl text-3xl font-bold font-vardana text-text-primary text-center mb-4 px-12">
         Discover the Power of Words
       </h1>
-      <p className="text-center text-text-secondary mb-4 mx-auto font-medium">
+      <p className="text-center text-text-secondary mb-4 mx-auto font-medium px-12 ">
         Search meanings, play word games, and enhance your vocabulary.
       </p>
       <div className="max-w-2xl mx-auto lg:mb-12 mb-6">

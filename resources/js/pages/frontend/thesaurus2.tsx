@@ -27,20 +27,32 @@ export default function Thesaurus2() {
               <p className="text-slate-600 mt-1 font-medium">Find synonyms and antonyms to enrich your vocabulary</p>
             </div>
 
-            <div className="flex gap-2 mb-8 max-w-2xl mx-auto">
-              <div className="relative flex-grow">
-                <span className="absolute inset-y-0 left-4 flex items-center text-slate-400">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                  </svg>
-                </span>
-                <input 
-                  type="text" 
-                  defaultValue="happy" 
-                  className="w-full pl-12 pr-4 py-2.5 rounded-xl border border-white/50 shadow-sm focus:ring-2 focus:ring-blue-400 outline-none text-slate-700 bg-[var(--garayasa)] backdrop-blur-sm" 
-                />
-              </div>
-              <button className="bg-blue-600 hover:bg-blue-700 text-white px-10 py-2.5 rounded-xl shadow-lg transition-all font-semibold">
+            <div className="flex flex-col md:flex-row gap-2 mb-8 max-w-2xl mx-auto">
+              <div className="relative w-full max-w-md"> {/* Added width constraint for visibility */}
+                  <span className="absolute inset-y-0 left-4 flex items-center z-10">
+                    <svg 
+                      xmlns="http://www.w3.org/2000/svg" 
+                      className="h-5 w-5" 
+                      fill="none" 
+                      viewBox="0 0 24 24" 
+                      stroke="gray"
+                    >
+                      <path 
+                        strokeLinecap="round" 
+                        strokeLinejoin="round" 
+                        strokeWidth="2" 
+                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" 
+                      />
+                    </svg>
+                  </span>
+                  <input 
+                    type="text" 
+                    defaultValue="happy" 
+                    // Changed bg color to a visible slate for debugging, keep your var if you define it in CSS
+                    className="w-full pl-12 pr-4 py-2.5 rounded-xl border border-white/50 shadow-sm focus:ring-2 focus:ring-blue-400 outline-none text-gray-500 bg-white/80 backdrop-blur-sm" 
+                  /> 
+                </div>
+              <button className="bg-blue-600 hover:bg-blue-700 text-white px-10 py-2.5 rounded-xl shadow-lg transition-all font-semibold ">
                 Search
               </button>
             </div>
