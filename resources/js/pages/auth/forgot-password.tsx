@@ -8,6 +8,7 @@ import { Label } from "@/components/ui/label";
 import AuthLayout from "@/layouts/auth-layout";
 import { login } from "@/routes";
 import { email } from "@/routes/password";
+import { use, useEffect } from "react";
 
 export default function ForgotPassword({ status }: { status?: string }) {
 
@@ -18,6 +19,7 @@ export default function ForgotPassword({ status }: { status?: string }) {
         e.preventDefault();
         post(route("password.email"));
     }
+ 
   return (
     <>
       <section

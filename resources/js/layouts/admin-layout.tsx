@@ -8,9 +8,10 @@ import { useAppearance } from '@/hooks/Appearance';
 interface AdminLayoutProps {
     children: React.ReactNode;
     activeSlug?: string | null;
+    pageTitle?: string;
 }
 
-export default function AdminLayout({ children, activeSlug }: AdminLayoutProps) {
+export default function AdminLayout({ children, activeSlug, pageTitle }: AdminLayoutProps) {
     const [isCollapsed, setIsCollapsed] = React.useState(() => {
         // Persist sidebar state in localStorage
         if (typeof window !== 'undefined') {
@@ -42,12 +43,12 @@ export default function AdminLayout({ children, activeSlug }: AdminLayoutProps) 
         <div className="relative flex h-full max-h-screen min-h-screen bg-background">
             <AdminSidebar isCollapsed={isCollapsed} activeSlug={activeSlug} />
             <div className="flex flex-1 flex-col overflow-hidden">
-                <AdminHeader isCollapsed={isCollapsed} setIsCollapsed={setIsCollapsed} />
+                <AdminHeader isCollapsed={isCollapsed} setIsCollapsed={setIsCollapsed} pageTitle={pageTitle} />
                 <main className="flex-1 overflow-y-auto overflow-x-hidden p-6 space-y-6">
                     {children}
                 </main>
             
-                <AdminFooter />
+                {/* <AdminFooter /> */}
             </div>
         </div>
     );

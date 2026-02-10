@@ -102,6 +102,23 @@
     --color-btn-secondary: var(--btn-secondary);
     --color-bg-background2: var(--bg-background2);
     --color-garayasa: var(--garayasa);
+
+
+    
+
+    /* Admin Dashboard Theme Colours Initialization  */
+
+    /* Test Colours */
+    --color-admin-text-primary: var(--admin-text-primary);
+    --color-admin-text-secondary: var(--admin-text-secondary);
+    --color-admin-text-hover: var(--admin-text-hover);
+    --color-admin-text-danger: var(--admin-text-danger);
+    ---color-admin-text-blue: var(--admin-text-blue);
+
+     /* Background Colours */
+    --color-admin-bg-hover: oklch(0.96 0.03 265);
+
+
 }
 
 :root {
@@ -170,6 +187,24 @@
     --text-color-2: #8200DB;
     --btn-primary: #155DFC;
     --btn-secondary: #BA0FFE;
+
+
+
+    
+
+    /* Admin Dashboard Theme Colours Initialization  */
+
+    /* Text Colours */
+    --admin-text-primary: oklch(0.18 0.04 255) ;
+    --admin-text-secondary: oklch(0.32 0.05 255); 
+    --admin-text-hover: oklch(0.48 0.27 275);
+    --admin-text-danger: oklch(0.57 0.29 28);
+    --admin-text-blue: oklch(0.48 0.27 275);
+
+    /* Background Colours */
+
+    --admin-bg-hover: oklch(0.96 0.03 265);
+
 
 }
 
