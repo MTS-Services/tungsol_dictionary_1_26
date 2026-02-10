@@ -36,9 +36,9 @@ export default function Login({ status }: LoginProps) {
         <div className="container mx-auto relative z-10">
           <section className="flex items-center justify-center">
             <div className="w-full max-w-md">
-              <div className="bg-white rounded-2xl shadow-lg p-8">
+              <div className="bg-white rounded-2xl shadow-lg p-4">
                 {/* Logo and Header */}
-                <div className="text-center mb-8">
+                <div className="text-center mb-2">
                   <div className="inline-flex items-center justify-center w-16 h-16 bg-blue-100 rounded-full mb-4">
                     <svg
                       className="w-8 h-8 text-blue-600"
@@ -56,7 +56,7 @@ export default function Login({ status }: LoginProps) {
                       </path>
                     </svg>
                   </div>
-                  <h1 className="text-2xl font-semibold text-gray-800 mb-2">
+                  <h1 className="text-2xl font-semibold text-gray-800 ">
                     Welcome Back
                   </h1>
                   <p className="text-gray-600 text-sm">
@@ -124,7 +124,7 @@ export default function Login({ status }: LoginProps) {
                     </div>
                   </div>
                   {/* Terms Agreement */}
-                  <div className="pt-2 flex justify-between items-center">
+                  <div className=" flex justify-between items-center">
                     <p className="text-md text-gray-800">Remamber Me</p>
                     <Link className="text-blue-600 hover:text-blue-700 font-medium" href={route("password.request")}>
                       Forget Password?
@@ -134,7 +134,7 @@ export default function Login({ status }: LoginProps) {
 
                   <Button
                     type="submit"
-                    className="cursor-pointer w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-6 rounded-lg transition mt-6"
+                    className="cursor-pointer w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-6 rounded-lg transition "
                   >
                     Sing In
                   </Button>
@@ -192,12 +192,8 @@ export default function Login({ status }: LoginProps) {
                 <div className="text-center mt-6">
                   <p className="text-gray-600 text-sm">
                     Already have an account?
-                    <a
-                      href="#"
-                      className="text-blue-600 hover:text-blue-700 font-medium"
-                    >
-                      Sign up
-                    </a>
+                   
+                    <Link href={route('register')} className="text-blue-600 hover:text-blue-700 font-medium">Register</Link>
                   </p>
                 </div>
               </div>

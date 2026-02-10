@@ -19,7 +19,7 @@ export function AdminMenuContent({ admin }: AdminMenuContentProps) {
     return (
         <>
             <DropdownMenuLabel className="p-0 font-normal">
-                <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
+                <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm ">
                     <AdminInfo admin={admin} showRole={true} />
                 </div>
             </DropdownMenuLabel>
