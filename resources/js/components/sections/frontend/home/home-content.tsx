@@ -1,4 +1,25 @@
+import { home1, home2 } from '@/routes';
 import React from 'react';
+const trendingWords = [
+  { word: 'serendipity', onClick: () => window.location.href = '/home1' },
+  'ephemeral', 
+  'resilience', 
+  'paradigm', 
+  'ubiquitous', 
+  'eloquent', 
+  'enigma', 
+  'nostalgia', 
+  'aesthetic', 
+  'ambiguous'
+].map((item) => (
+  <span 
+    key={typeof item === 'string' ? item : item.word} 
+    className="px-5 py-2.5 bg-background rounded-full text-text-primary font-arial font-medium shadow-sm hover:shadow-md transition-shadow cursor-pointer border border-gray-200/100 border-2"
+    onClick={typeof item === 'object' ? item.onClick : undefined}
+  >
+    {typeof item === 'string' ? item : item.word}
+  </span>
+))
 
 const HomeContent = () => {
   return (
@@ -71,7 +92,7 @@ const HomeContent = () => {
           </div>
 
           {/* Word of the Day Card */}
-          <div className="max-w-6xl mx-auto bg-white/95 backdrop-blur-md rounded-xl shadow-2xl p-8 relative overflow-hidden border border-white/20">
+          <div onClick={() => window.location.href = '/home2'} className="max-w-6xl mx-auto bg-white/95 backdrop-blur-md rounded-xl shadow-2xl p-8 relative overflow-hidden border border-white/20 cursor-pointer">
             <div className="flex justify-between items-start mb-4">
               <span className="bg-btn-primary text-white px-2 py-1 rounded text-sm font-normal uppercase tracking-wider font-arial">
                 Word of the Day
@@ -96,6 +117,7 @@ const HomeContent = () => {
               </p>
             </div>
           </div>
+
         </div>
       </section>
 
@@ -121,11 +143,7 @@ const HomeContent = () => {
               Trending Words
             </h2>
             <div className="flex flex-wrap gap-3">
-              {['serendipity', 'ephemeral', 'resilience', 'paradigm', 'ubiquitous', 'eloquent', 'enigma', 'nostalgia', 'aesthetic', 'ambiguous'].map((word) => (
-                <span key={word} className="px-5 py-2.5 bg-background rounded-full text-text-primary font-arial font-medium shadow-sm hover:shadow-md transition-shadow cursor-pointer border border-gray-200/100 border-2">
-                  {word}
-                </span>
-              ))}
+              {trendingWords}
             </div>
           </div>
 

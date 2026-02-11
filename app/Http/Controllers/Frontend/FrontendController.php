@@ -19,6 +19,11 @@ class FrontendController extends Controller
      {
           return Inertia::render('frontend/home2');
      }
+
+     public function home1(): Response
+     {
+          return Inertia::render('frontend/home1');
+     }
      
      public function dictionary(): Response
      {
@@ -30,10 +35,7 @@ class FrontendController extends Controller
           return Inertia::render('frontend/admin-dashboard');
      }
 
-     public function thesaurus(): Response
-     {
-          return Inertia::render('frontend/thesaurus');
-     }
+      
 
      public function thesaurus2(): Response
      {
@@ -65,10 +67,6 @@ class FrontendController extends Controller
           return Inertia::render('frontend/PasswordReset-Successful');
      }
 
-     public function learn(): Response
-     {
-          return Inertia::render('frontend/learn');
-     }
 
      public function about(): Response
      {

@@ -16,12 +16,11 @@ export function FrontendHeader() {
   const navLinks = [
     { name: "Home", href: route("home"), slug: "/" },
     // { name: "Home 2", href: route("home2"), slug: "/" },
-    { name: "Dictionary", href: route("dictionary"), slug: "/" },
-    { name: "Thesaurus", href: route("thesaurus"), slug: "/" },
-    // { name: "Thesaurus 2", href: route("thesaurus2"), slug: "/" },
+    
+    // { name: "Home 1", href: route("home1"), slug: "/" },
+    { name: "Dictionary", href: route("dictionary"), slug: "/" },  
     { name: "Games", href: route("game"), slug: "/" },
-    // { name: "Games 2", href: route("game2"), slug: "/" },
-    { name: "Learn", href: route("learn"), slug: "/" },
+    // { name: "Games 2", href: route("game2"), slug: "/" }, 
     { name: "About", href: route("about"), slug: "/" },
     { name: "Contact", href: route("contact"), slug: "/" },
     // { name: "adminDashboard", href: route("admin-dashboard"), slug: "/" },
@@ -60,7 +59,7 @@ export function FrontendHeader() {
             <div className="hidden md:flex items-center gap-4">
               {!auth.user ? (
                 <>
-                <a
+                {/* <a
                   href={route('login')}
                   className="text-gray-100 hover:text-gray-200 text-sm font-medium"
                 >
@@ -72,7 +71,7 @@ export function FrontendHeader() {
                                 transition-colors"
                 >
                   Sign Up
-                </a>
+                </a> */}
                 </>
               ) : (
                 <>

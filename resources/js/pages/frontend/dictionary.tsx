@@ -5,13 +5,17 @@ export default function Dictionary() {
   return (
     <FrontendLayout>
       <>
-        <section
-          className="relative lg:py-20 lg:px-4 py-4 px-2 bg-cover bg-center overflow-hidden"
+         <section className="relative lg:py-20 py-8 px-4 overflow-hidden">
+        {/* Desktop Background Layer: Hidden on mobile, visible on LG screens */}
+        <div 
+          className="hidden lg:block absolute inset-0 z-0 bg-cover bg-center"
           style={{
-            backgroundImage:
-              "linear-gradient(to bottom right, rgba(147, 196, 253, 0.37), rgb(0, 64, 201)), url('assets/images/backgrounds.png')",
+            backgroundImage: 'linear-gradient(to bottom right, rgba(147, 196, 253, 0.37), rgb(0, 64, 201)), url("assets/images/backgrounds.png")'
           }}
-        >
+        />
+        
+        {/* Mobile Background Fallback: Simple light blue tint or solid white */}
+        <div className="lg:hidden absolute inset-0 bg-[var(--mobilebg)] z-0" />
           <div className="container mx-auto relative z-10">
             <div className="w-14 h-14 rounded-xl flex items-center justify-center lg:mb-6 mb-4 mx-auto">
               <svg

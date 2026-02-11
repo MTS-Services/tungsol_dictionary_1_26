@@ -2,7 +2,7 @@
 import FrontendLayout from "@/layouts/frontend-layout";
 import React from "react";
 
-export default function home2() {
+export default function home1() {
   return (
    <FrontendLayout>
  <>
