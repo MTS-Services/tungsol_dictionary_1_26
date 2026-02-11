@@ -67,14 +67,14 @@ export default function Game() {
               </div>
 
               <div className="flex flex-col sm:flex-row gap-4">
-                <button className="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-4 px-6 rounded-xl transition-all shadow-lg hover:shadow-emerald-200 flex items-center justify-center gap-2">
+                <button onClick={() => window.location.href = '/games2'} className="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-4 px-6 rounded-xl transition-all shadow-lg hover:shadow-emerald-200 flex items-center justify-center gap-2">
                   <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
                     <path d="M8 5v14l11-7z" />
                   </svg>
                   Play Now
                 </button>
                 <button className="flex-1 bg-white border-2 border-slate-200 hover:border-slate-300 hover:bg-slate-50 text-slate-700 font-bold py-4 px-6 rounded-xl transition-all">
-                  Play as Guest
+                  Play as Guest 
                 </button>
               </div>
             </div>
