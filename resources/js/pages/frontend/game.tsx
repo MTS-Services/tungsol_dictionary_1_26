@@ -4,7 +4,7 @@ import React from 'react'
 export default function Game() {
   return (
     <FrontendLayout>
-      <section className="relative lg:py-20 py-8 px-4 overflow-hidden min-h-screen">
+      <section className="relative lg:py-20 py-8 px-4 overflow-hidden min-h-screen bg-[var(--mobilebg)]">
         {/* Background Overlay */}
         <div
           className="hidden lg:block absolute inset-0 z-0 bg-cover bg-center"

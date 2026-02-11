@@ -5,7 +5,7 @@ export default function AdminDashboard2() {
     <FrontendLayout>
       <>
       {/* number1 */}
-      <div className="bg-gray-50 flex items-center justify-center py-12">
+      {/* <div className="bg-gray-50 flex items-center justify-center py-12">
         <div className="bg-white rounded-lg shadow-xl w-full max-w-2xl overflow-hidden">
             
             <div className="flex items-center justify-between p-5 border-b border-gray-200">
@@ -58,10 +58,10 @@ export default function AdminDashboard2() {
                 </div>
             </form>
         </div>
-      </div>
+      </div> */}
 
       {/* number 2 */}
-        <div className="bg-gray-50 flex items-center justify-center  p-16">
+        <div className="bg-gray-50 flex items-center justify-center  lg:p-16 p-4">
 
         <div className="bg-white rounded-2xl shadow-2xl w-full max-w-lg overflow-hidden border border-gray-100">
             
@@ -113,7 +113,7 @@ export default function AdminDashboard2() {
       </div>
 
       {/* number 3 */}
-      <div className="bg-gray-50 flex items-center justify-center  p-4">
+      {/* <div className="bg-gray-50 flex items-center justify-center  p-4">
 
         <div className="bg-white rounded-2xl shadow-2xl w-full max-w-lg overflow-hidden border border-gray-100">
             
@@ -176,7 +176,7 @@ export default function AdminDashboard2() {
             </form>
         </div>
 
-      </div>    
+      </div>     */}
 
       </>
     </FrontendLayout>

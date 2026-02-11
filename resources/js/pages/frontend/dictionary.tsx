@@ -5,7 +5,7 @@ export default function Dictionary() {
   return (
     <FrontendLayout>
       <>
-         <section className="relative lg:py-20 py-8 px-4 overflow-hidden">
+         <section className="relative lg:py-20 py-8 px-4 overflow-hidden bg-[var(--mobilebg)]">
         {/* Desktop Background Layer: Hidden on mobile, visible on LG screens */}
         <div 
           className="hidden lg:block absolute inset-0 z-0 bg-cover bg-center"

@@ -37,7 +37,7 @@ export default function Contact() {
 
   return (
     <FrontendLayout>
-      <section className="relative lg:py-20 py-8 px-4 overflow-hidden min-h-screen">
+      <section className="relative lg:py-20 py-8 px-4 overflow-hidden min-h-screen bg-[var(--mobilebg)]">
         {/* Desktop Background Layer */}
         <div
           className="hidden lg:block absolute inset-0 z-0 bg-cover bg-center"
