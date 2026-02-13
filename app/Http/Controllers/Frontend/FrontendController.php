@@ -14,14 +14,37 @@ class FrontendController extends Controller
      {
           return Inertia::render('frontend/index');
      }
+     
+     public function home2(): Response
+     {
+          return Inertia::render('frontend/home2');
+     }
+
+     public function home1(): Response
+     {
+          return Inertia::render('frontend/home1');
+     }
+     
      public function dictionary(): Response
      {
           return Inertia::render('frontend/dictionary');
      }
-
-     public function thesaurus(): Response
+     
+     public function adminDashboard(): Response
      {
-          return Inertia::render('frontend/thesaurus');
+          return Inertia::render('frontend/admin-dashboard');
+     }
+
+      
+
+     public function thesaurus2(): Response
+     {
+          return Inertia::render('frontend/thesaurus2');
+     }
+
+     public function adminDashboard2(): Response
+     {
+          return Inertia::render('frontend/admin-dashboard2');
      }
 
      public function game(): Response
@@ -29,10 +52,21 @@ class FrontendController extends Controller
           return Inertia::render('frontend/game');
      }
 
-     public function learn(): Response
+     public function game2(): Response
      {
-          return Inertia::render('frontend/learn');
+          return Inertia::render('frontend/game2');
      }
+     
+     public function resetPassword(): Response
+     {
+          return Inertia::render('frontend/reset-password');
+     }
+     
+     public function resetPasswordSuccessful(): Response
+     {
+          return Inertia::render('frontend/PasswordReset-Successful');
+     }
+
 
      public function about(): Response
      {

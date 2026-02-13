@@ -28,7 +28,7 @@ export default function Register() {
         className="relative py-8 px-4 bg-cover bg-center overflow-hidden"
         style={{
           backgroundImage:
-            "linear-gradient(to bottom right, rgba(147, 196, 253, 0.37), rgb(0, 64, 201)), url(\"img/images.png\")",
+            "linear-gradient(to bottom right, rgba(255, 255, 255, 0.37), rgba(0, 64, 201, 0.15)), url(\"img/images.png\")",
         }}
       >
         <div className="container mx-auto relative z-10">

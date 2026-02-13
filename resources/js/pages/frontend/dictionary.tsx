@@ -5,13 +5,17 @@ export default function Dictionary() {
   return (
     <FrontendLayout>
       <>
-        <section
-          className="relative lg:py-20 lg:px-4 py-4 px-2 bg-cover bg-center overflow-hidden"
+         <section className="relative lg:py-20 py-8 px-4 overflow-hidden bg-[var(--mobilebg)]">
+        {/* Desktop Background Layer: Hidden on mobile, visible on LG screens */}
+        <div 
+          className="hidden lg:block absolute inset-0 z-0 bg-cover bg-center"
           style={{
-            backgroundImage:
-              "linear-gradient(to bottom right, rgba(147, 196, 253, 0.37), rgb(0, 64, 201)), url('assets/images/backgrounds.png')",
+            backgroundImage: 'linear-gradient(to bottom right, rgba(147, 196, 253, 0.37), rgb(0, 64, 201)), url("assets/images/backgrounds.png")'
           }}
-        >
+        />
+        
+        {/* Mobile Background Fallback: Simple light blue tint or solid white */}
+        <div className="lg:hidden absolute inset-0 bg-[var(--mobilebg)] z-0" />
           <div className="container mx-auto relative z-10">
             <div className="w-14 h-14 rounded-xl flex items-center justify-center lg:mb-6 mb-4 mx-auto">
               <svg
@@ -32,7 +36,7 @@ export default function Dictionary() {
             <h1 className="lg:text-6xl text-4xl font-bold font-Verdana text-gray-900 text-center mb-4">
               Dictionary
             </h1>
-            <p className="text-center text-gray-600 mb-4 mx-auto font-regular font-inter">
+            <p className="text-center text-gray-600 mb-4 mx-auto font-regular font-inter px-12">
               Search meanings, play word games, and enhance your vocabulary.
             </p>
             <div className="max-w-2xl mx-auto lg:mb-12 mb-6">
@@ -112,102 +116,20 @@ export default function Dictionary() {
                   
                      
                     {/* Alphabet Grid */}
-                   <div className="max-w-2xl p-8 bg-white rounded-3xl  border-2 border-gray-300">
-                    <h2 className="text-1xl font-medium text-foreground mb-6">Browse Alphabetically</h2>
+                 <div className="max-w-2xl p-8 bg-white rounded-3xl  shadow-lg border-2 border-gray-300">
+                    <h2 className="text-xl font-semibold text-gray-800 mb-6">Browse Alphabetically</h2>
 
-                    <div className="flex flex-wrap gap-3 m-2 text-1xl font-medium text-foreground ">
-                      <a href="#" className="w-12 h-12 flex items-center justify-center border border-gray-200 rounded-md  font-medium hover:border-blue-500 hover:text-blue-500 transition-colors text-foreground">
-                        A
-                      </a>
-                      <a href="#" className="w-12 h-12 flex items-center justify-center border border-gray-200 rounded-md  font-medium hover:border-blue-500 hover:text-blue-500 transition-colors text-foreground">
-                        B
-                      </a>
-                      <a href="#" className="w-12 h-12 flex items-center justify-center border border-gray-200 rounded-md  font-medium hover:border-blue-500 hover:text-blue-500 transition-colors text-foreground">
-                        C
-                      </a>
-                      <a href="#" className="w-12 h-12 flex items-center justify-center border border-gray-200 rounded-md  font-medium hover:border-blue-500 hover:text-blue-500 transition-colors text-foreground">
-                        D
-                      </a>
-                      <a href="#" className="w-12 h-12 flex items-center justify-center border border-gray-200 rounded-md  font-medium hover:border-blue-500 hover:text-blue-500 transition-colors text-foreground">
-                        E
-                      </a>
-                      <a href="#" className="w-12 h-12 flex items-center justify-center border border-gray-200 rounded-md  font-medium hover:border-blue-500 hover:text-blue-500 transition-colors text-foreground">
-                        F
-                      </a>
-                      <a href="#" className="w-12 h-12 flex items-center justify-center border border-gray-200 rounded-md  font-medium hover:border-blue-500 hover:text-blue-500 transition-colors text-foreground">
-                        G
-                      </a>
-                    </div>
-
-                    <div className="flex flex-wrap gap-3 m-2">
-                      
-                      <a href="#" className="w-12 h-12 flex items-center justify-center border border-gray-200 rounded-md  font-medium hover:border-blue-500 hover:text-blue-500 transition-colors text-foreground">
-                        H
-                      </a>
-                      <a href="#" className="w-12 h-12 flex items-center justify-center border border-gray-200 rounded-md  font-medium hover:border-blue-500 hover:text-blue-500 transition-colors text-foreground">
-                        I
-                      </a>
-                      <a href="#" className="w-12 h-12 flex items-center justify-center border border-gray-200 rounded-md  font-medium hover:border-blue-500 hover:text-blue-500 transition-colors text-foreground">
-                        J
-                      </a>
-                      <a href="#" className="w-12 h-12 flex items-center justify-center border border-gray-200 rounded-md  font-medium hover:border-blue-500 hover:text-blue-500 transition-colors text-foreground">
-                        K
-                      </a>
-
-                      <a href="#" className="w-12 h-12 flex items-center justify-center border border-gray-200 rounded-md  font-medium hover:border-blue-500 hover:text-blue-500 transition-colors text-foreground">
-                        L
-                      </a>
-                      <a href="#" className="w-12 h-12 flex items-center justify-center border border-gray-200 rounded-md  font-medium hover:border-blue-500 hover:text-blue-500 transition-colors text-foreground">
-                        M
-                      </a>
-                       <a href="#" className="w-12 h-12 flex items-center justify-center border border-gray-200 rounded-md  font-medium hover:border-blue-500 hover:text-blue-500 transition-colors text-foreground">
-                        N
-                      </a>
-                    </div>
-
-                    <div className="flex flex-wrap gap-3 m-2">  
-                      
-                     
-                      <a href="#" className="w-12 h-12 flex items-center justify-center border border-gray-200 rounded-md  font-medium hover:border-blue-500 hover:text-blue-500 transition-colors text-foreground">
-                        O
-                      </a>
-                      <a href="#" className="w-12 h-12 flex items-center justify-center border border-gray-200 rounded-md  font-medium hover:border-blue-500 hover:text-blue-500 transition-colors text-foreground">
-                        P
-                      </a>
-                      <a href="#" className="w-12 h-12 flex items-center justify-center border border-gray-200 rounded-md  font-medium hover:border-blue-500 hover:text-blue-500 transition-colors text-foreground">
-                        Q
-                      </a>
-                      <a href="#" className="w-12 h-12 flex items-center justify-center border border-gray-200 rounded-md  font-medium hover:border-blue-500 hover:text-blue-500 transition-colors text-foreground">
-                        R
-                      </a>
-                      <a href="#" className="w-12 h-12 flex items-center justify-center border border-gray-200 rounded-md  font-medium hover:border-blue-500 hover:text-blue-500 transition-colors text-foreground">
-                        S
-                      </a>
-                       <a href="#" className="w-12 h-12 flex items-center justify-center border border-gray-200 rounded-md  font-medium hover:border-blue-500 hover:text-blue-500 transition-colors text-foreground">
-                        T
-                      </a>
-                      <a href="#" className="w-12 h-12 flex items-center justify-center border border-gray-200 rounded-md  font-medium hover:border-blue-500 hover:text-blue-500 transition-colors text-foreground">
-                        U
-                      </a>
-                    </div>
-
-                    <div className="flex flex-wrap gap-3 m-2"> 
-                      
-                      <a href="#" className="w-12 h-12 flex items-center justify-center border border-gray-200 rounded-md  font-medium hover:border-blue-500 hover:text-blue-500 transition-colors text-foreground">
-                        V
-                      </a>
-                       <a href="#" className="w-12 h-12 flex items-center justify-center border border-gray-200 rounded-md  font-medium hover:border-blue-500 hover:text-blue-500 transition-colors text-foreground">
-                        W
-                      </a>
-                       <a href="#" className="w-12 h-12 flex items-center justify-center border border-gray-200 rounded-md  font-medium hover:border-blue-500 hover:text-blue-500 transition-colors text-foreground">
-                        X
-                      </a>
-                      <a href="#" className="w-12 h-12 flex items-center justify-center border border-gray-200 rounded-md  font-medium hover:border-blue-500 hover:text-blue-500 transition-colors text-foreground">
-                        Y
-                      </a>
-                      <a href="#" className="w-12 h-12 flex items-center justify-center border border-gray-200 rounded-md  font-medium hover:border-blue-500 hover:text-blue-500 transition-colors text-foreground">
-                        Z
-                      </a>
+                    {/* Unified flex container for consistent spacing */}
+                    <div className="flex flex-wrap gap-3">
+                      {["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"].map((letter) => (
+                        <a
+                          key={letter}
+                          href={`#${letter}`}
+                          className="w-12 h-12 flex items-center justify-center border border-gray-200 rounded-lg text-lg font-medium text-gray-700 hover:border-blue-500 hover:text-blue-500 hover:bg-blue-50 transition-all duration-200"
+                        >
+                          {letter}
+                        </a>
+                      ))}
                     </div>
                   </div>
                   
