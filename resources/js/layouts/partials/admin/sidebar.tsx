@@ -34,32 +34,46 @@ const adminNavItems: NavItemType[] = [
         ],
     },
     {
-        title: 'Word Management',
-        href: '#',
-        icon: BookOpen,
-        badge: 3,
-        children: [
-            {
-                title: 'Words',
-                href: route('admin.wm.words.index'),
-                icon: WholeWord,
-                permission: 'manage admins',
-                slug: 'word-management',
-            },
-        ],
+        title: 'Languages',
+        href: route('admin.lm.languages.index'),
+        icon: WholeWord,
+        slug: 'language-management',
     },
     {
-        title: 'Categories & Tags',
+        title: 'Parts of Speech',
+        href: route('admin.posm.parts-of-speech.index'),
+        icon: WholeWord,
+        slug: 'part-of-speech-management',
+    },
+    {
+        title: 'Words',
+        href: route('admin.wm.words.index'),
+        icon: WholeWord,
+        slug: 'word-management',
+    },
+    {
+        title: 'Categories',
         href: route('admin.cm.categories.index'),
-        icon: Tags, // Using BarChart as a placeholder, can be changed
-        permission: 'view analytics', // Assuming similar permission structure
-        slug: 'category&tagmanagement',
+        icon: Tags,
+        slug: 'category-management',
+    },
+    {
+        title: 'Articles',
+        href: route('admin.am.articles.index'),
+        icon: BookOpen,
+        slug: 'article-management',
+    },
+    {
+        title: 'Word of the Day',
+        href: route('admin.wotdm.word-of-the-day.index'),
+        icon: WholeWord,
+        slug: 'word-of-the-day-management',
     },
     {
         title: 'Inquiries',
         href: '#',
-        icon: BarChart, // Using BarChart as a placeholder, can be changed
-        permission: 'view analytics', // Assuming similar permission structure
+        icon: BarChart,
+        permission: 'view analytics',
         slug: 'admin-inquiries',
     },
 ];
@@ -113,7 +127,7 @@ export const AdminSidebar = React.memo<AdminSidebarProps>(
                              <div className='col-span-2'>
                              <h1 className="text-lg font-semibold text-admin-text-primary">Admin Panel</h1>
                              <p className="text-sm text-admin-text-secondary/70">Dashboard</p>
-                            </div> 
+                            </div>
                            </div>
                         )}
                     </Link>
@@ -143,8 +157,8 @@ export const AdminSidebar = React.memo<AdminSidebarProps>(
                             className=" w-full cursor-pointer flex items-center justify-start hover:text-admin-text-danger"
                             href="/admin/logout"
                             method="post"
-                           
-                        
+
+
                         >
                             <LogOut className="mr-2 h-4" />
                             Log out
@@ -158,8 +172,8 @@ export const AdminSidebar = React.memo<AdminSidebarProps>(
                             className=" w-full cursor-pointer flex items-center justify-start hover:text-admin-text-danger"
                             href="/admin/logout"
                             method="post"
-                           
-                        
+
+
                         >
                             <LogOut className="mr-2 h-4" />
                         </Link>
