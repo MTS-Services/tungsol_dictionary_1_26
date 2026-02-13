@@ -1,31 +1,22 @@
 import React from 'react';
 import { Head, router, Link } from '@inertiajs/react';
-import { Pencil, Trash2, CheckCircle, XCircle } from 'lucide-react';
+import { Pencil, Trash2 } from 'lucide-react';
 import AdminLayout from '@/layouts/admin-layout';
 import { DataTable } from '@/components/ui/data-table';
 import { useDataTable } from '@/hooks/use-data-table';
 import { PaginationData, ColumnConfig, ActionConfig } from '@/types/data-table.types';
 import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
 
-interface Word {
+interface Language {
     id: number;
-    word: string;
-    slug: string;
-    language_id: number;
-    is_approved: boolean;
-    search_count: number;
-    language: {
-        id: number;
-        name: string;
-        code: string;
-    };
+    code: string;
+    name: string;
     created_at: string;
     updated_at: string;
 }
 
 interface Props {
-    words: Word[];
+    languages: Language[];
     pagination: PaginationData;
     offset: number;
     filters: Record<string, string | number>;
@@ -35,7 +26,7 @@ interface Props {
 }
 
 export default function Index({
-    words,
+    languages,
     pagination,
     offset,
     filters,
@@ -52,48 +43,24 @@ export default function Index({
         handlePageChange,
     } = useDataTable();
 
-    const columns: ColumnConfig<Word>[] = [
+    const columns: ColumnConfig<Language>[] = [
         {
-            key: 'word',
-            label: 'Word',
+            key: 'code',
+            label: 'Code',
             sortable: true,
-            render: (word) => (
+            render: (language) => (
                 <div className="font-medium text-gray-900 dark:text-gray-100">
-                    {word.word}
+                    {language.code}
                 </div>
             ),
         },
         {
-            key: 'language',
-            label: 'Language',
-            sortable: false,
-            render: (word) => (
-                <div className="text-gray-600 dark:text-gray-400">
-                    {word.language.name}
-                </div>
-            ),
-        },
-        {
-            key: 'is_approved',
-            label: 'Status',
+            key: 'name',
+            label: 'Name',
             sortable: true,
-            render: (word) => (
-                <Badge variant={word.is_approved ? 'default' : 'secondary'}>
-                    {word.is_approved ? (
-                        <><CheckCircle className="h-3 w-3 mr-1" /> Approved</>
-                    ) : (
-                        <><XCircle className="h-3 w-3 mr-1" /> Pending</>
-                    )}
-                </Badge>
-            ),
-        },
-        {
-            key: 'search_count',
-            label: 'Searches',
-            sortable: true,
-            render: (word) => (
+            render: (language) => (
                 <div className="text-gray-600 dark:text-gray-400">
-                    {word.search_count}
+                    {language.name}
                 </div>
             ),
         },
@@ -101,28 +68,28 @@ export default function Index({
             key: 'created_at',
             label: 'Created Date',
             sortable: true,
-            render: (word) => (
+            render: (language) => (
                 <div className="text-gray-600 dark:text-gray-400">
-                    {new Date(word.created_at).toLocaleDateString()}
+                    {new Date(language.created_at).toLocaleDateString()}
                 </div>
             ),
         },
     ];
 
-    const actions: ActionConfig<Word>[] = [
+    const actions: ActionConfig<Language>[] = [
         {
             label: 'Edit',
             icon: <Pencil className="h-4 w-4" />,
-            onClick: (word) => {
-                router.visit(route('admin.wm.words.edit', word?.id));
+            onClick: (language) => {
+                router.visit(route('admin.lm.languages.edit', language?.id));
             },
         },
         {
             label: 'Delete',
             icon: <Trash2 className="h-4 w-4" />,
-            onClick: (word) => {
-                if (confirm(`Are you sure you want to delete ${word.word}?`)) {
-                    router.delete(route('admin.wm.words.destroy', word?.id));
+            onClick: (language) => {
+                if (confirm(`Are you sure you want to delete ${language.name}?`)) {
+                    router.delete(route('admin.lm.languages.destroy', language?.id));
                 }
             },
             variant: 'destructive',
@@ -130,18 +97,18 @@ export default function Index({
     ];
 
     return (
-        <AdminLayout activeSlug="words">
-            <Head title="Words" />
+        <AdminLayout activeSlug="languages">
+            <Head title="Languages" />
 
             <div className="flex justify-end mb-6">
-                <Link href={route('admin.wm.words.create')}>
-                    <Button>Create Word</Button>
+                <Link href={route('admin.lm.languages.create')}>
+                    <Button>Create Language</Button>
                 </Link>
             </div>
 
             <div className="mx-auto">
                 <DataTable
-                    data={words}
+                    data={languages}
                     columns={columns}
                     pagination={pagination}
                     offset={offset}
@@ -157,8 +124,8 @@ export default function Index({
                     sortBy={sortBy}
                     sortOrder={sortOrder}
                     isLoading={isLoading}
-                    emptyMessage="No words found"
-                    searchPlaceholder="Search words..."
+                    emptyMessage="No languages found"
+                    searchPlaceholder="Search languages by name, code..."
                 />
             </div>
         </AdminLayout>

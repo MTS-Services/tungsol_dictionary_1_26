@@ -12,7 +12,7 @@ export default function AppLogo({ className, favicon, ...props }: AppLogoProps) 
             src={'/assets/images/image 7.png'}
             alt={'WordWise Logo'}
             // Added className here, merging potential props with custom sizes
-            className={cn('h-15 w-19', className)}
+            className={className}
             {...props}
         />
     );
