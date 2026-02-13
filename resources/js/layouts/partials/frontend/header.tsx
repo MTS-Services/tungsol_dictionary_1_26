@@ -120,19 +120,7 @@ export function FrontendHeader() {
                   <div className="flex justify-start items-center gap-4">
                    {!auth.user ? (
                           <>
-                            <Link
-                              href={route('login')}
-                              className="hover:text-white hover:bg-blue-700 text-gray-100 px-4 py-2 rounded-lg text-sm font-medium transition-colors"
-                            >
-                              Login
-                            </Link>
 
-                            <Link
-                              href={route('register')}
-                              className="hover:text-white hover:bg-blue-700 text-gray-100 px-4 py-2 rounded-lg text-sm font-medium transition-colors"
-                            >
-                              Sign Up
-                            </Link>
                           </>
                         ) : (
                             <Link
