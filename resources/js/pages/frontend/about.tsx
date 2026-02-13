@@ -54,7 +54,7 @@ export default function About() {
                 </svg>
               </div>
             </div>
-            <h1 className="lg:text-6xl text-4xl font-extrabold text-slate-900 mb-4 tracking-tight">
+            <h1 className="lg:text-6xl text-4xl font-bold text-slate-900 mb-4 tracking-tight font-Verdana">
               About WordWise
             </h1>
             <p className="text-slate-600 text-lg max-w-2xl mx-auto">
@@ -68,11 +68,11 @@ export default function About() {
               <h2 className="text-2xl font-bold text-slate-800 mb-6">Our Mission</h2>
               <div className="max-w-3xl mx-auto space-y-4">
                 <p className="text-slate-600 leading-relaxed text-lg">
-                  WordWise is dedicated to making language learning accessible, enjoyable, and enriching for everyone. 
+                  WordWise is dedicated to making language learning accessible, enjoyable, and enriching for everyone.
                   We believe that understanding words is the foundation of effective communication.
                 </p>
                 <p className="text-slate-600 leading-relaxed text-lg">
-                  Whether you're a student, a writer, or simply curious, WordWise provides the tools you need to explore 
+                  Whether you're a student, a writer, or simply curious, WordWise provides the tools you need to explore
                   words with confidence.
                 </p>
               </div>
