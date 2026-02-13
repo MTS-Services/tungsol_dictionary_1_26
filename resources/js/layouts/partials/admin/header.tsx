@@ -11,7 +11,7 @@ import {
 import { useInitials } from '@/hooks/use-initials';
 import { type BreadcrumbItem, type SharedData, type NavItemType } from '@/types';
 import { Link, usePage } from '@inertiajs/react';
-import { ChevronsLeft, ChevronsRight, Search, BellIcon, } from 'lucide-react';
+import { ChevronsLeft, ChevronsRight, Search, BellIcon, X, } from 'lucide-react';
 import * as React from 'react';
 import { NavigationMenu, NavigationMenuItem, NavigationMenuList, navigationMenuTriggerStyle } from '@/components/ui/navigation-menu';
 import { cn, toUrl } from '@/lib/utils';
@@ -31,12 +31,13 @@ import { AdminMenuContent } from '@/components/admin-menu-content';
 interface AdminHeaderProps {
     isCollapsed: boolean;
     setIsCollapsed: React.Dispatch<React.SetStateAction<boolean>>;
+    pageTitle?: string
 }
 
 const activeItemStyles =
     'text-neutral-900 dark:bg-neutral-800 dark:text-neutral-100';
 
-export function AdminHeader({ isCollapsed, setIsCollapsed }: AdminHeaderProps) {
+export function AdminHeader({ isCollapsed, setIsCollapsed, pageTitle }: AdminHeaderProps) {
     const { auth } = usePage<SharedData>().props;
     const getInitials = useInitials();
     const page = usePage<SharedData>();
@@ -45,6 +46,7 @@ export function AdminHeader({ isCollapsed, setIsCollapsed }: AdminHeaderProps) {
 
     return (
         <header className="flex h-16 shrink-0 items-center gap-2 border-b border-sidebar-border/50 px-6 transition-all ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12 md:px-4">
+          
             <Button
                 variant="outline"
                 size="icon"
@@ -52,37 +54,16 @@ export function AdminHeader({ isCollapsed, setIsCollapsed }: AdminHeaderProps) {
             >
                 {isCollapsed ? <ChevronsRight className="h-4 w-4" /> : <ChevronsLeft className="h-4 w-4" />}
             </Button>
-            {/* <div className="hidden h-full items-center space-x-6 lg:flex">
-                <NavigationMenu className="flex h-full items-stretch">
-                    <NavigationMenuList className="flex h-full items-stretch space-x-2">
 
-                        <NavigationMenuItem
-                            key="dashboard"
-                            className="relative flex h-full items-center"
-                        >
-
-                            <Link
-                                href="#"
-                                className={cn(
-                                    navigationMenuTriggerStyle(),
-                                    urlIsActive('#') && activeItemStyles,
-                                    'h-9 cursor-pointer px-3',
-                                )}
-                            >
-
-                                <Icon
-                                    iconNode={ChevronsRight}
-                                    className="mr-2 h-4 w-4"
-                                />
-                            </Link>
-                            {urlIsActive('#') && (
-                                <div className="absolute bottom-0 left-0 h-0.5 w-full translate-y-px bg-black dark:bg-white"></div>
-                            )}
-                        </NavigationMenuItem>
-                    </NavigationMenuList>
-                </NavigationMenu>
-            </div> */}
-
+            {
+                pageTitle &&
+                (
+                <div className='flex gap-3'>
+                    <Link href={route('admin.dashboard')}>   <X /></Link>
+                    <p className='text-admin-text-primary font-bold font-arial'> {pageTitle}</p>
+                </div>
+                )
+            }
             <div className="ml-auto flex items-center space-x-2">
                 <div className="relative flex items-center space-x-1">
                  
@@ -91,20 +72,29 @@ export function AdminHeader({ isCollapsed, setIsCollapsed }: AdminHeaderProps) {
                 </div>
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
+                        <div className='flex gap-3'>
+                         <div>
+                            <h2 className='text-admin-text-primary text-sm font-normal font-arial text-end'>Test</h2>
+                            <p className='text-admin-text-secondary/70 text-xs font-arial font-normal text-end'>Administrator</p>
+                         </div>
                         <Button
                             variant="ghost"
                             className="size-10 rounded-full p-1"
                         >
+                         
                             <Avatar className="size-8 overflow-hidden rounded-full">
                                 <AvatarImage
                                     src={'/'}
                                     alt={auth.admin.name}
                                 />
-                                <AvatarFallback className="rounded-lg bg-neutral-200 text-black dark:bg-neutral-700 dark:text-white">
+                                <AvatarFallback className="rounded-lg bg-admin-bg-hover ">
                                     {getInitials(auth.admin.name)}
                                 </AvatarFallback>
                             </Avatar>
                         </Button>
+                       
+                        </div>
+                      
                     </DropdownMenuTrigger>
                     <DropdownMenuContent className="w-56" align="end">
                         <AdminMenuContent admin={auth.admin} />

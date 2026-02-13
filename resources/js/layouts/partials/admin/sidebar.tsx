@@ -3,7 +3,7 @@ import { NavItem } from '@/components/ui/nav-item';
 import { cn } from '@/lib/utils';
 import { type NavItemType, type SharedData } from '@/types';
 import { Link, usePage } from '@inertiajs/react';
-import { BarChart, LayoutGrid, Shield, User, Users } from 'lucide-react';
+import { BarChart, BookOpen, LayoutGrid, LogOut, Shield, Tags, User, Users, WholeWord } from 'lucide-react';
 import * as React from 'react';
 // Navigation configuration
 const adminNavItems: NavItemType[] = [
@@ -17,7 +17,7 @@ const adminNavItems: NavItemType[] = [
         title: 'User Management',
         href: '#',
         icon: Users,
-        badge: 42,
+        badge: 2,
         children: [
             {
                 title: 'Admins',
@@ -30,18 +30,30 @@ const adminNavItems: NavItemType[] = [
                 title: 'Users',
                 href: '#',
                 icon: User,
-                children: [
-                    {
-                        title: 'All',
-                        href: '#',
-                        icon: User,
-                        slug: 'admin-users'
-                    },
-                    { title: 'Active', href: '#' },
-                    { title: 'Premium', href: '#', badge: 15 },
-                ],
             },
         ],
+    },
+    {
+        title: 'Word Management',
+        href: '#',
+        icon: BookOpen,
+        badge: 3,
+        children: [
+            {
+                title: 'Words',
+                href: route('admin.wm.words.index'),
+                icon: WholeWord,
+                permission: 'manage admins',
+                slug: 'word-management',
+            },
+        ],
+    },
+    {
+        title: 'Categories & Tags',
+        href: route('admin.cm.categories.index'),
+        icon: Tags, // Using BarChart as a placeholder, can be changed
+        permission: 'view analytics', // Assuming similar permission structure
+        slug: 'category&tagmanagement',
     },
     {
         title: 'Inquiries',
@@ -94,9 +106,15 @@ export const AdminSidebar = React.memo<AdminSidebarProps>(
                         className="flex items-center gap-2 transition-opacity hover:opacity-80"
                     >
                         {isCollapsed ? (
-                            <LayoutGrid className="h-6 w-6 text-primary" />
+                          <AppLogo className="text-base! bg-btn-primary p-3 rounded-lg" favicon={true} />
                         ) : (
-                            <AppLogo className="text-base!" />
+                           <div className='grid grid-cols-3 items-center gap-4'>
+                             <AppLogo className="text-base! bg-btn-primary p-3 rounded-lg" favicon={true} />
+                             <div className='col-span-2'>
+                             <h1 className="text-lg font-semibold text-admin-text-primary">Admin Panel</h1>
+                             <p className="text-sm text-admin-text-secondary/70">Dashboard</p>
+                            </div> 
+                           </div>
                         )}
                     </Link>
                 </div>
@@ -118,10 +136,33 @@ export const AdminSidebar = React.memo<AdminSidebarProps>(
                 </div>
 
                 {/* Footer Section (Optional) */}
-                {!isCollapsed && (
+                {!isCollapsed ? (
                     <div className="border-t p-4">
-                        <div className="text-center text-xs text-muted-foreground">
-                            v1.0.0
+                        <div className="text-center text-xs flex justify-between">
+                           <Link
+                            className=" w-full cursor-pointer flex items-center justify-start hover:text-admin-text-danger"
+                            href="/admin/logout"
+                            method="post"
+                           
+                        
+                        >
+                            <LogOut className="mr-2 h-4" />
+                            Log out
+                        </Link>
+                        </div>
+                    </div>
+                ):(
+                    <div className="border-t p-4">
+                        <div className="text-center text-xs flex justify-between">
+                           <Link
+                            className=" w-full cursor-pointer flex items-center justify-start hover:text-admin-text-danger"
+                            href="/admin/logout"
+                            method="post"
+                           
+                        
+                        >
+                            <LogOut className="mr-2 h-4" />
+                        </Link>
                         </div>
                     </div>
                 )}

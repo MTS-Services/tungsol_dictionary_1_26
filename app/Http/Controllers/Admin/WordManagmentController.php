@@ -7,9 +7,9 @@ use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
 
-class UserManagementController extends Controller
+class WordManagmentController extends Controller
 {
-    /**
+     /**
      * Display a listing of the resource.
      */
     public function index(): Response

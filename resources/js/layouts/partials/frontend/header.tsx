@@ -6,21 +6,23 @@ import { login, register } from "@/routes";
 import { type SharedData } from "@/types";
 import { Link, usePage } from "@inertiajs/react";
 import { ArrowRight, Menu, XIcon } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export function FrontendHeader() {
-  const { auth } = usePage<SharedData>().props;
+  const { auth , activeSlug } = usePage<SharedData>().props;
+
+
   const { url } = usePage();
-  console.log(url);
+
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const navLinks = [
     { name: "Home", href: route("home"), slug: "/" },
     // { name: "Home 2", href: route("home2"), slug: "/" },
-    
+
     // { name: "Home 1", href: route("home1"), slug: "/" },
-    { name: "Dictionary", href: route("dictionary"), slug: "/" },  
+    { name: "Dictionary", href: route("dictionary"), slug: "/" },
     { name: "Games", href: route("game"), slug: "/" },
-    // { name: "Games 2", href: route("game2"), slug: "/" }, 
+    // { name: "Games 2", href: route("game2"), slug: "/" },
     { name: "About", href: route("about"), slug: "/" },
     { name: "Contact", href: route("contact"), slug: "/" },
     // { name: "adminDashboard", href: route("admin-dashboard"), slug: "/" },
@@ -28,6 +30,7 @@ export function FrontendHeader() {
     // { name: "Reset Password", href: route("reset-password"), slug: "/" },
     // { name: "Reset Password Successful", href: route("reset-password-successful"), slug: "/" },
   ];
+
 
   return (
     <header className="bg-btn-primary shadow-sm sticky top-0 z-50">
@@ -44,7 +47,7 @@ export function FrontendHeader() {
                 {navLinks
                   && navLinks.map((link) => (
                     <li>
-                      <Link
+                     <Link
                         href={link.href}
                         className={`block  text-gray-100  hover:text-blue-200 py-3 px-2 rounded-lg transition-colors font-medium hover:underline   `}
                       >
@@ -80,18 +83,18 @@ export function FrontendHeader() {
                     Logout
                   </button>
                 </Link>
-                
+
                 <Link
                   href={route("user.dashboard")}
-                 
+
                   as="button"
                   className=" bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium
                                 transition-colors cursor-pointer"
-                >
-                  Get started
-                </Link>
-                </>
-              )}
+                    >
+                      Get started
+                    </Link>
+                  </>
+                )}
             </div>
 
             {/* Mobile Menu Trigger */}
@@ -113,7 +116,7 @@ export function FrontendHeader() {
                 className="flex w-full flex-col p-0 sm:max-w-sm"
               >
                 <SheetHeader className="flex-row items-center justify-between space-y-0 border-b p-6">
-                  {/* <AppLogo /> */}
+                  <AppLogo className="w-1/3 overflow-hidden" />
                   <div className="flex justify-start items-center gap-4">
                    {!auth.user ? (
                           <>
@@ -140,16 +143,16 @@ export function FrontendHeader() {
                             </Link>
                         )}
 
+                    <SheetClose asChild>
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        className="rounded-full"
+                      >
+                        <XIcon className="h-5 w-5" />
+                      </Button>
+                    </SheetClose>
                   </div>
-                  <SheetClose asChild>
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      className="rounded-full"
-                    >
-                      <XIcon className="h-5 w-5" />
-                    </Button>
-                  </SheetClose>
                 </SheetHeader>
 
                 <div className="flex flex-1 flex-col justify-between p-6">
@@ -157,7 +160,6 @@ export function FrontendHeader() {
                     {!auth.user
                       ? (
                         <>
-                        
                           <ul className="mt-3 flex flex-col justify-between gap-2">
                             {navLinks
                               && navLinks.map((link) => (

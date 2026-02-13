@@ -20,7 +20,7 @@
     --font-arial: 'Arial', ui-sans-serif, system-ui, sans-serif;
 
     --font-inter: 'Inter', ui-sans-serif, system-ui, sans-serif;
-    
+
     --radius-lg: var(--radius);
     --radius-md: calc(var(--radius) - 2px);
     --radius-sm: calc(var(--radius) - 4px);
@@ -105,6 +105,23 @@
     --cofy-gray: var(--cofy-gray);
     --white-secondary: var(--white-secondary);
     --mobilebg: var(--mobilebg);
+
+
+
+
+    /* Admin Dashboard Theme Colours Initialization  */
+
+    /* Test Colours */
+    --color-admin-text-primary: var(--admin-text-primary);
+    --color-admin-text-secondary: var(--admin-text-secondary);
+    --color-admin-text-hover: var(--admin-text-hover);
+    --color-admin-text-danger: var(--admin-text-danger);
+    ---color-admin-text-blue: var(--admin-text-blue);
+
+     /* Background Colours */
+    --color-admin-bg-hover: oklch(0.96 0.03 265);
+
+
 }
 
 :root {
@@ -114,7 +131,7 @@
     --garayasa: #F3F4F6;
     --color-parpal: #BA0FFE;
     --background: #FFFFFF;
-    --foreground: #121711; 
+    --foreground: #121711;
 
     --card: oklch(1 0 0);
     --card-foreground: oklch(0.145 0 0);
@@ -176,6 +193,24 @@
     --text-color-2: #8200DB;
     --btn-primary: #155DFC;
     --btn-secondary: #BA0FFE;
+
+
+
+
+
+    /* Admin Dashboard Theme Colours Initialization  */
+
+    /* Text Colours */
+    --admin-text-primary: oklch(0.18 0.04 255) ;
+    --admin-text-secondary: oklch(0.32 0.05 255);
+    --admin-text-hover: oklch(0.48 0.27 275);
+    --admin-text-danger: oklch(0.57 0.29 28);
+    --admin-text-blue: oklch(0.48 0.27 275);
+
+    /* Background Colours */
+
+    --admin-bg-hover: oklch(0.96 0.03 265);
+
 
 }
 

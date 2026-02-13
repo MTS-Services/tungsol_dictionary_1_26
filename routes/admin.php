@@ -2,7 +2,9 @@
 
 use App\Http\Controllers\Admin\AdminAuthController;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\CategoryManagementController;
 use App\Http\Controllers\Admin\UserManagementController;
+use App\Http\Controllers\Admin\WordManagmentController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('admin')->name('admin.')->group(function () {
@@ -43,6 +45,16 @@ Route::prefix('admin')->name('admin.')->group(function () {
         // User Managment Routes
         Route::prefix('user-management' )->name('um.')->group(function () {
             Route::resource( 'users',UserManagementController::class)->only('index','create', 'store', 'edit', 'update', 'destroy');
+        });
+
+        
+        // User Managment Routes
+        Route::prefix('word-management' )->name('wm.')->group(function () {
+            Route::resource( 'words',WordManagmentController::class)->only('index','create', 'store', 'edit', 'update', 'destroy');
+        });
+        // User Managment Routes
+        Route::prefix('category-management' )->name('cm.')->group(function () {
+            Route::resource( 'categories',CategoryManagementController::class)->only('index','create', 'store', 'edit', 'update', 'destroy');
         });
     });
 
