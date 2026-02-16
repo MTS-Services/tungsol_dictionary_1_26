@@ -15,8 +15,8 @@ class DatabaseSeeder extends Seeder
         AdminSeeder::class,
         LanguageSeeder::class,
         PartsOfSpeechSeeder::class,
-        WordSeeder::class
-
+        WordSeeder::class,
+        // DefinitionSeeder::class
        ]);
     } 
 }
