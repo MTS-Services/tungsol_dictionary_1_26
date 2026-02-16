@@ -11,14 +11,14 @@ import { Head, useForm } from "@inertiajs/react";
 import { ArrowLeft, Save } from "lucide-react";
 import { toast } from "sonner";
 
-export default function Create({ word_entries }: any) {
+export default function Create({ definition , word_entries}: any) {
   const { data, setData, post, processing, errors } = useForm({
-    word_entry_id: "",
-    definition: "",
-    register: "",
-    domain: "",
-    region: "",
-    usage_note: "",
+    word_entry_id: definition.word_entry_id,
+    definition: definition.definition,
+    register: definition.register,
+    domain:definition.domain,
+    region: definition.region,
+    usage_note: definition.usage_note
   });
 
   function handleSubmit(e: React.FormEvent) {
@@ -65,7 +65,8 @@ export default function Create({ word_entries }: any) {
 
                   <div className="grid gap-2">
                     <Label htmlFor="name">Difinition</Label>
-                    <Textarea placeholder="Word Definition" onChange={e => setData("definition", e.target.value)}>
+                    <Textarea placeholder="Word Definition" 
+                      value={data.definition} onChange={e => setData("definition", e.target.value)}>
                     </Textarea>
                     <InputError message={errors.definition} />
                   </div>
