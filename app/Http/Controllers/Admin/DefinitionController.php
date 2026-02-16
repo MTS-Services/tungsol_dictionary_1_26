@@ -102,7 +102,23 @@ class DefinitionController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $oldDefinition = $this->definitionService->find($id);
+
+        if(!$oldDefinition){
+            return redirect()->route('admin.wm.definitions.index');
+        }
+        $data =   $request->validate([
+            'word_entry_id' => ['required', 'exists:word_entries,id'],
+            'definition' => ['required', 'string'],
+            'register' => ['nullable', 'string'],
+            'domain' => ['nullable', 'string'],
+            'region' => ['nullable', 'string'],
+            'usage_note' => ['nullable', 'string'],
+        ]);
+
+        $this->definitionService->update($id, $data);
+
+        return redirect()->route('admin.wm.definitions.index');
     }
 
     /**
