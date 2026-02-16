@@ -11,7 +11,7 @@ import React from "react";
 interface WordEntry {
   id: number;
   word_id: number;
-  slpart_of_speech_id: number;
+  part_of_speech_id: number;
   sort_order: number;
   etymology: string;
   pronunciation_ipa: string;
