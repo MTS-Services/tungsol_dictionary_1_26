@@ -52,6 +52,12 @@ const adminNavItems: NavItemType[] = [
         slug: 'word-management',
     },
     {
+        title: 'Word Entries',
+        href: route('admin.wm.words-entries.index'),
+        icon: WholeWord,
+        slug: 'word-entries-management',
+    },
+    {
         title: 'Categories',
         href: route('admin.cm.categories.index'),
         icon: Tags,
