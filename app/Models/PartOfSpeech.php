@@ -19,6 +19,7 @@ class PartOfSpeech extends Model
 
     public function wordEntries(): HasMany
     {
-        return $this->hasMany(WordEntry::class);
+        return $this->hasMany(WordEntry::class, 'part_of_speech_id', 'id');
     }
+
 }

@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\CategoryManagementController;
 use App\Http\Controllers\Admin\LanguageManagementController;
 use App\Http\Controllers\Admin\PartOfSpeechManagementController;
 use App\Http\Controllers\Admin\UserManagementController;
+use App\Http\Controllers\Admin\WordEntriesController;
 use App\Http\Controllers\Admin\WordManagmentController;
 use App\Http\Controllers\Admin\WordOfTheDayManagementController;
 use Illuminate\Support\Facades\Route;
@@ -64,6 +65,10 @@ Route::prefix('admin')->name('admin.')->group(function () {
         // Word Management Routes
         Route::prefix('word-management' )->name('wm.')->group(function () {
             Route::resource( 'words',WordManagmentController::class)->only('index','create', 'store', 'edit', 'update', 'destroy');
+        });
+         // Word Entries Routes
+        Route::prefix('word-management' )->name('wm.')->group(function () {
+            Route::resource( 'words-entries',WordEntriesController::class)->only('index','create', 'store', 'edit', 'update', 'destroy');
         });
 
         // Category Management Routes
