@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Word;
 use Illuminate\Database\Seeder;
 
 
@@ -12,6 +13,10 @@ class DatabaseSeeder extends Seeder
        $this->call([
         UserSeeder::class,
         AdminSeeder::class,
+        LanguageSeeder::class,
+        PartsOfSpeechSeeder::class,
+        WordSeeder::class,
+        // DefinitionSeeder::class
        ]);
     } 
 }
