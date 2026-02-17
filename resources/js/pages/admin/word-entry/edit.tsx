@@ -244,7 +244,7 @@ export default function CreateWord({ WordEntry, words, partofSpeeches }: Props) 
                       accept="audio/*"
                       existingFiles={audio}
                       onRemoveExisting={handleRemoveImageExisting}
-                      multiple={false}
+                    
                     />
                     <InputError message={errors.pronunciation_audio} />
                   </div>
