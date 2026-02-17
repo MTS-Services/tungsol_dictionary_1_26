@@ -14,16 +14,13 @@ use Inertia\Response;
 
 class SynonymManagementController extends Controller
 {
-    public function __construct(protected DataTableService $dataTableService, protected DefinitionService $definitionService, protected WordService $wordService, protected SynonymService $synonymsService)
-    {
-        
-    }
+    public function __construct(protected DataTableService $dataTableService, protected DefinitionService $definitionService, protected WordService $wordService, protected SynonymService $synonymsService) {}
     /**
      * Display a listing of the resource.
      */
-    public function index() : Response
+    public function index(): Response
     {
-         $queryBody = Synonym::with(['definition', 'synonymWord']);
+        $queryBody = Synonym::with(['definition', 'synonymWord']);
 
         $result = $this->dataTableService->process($queryBody, request(), [
             'searchable' => ['definition_id', 'synonym_word_id'],
@@ -48,7 +45,7 @@ class SynonymManagementController extends Controller
     {
         $wordDefinitions = $this->definitionService->all();
         $words = $this->wordService->all();
-        return Inertia::render('admin/synonym-management/create',[
+        return Inertia::render('admin/synonym-management/create', [
             'WordDefinitions' => $wordDefinitions,
             'Words' => $words
         ]);
@@ -59,17 +56,17 @@ class SynonymManagementController extends Controller
      */
     public function store(Request $request)
     {
-       $data = $request->validate([
+        $data = $request->validate([
             'definition_id' => ['required', 'exists:word_entries,id'],
             'synonym_word_id' => ['required', 'exists:words,id'],
             'relevance_score' => ['required', 'integer', 'between:0,100'],
-       ]);
+        ]);
 
 
 
-       $this->synonymsService->create($data);
+        $this->synonymsService->create($data);
 
-       return redirect()->route('admin.sm.synonyms.index');
+        return redirect()->route('admin.sm.synonyms.index');
     }
 
     /**
@@ -85,7 +82,19 @@ class SynonymManagementController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $synonym = $this->synonymsService->find($id);
+        if (!$synonym) {
+            abort(404, 'Synonym not found');
+        }
+
+        $wordDefinitions = $this->definitionService->all();
+        $words = $this->wordService->all();
+
+        return Inertia::render('admin/synonym-management/edit', [
+            'Synonym' => $synonym,
+            'WordDefinitions' => $wordDefinitions,
+            'Words' => $words
+        ]);
     }
 
     /**
@@ -93,7 +102,21 @@ class SynonymManagementController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+
+        $synonym = $this->synonymsService->find($id);
+        if (!$synonym) {
+            abort(404, 'Synonym not found');
+        }
+
+        $data = $request->validate([
+            'definition_id' => ['required'],
+            'synonym_word_id' => ['required'],
+            'relevance_score' => ['required', 'integer', 'between:0,100'],
+        ]);
+
+        $this->synonymsService->update($id, $data);
+
+        return redirect()->route('admin.sm.synonyms.index');
     }
 
     /**
