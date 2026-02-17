@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Synonym;
+use App\Services\DataTableService;
 use App\Services\DefinitionService;
 use App\Services\SynonymService;
 use App\Services\WordService;
@@ -12,16 +14,31 @@ use Inertia\Response;
 
 class SynonymManagementController extends Controller
 {
-    public function __construct(protected DefinitionService $definitionService, protected WordService $wordService, protected SynonymService $synonymsService)
+    public function __construct(protected DataTableService $dataTableService, protected DefinitionService $definitionService, protected WordService $wordService, protected SynonymService $synonymsService)
     {
         
     }
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index() : Response
     {
-        return Inertia::render('admin/synonym-management/index');
+         $queryBody = Synonym::with(['definition', 'synonymWord']);
+
+        $result = $this->dataTableService->process($queryBody, request(), [
+            'searchable' => ['definition_id', 'synonym_word_id'],
+            'sortable' => ['id',  'created_at'],
+        ]);
+
+        return Inertia::render('admin/synonym-management/index', [
+            'synonyms' => $result['data'],
+            'pagination' => $result['pagination'],
+            'offset' => $result['offset'],
+            'filters' => $result['filters'],
+            'search' => $result['search'],
+            'sortBy' => $result['sort_by'],
+            'sortOrder' => $result['sort_order']
+        ]);
     }
 
     /**
