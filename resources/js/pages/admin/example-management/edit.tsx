@@ -15,37 +15,49 @@ interface WordDefinition {
   id: number;
   definition: string;
 }
+interface Example {
+  id: number;
+  sentence: string;
+  source: string;
+  author: string;
+  year: string;
+  definition_id: number;
+  created_at: string;
+  updated_at: string;
+}
 interface Props {
   WordDefinitions: WordDefinition[];
+  example: Example;
 }
-export default function Create({ WordDefinitions }: Props) {
+export default function Create({ example, WordDefinitions }: Props) {
   const { data, setData, post, errors, processing } = useForm({
-    definition_id: "",
-    sentence: "",
-    source: "",
-    author: "",
-    year: "",
+    definition_id: example.definition_id,
+    sentence: example.sentence,
+    source: example.source,
+    author: example.author,
+    year: example.year,
+    _method: "put",
   });
 
   console.log(WordDefinitions, "Test");
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    post(route("admin.em.examples.store"), {
+    post(route("admin.em.examples.update", example.id), {
       onSuccess: () => {
-        toast.success("Example created successfully!");
+        toast.success("Example updated successfully!");
       },
       onError: () => {
-        toast.error("Failed to create example. Please check the form for errors.");
+        toast.error("Failed to update example. Please check the form for errors.");
       },
     });
   };
 
   return (
     <AdminLayout activeSlug="examples">
-      <Head title="Create Example" />
+      <Head title="Edit Example" />
 
       <div className="flex justify-between mb-6">
-        <h1 className="text-2xl font-bold">Create Example</h1>
+        <h1 className="text-2xl font-bold">Edit Example</h1>
         <Link href={route("admin.em.examples.index")}>
           <Button>Back</Button>
         </Link>
@@ -62,7 +74,7 @@ export default function Create({ WordDefinitions }: Props) {
                 <CardContent className="space-y-4">
                   <div className="grid gap-2">
                     <Label htmlFor="definition_id">Word Definition</Label>
-                    <select onChange={e => setData("definition_id", e.target.value)}>
+                    <select onChange={e => setData("definition_id", Number(e.target.value))} value={data.definition_id}>
                       {WordDefinitions.map((word) => <option key={word.id} value={word.id}>{word.definition}</option>)}
                     </select>
 
@@ -139,7 +151,7 @@ export default function Create({ WordDefinitions }: Props) {
                     className="w-full bg-black text-white hover:bg-black/80 cursor-pointer"
                   >
                     <Save className="mr-2 h-4 w-4" />
-                    {processing ? "Creating..." : "Create Example"}
+                    {processing ? "Updating..." : "Update Example"}
                   </Button>
                 </CardContent>
               </Card>
