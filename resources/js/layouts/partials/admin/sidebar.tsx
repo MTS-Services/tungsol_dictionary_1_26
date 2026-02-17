@@ -45,6 +45,12 @@ const adminNavItems: NavItemType[] = [
         icon: WholeWord,
         slug: 'part-of-speech-management',
     },
+     {
+        title: 'Categories',
+        href: route('admin.cm.categories.index'),
+        icon: Tags,
+        slug: 'category-management',
+    },
     {
         title: 'Words',
         href: route('admin.wm.words.index'),
@@ -87,12 +93,7 @@ const adminNavItems: NavItemType[] = [
         icon: WholeWord,
         slug: 'antonyms',
     },
-    {
-        title: 'Categories',
-        href: route('admin.cm.categories.index'),
-        icon: Tags,
-        slug: 'category-management',
-    },
+   
     {
         title: 'Articles',
         href: route('admin.am.articles.index'),
