@@ -43,13 +43,14 @@ class SynonymManagementController extends Controller
     public function store(Request $request)
     {
        $data = $request->validate([
-            'word_entry_id' => ['required', 'exists:word_entries,id'],
+            'definition_id' => ['required', 'exists:word_entries,id'],
             'synonym_word_id' => ['required', 'exists:words,id'],
             'relevance_score' => ['required', 'integer', 'between:0,100'],
        ]);
 
-dd($data);
-       $this->definitionService->create($data);
+
+
+       $this->synonymsService->create($data);
 
        return redirect()->route('admin.sm.synonyms.index');
     }

@@ -58,7 +58,10 @@ export default function Create({ WordDefinitions, Words }: Props) {
                 <CardContent className="space-y-4">
                   <div className="grid gap-2">
                     <Label htmlFor="definition_id">Word Definition</Label>
-                    <select onChange={e => setData("definition_id", e.target.value)}>
+                    <select
+                      value={data.definition_id}
+                      onChange={e => setData("definition_id", e.target.value)}
+                    >
                       {WordDefinitions.map((word) => <option key={word.id} value={word.id}>{word.definition}</option>)}
                     </select>
 
@@ -66,8 +69,11 @@ export default function Create({ WordDefinitions, Words }: Props) {
                   </div>
 
                   <div className="grid gap-2">
-                    <Label htmlFor="definition_id">Synonym Word</Label>
-                    <select onChange={e => setData("synonym_word_id", e.target.value)}>
+                    <Label htmlFor="synonym_word_id">Synonym Word</Label>
+                    <select
+                      value={data.synonym_word_id}
+                      onChange={e => setData("synonym_word_id", e.target.value)}
+                    >
                       {Words.map((word) => <option key={word.id} value={word.id}>{word.word}</option>)}
                     </select>
 
