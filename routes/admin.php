@@ -87,6 +87,10 @@ Route::prefix('admin')->name('admin.')->group(function () {
             Route::resource( 'synonyms',SynonymManagementController::class)->only('index','create', 'store', 'edit', 'update', 'destroy');
         });
 
+        Route::prefix('related-word-management' )->name('rwm.')->group(function () {
+            Route::resource( 'related-words',\App\Http\Controllers\Admin\RelatedWordManagementController::class)->only('index','create', 'store', 'edit', 'update', 'destroy');
+        });
+
         Route::prefix('antonym-management' )->name('am.')->group(function () {
             Route::resource( 'antonyms',AntonymManagementController::class)->only('index','create', 'store', 'edit', 'update', 'destroy');
         });

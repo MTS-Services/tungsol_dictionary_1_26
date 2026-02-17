@@ -76,6 +76,12 @@ const adminNavItems: NavItemType[] = [
         slug: 'synonyms',
     },
     {
+        title: 'Related Words',
+        href: route('admin.rwm.related-words.index'),
+        icon: WholeWord,
+        slug: 'related-words',
+    },
+    {
         title: 'Antonyms',
         href: route('admin.am.antonyms.index'),
         icon: WholeWord,
