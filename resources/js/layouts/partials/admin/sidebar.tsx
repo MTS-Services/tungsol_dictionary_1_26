@@ -45,6 +45,12 @@ const adminNavItems: NavItemType[] = [
         icon: WholeWord,
         slug: 'part-of-speech-management',
     },
+     {
+        title: 'Categories',
+        href: route('admin.cm.categories.index'),
+        icon: Tags,
+        slug: 'category-management',
+    },
     {
         title: 'Words',
         href: route('admin.wm.words.index'),
@@ -57,18 +63,37 @@ const adminNavItems: NavItemType[] = [
         icon: WholeWord,
         slug: 'word-entries-management',
     },
-     {
+    {
         title: 'Word Definitions',
         href: route('admin.wm.definitions.index'),
         icon: WholeWord,
         slug: 'word-definition-management',
     },
     {
-        title: 'Categories',
-        href: route('admin.cm.categories.index'),
-        icon: Tags,
-        slug: 'category-management',
+        title: 'Word Examples',
+        href: route('admin.em.examples.index'),
+        icon: WholeWord,
+        slug: 'examples',
     },
+    {
+        title: 'Synonyms',
+        href: route('admin.sm.synonyms.index'),
+        icon: WholeWord,
+        slug: 'synonyms',
+    },
+    {
+        title: 'Related Words',
+        href: route('admin.rwm.related-words.index'),
+        icon: WholeWord,
+        slug: 'related-words',
+    },
+    {
+        title: 'Antonyms',
+        href: route('admin.am.antonyms.index'),
+        icon: WholeWord,
+        slug: 'antonyms',
+    },
+   
     {
         title: 'Articles',
         href: route('admin.am.articles.index'),

@@ -2,14 +2,14 @@
 
 namespace App\Services;
 
-use App\Models\Definition;
+use App\Models\RelatedWord;
 
-class DefinitionService
+class RelatedWordService
 {
     /**
      * Create a new class instance.
      */
-    public function __construct(protected Definition $model)
+    public function __construct(protected RelatedWord $model)
     {
         //
     }
@@ -28,6 +28,12 @@ class DefinitionService
     public function update($id, array $data){
 
         return $this->model->where('id', $id)->update($data);
+        
+    }
+
+    public function delete($id){
+
+        return $this->model->where('id', $id)->delete();
         
     }
 

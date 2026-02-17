@@ -13,4 +13,10 @@ class WordService
     {
         //
     }
+
+    public function all()
+    {
+        return $this->model->all();
+    }
+    
 }

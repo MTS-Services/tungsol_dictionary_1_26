@@ -2,14 +2,14 @@
 
 namespace App\Services;
 
-use App\Models\Definition;
+use App\Models\Synonym;
 
-class DefinitionService
+class SynonymService
 {
     /**
      * Create a new class instance.
      */
-    public function __construct(protected Definition $model)
+    public function __construct(protected Synonym $model)
     {
         //
     }

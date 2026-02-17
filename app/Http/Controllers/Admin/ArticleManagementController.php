@@ -6,18 +6,20 @@ use App\Http\Controllers\Controller;
 use App\Models\Article;
 use App\Models\User;
 use App\Models\Word;
+use App\Services\ArticleService;
 use App\Services\DataTableService;
-use Illuminate\Http\Request;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Inertia\Inertia;
 use Inertia\Response;
-use Illuminate\Support\Str;
+use Illuminate\Http\Request;
 
 class ArticleManagementController extends Controller
 {
-    public function __construct(protected DataTableService $dataTableService){}
+    public function __construct(protected DataTableService $dataTableService, protected ArticleService $articleService){}
 
     public function index(): Response
     {
+      
         $queryBody = Article::with('author');
 
         $result = $this->dataTableService->process($queryBody, request(), [
@@ -25,6 +27,7 @@ class ArticleManagementController extends Controller
             'sortable' => ['id', 'title', 'category', 'is_published', 'published_at', 'created_at'],
         ]);
 
+  
         return Inertia::render('admin/article-management/index', [
             'articles' => $result['data'],
             'pagination' => $result['pagination'],
@@ -61,20 +64,23 @@ class ArticleManagementController extends Controller
             'word_ids.*' => ['exists:words,id'],
         ]);
 
-        $data['slug'] = Str::slug($data['title']);
-
-        $article = Article::create($data);
+        $article = $this->articleService->create($data);
 
         if (!empty($data['word_ids'])) {
             $article->words()->attach($data['word_ids']);
         }
 
-        return redirect()->route('admin.am.articles.index')->with('success', 'Article created successfully.');
+        return redirect()->route('admin.am.articles.index');
     }
 
     public function edit(string $id): Response
     {
-        $article = Article::with('words')->findOrFail($id);
+        $article = $this->articleService->find($id);
+        if (!$article) {
+            throw new NotFoundHttpException('Article not found.');
+        }
+        $article->load('words');
+
         $authors = User::select('id', 'name', 'email')->get();
         $words = Word::select('id', 'word')->where('is_approved', true)->get();
 
@@ -87,7 +93,10 @@ class ArticleManagementController extends Controller
 
     public function update(Request $request, string $id)
     {
-        $article = Article::findOrFail($id);
+        $article = $this->articleService->find($id);
+        if (!$article) {
+            throw new NotFoundHttpException('Article not found.');
+        }
 
         $data = $request->validate([
             'title' => ['required', 'string', 'max:500'],
@@ -101,22 +110,24 @@ class ArticleManagementController extends Controller
             'word_ids.*' => ['exists:words,id'],
         ]);
 
-        $data['slug'] = Str::slug($data['title']);
-
-        $article->update($data);
-
+        $this->articleService->update($id, $data);
+        
+        $article->load('words');
         if (isset($data['word_ids'])) {
             $article->words()->sync($data['word_ids']);
         }
 
-        return back()->with('success', 'Article updated successfully.');
+        return redirect()->route('admin.am.articles.index');
     }
 
     public function destroy(string $id)
     {
-        $article = Article::findOrFail($id);
-        $article->delete();
+        $article = $this->articleService->find($id);
+        if (!$article) {
+            throw new NotFoundHttpException('Article not found.');
+        }
+        $this->articleService->delete($id);
 
-        return back()->with('success', 'Article deleted successfully.');
+        return redirect()->route('admin.am.articles.index');
     }
 }

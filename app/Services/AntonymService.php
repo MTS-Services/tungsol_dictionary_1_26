@@ -2,14 +2,14 @@
 
 namespace App\Services;
 
-use App\Models\Definition;
+use App\Models\Antonym;
 
-class DefinitionService
+class AntonymService
 {
     /**
      * Create a new class instance.
      */
-    public function __construct(protected Definition $model)
+    public function __construct(protected Antonym $model)
     {
         //
     }
@@ -33,6 +33,10 @@ class DefinitionService
 
     public function all(){
         return $this->model->all();
+    }
+
+    public function delete($id){
+        return $this->model->where('id', $id)->delete();
     }
     
 }

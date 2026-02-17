@@ -2,14 +2,14 @@
 
 namespace App\Services;
 
-use App\Models\Definition;
+use App\Models\Example;
 
-class DefinitionService
+class ExampleService
 {
     /**
      * Create a new class instance.
      */
-    public function __construct(protected Definition $model)
+    public function __construct(protected Example $model)
     {
         //
     }

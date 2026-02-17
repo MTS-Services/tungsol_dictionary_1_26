@@ -52,10 +52,10 @@ export default function Index({
     handlePageChange,
   } = useDataTable();
 
-  // ✅ Correct generic type
+
   const columns: ColumnConfig<WordDefinition>[] = [
     {
-      key: "definition",   // ✅ fixed
+      key: "definition",  
       label: "Definition",
       sortable: true,
       render: (wordDefinition) => (

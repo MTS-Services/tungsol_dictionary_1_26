@@ -31,10 +31,9 @@ interface PartOfSpeech {
 interface Props {
   words: PaginationWords;
   partofSpeeches: PartOfSpeech[];
-  WordEntry: any;
 }
 
-export default function CreateWord({ WordEntry, words, partofSpeeches }: Props) {
+export default function CreateWord({ words, partofSpeeches }: Props) {
   const [search, setSearch] = useState("");
   const searchTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
@@ -48,7 +47,7 @@ export default function CreateWord({ WordEntry, words, partofSpeeches }: Props) 
     searchTimeoutRef.current = setTimeout(() => {
       // Reset the infinite scroll when search changes
       router.get(
-        route("admin.wm.words-entries.edit", WordEntry.id),
+        route("admin.wm.words-entries.create"),
         { search: search },
         {
           preserveState: true,
@@ -68,58 +67,38 @@ export default function CreateWord({ WordEntry, words, partofSpeeches }: Props) 
   }, [search]);
 
   const { data, setData, post, processing, errors } = useForm({
-    word_id: WordEntry.id,
-    part_of_speech_id: WordEntry.part_of_speech_id,
-    sort_order: WordEntry.sort_order,
-    etymology: WordEntry.etymology,
-    pronunciation_ipa: WordEntry.pronunciation_ipa,
+    word_id: 0,
+    part_of_speech_id: 0,
+    sort_order: Number(0),
+    etymology: "",
+    pronunciation_ipa: "",
     pronunciation_audio: null as File | null,
-    syllables: WordEntry.syllables,
-    delete_audio: false,
-    _method: "PUT",
+    syllables: "",
   });
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    post(route("admin.wm.words-entries.update", WordEntry.id), {
-      forceFormData: true,
+    // Build FormData manually
+    const formData = new FormData();
+    formData.append('word_id', String(data.word_id));
+    formData.append('part_of_speech_id', String(data.part_of_speech_id));
+    formData.append('sort_order', String(data.sort_order));
+    formData.append('etymology', data.etymology);
+    formData.append('pronunciation_ipa', data.pronunciation_ipa);
+    if (data.pronunciation_audio) {
+      formData.append('pronunciation_audio', data.pronunciation_audio);
+    }
+    formData.append('syllables', data.syllables);
+
+    post(route("admin.wm.words-entries.store"), formData, {
       onSuccess: () => {
-        toast.success("System Settings updated successfully");
+        toast.success('Word entry created successfully');
       },
       onError: () => {
-        toast.error("Something went wrong");
+        toast.error('Something went wrong');
       },
     });
-  };
-
-  // Existing Audio File
-
-  const [audio, setAudio] = useState<any[]>([]);
-  useEffect(() => {
-    if (WordEntry.audio_url) {
-      setAudio([
-        {
-          id: WordEntry.id,
-          url: WordEntry.audio_url,
-          name: WordEntry.pronunciation_audio?.split("/").pop() || "Audio",
-          mime_type: "audio/*",
-          path: WordEntry.audio_url || "",
-        },
-      ]);
-      console.log(WordEntry.audio_url);
-    }
-  }, [WordEntry]);
-
-  const handleRemoveImageExisting = () => {
-    if (
-      confirm(
-        "Are you sure you want to remove this file? You must upload a new file to save the changes.",
-      )
-    ) {
-      setAudio([]);
-      setData("delete_audio", true);
-    }
   };
 
   return (
@@ -144,7 +123,7 @@ export default function CreateWord({ WordEntry, words, partofSpeeches }: Props) 
                 <CardContent className="space-y-4">
                   <div className="grid gap-2">
                     <Label htmlFor="code">Choose Word</Label>
-                    <Select onValueChange={(value) => setData("word_id", Number(value))}>
+                    <Select>
                       <SelectTrigger>
                         <SelectValue placeholder="Select word" />
                       </SelectTrigger>
@@ -153,8 +132,6 @@ export default function CreateWord({ WordEntry, words, partofSpeeches }: Props) 
                           <Input
                             placeholder="Search words..."
                             className="mb-2"
-                            value={search}
-                            onChange={(e) => setSearch(e.target.value)}
                             autoFocus
                           />
                         </div>
@@ -184,10 +161,7 @@ export default function CreateWord({ WordEntry, words, partofSpeeches }: Props) 
 
                   <div className="grid gap-2">
                     <Label htmlFor="name">Parts Of Speech</Label>
-                    <Select
-                      value={String(WordEntry.part_of_speech_id)}
-                      onValueChange={(value) => setData("part_of_speech_id", Number(value))}
-                    >
+                    <Select>
                       <SelectTrigger>
                         <SelectValue placeholder="Select Parts Of Speech" />
                       </SelectTrigger>
@@ -197,6 +171,7 @@ export default function CreateWord({ WordEntry, words, partofSpeeches }: Props) 
                             {pos.name}
                           </SelectItem>
                         ))}
+                        <SelectItem value="0">None</SelectItem>
                       </SelectContent>
                     </Select>
                     <InputError message={errors.part_of_speech_id} />
@@ -211,8 +186,6 @@ export default function CreateWord({ WordEntry, words, partofSpeeches }: Props) 
                       autoFocus
                       name="etymology"
                       placeholder="Etymology"
-                      value={data.etymology}
-                      onChange={(e) => setData("etymology", e.target.value.trim())}
                       className="bg-background/50"
                     />
                     <InputError message={errors.etymology} />
@@ -227,8 +200,6 @@ export default function CreateWord({ WordEntry, words, partofSpeeches }: Props) 
                       autoFocus
                       name="pronunciation_ipa"
                       placeholder="Pronunciation Ipa"
-                      value={data.pronunciation_ipa}
-                      onChange={(e) => setData("pronunciation_ipa", e.target.value.trim())}
                       className="bg-background/50"
                     />
                     <InputError message={errors.pronunciation_ipa} />
@@ -238,13 +209,8 @@ export default function CreateWord({ WordEntry, words, partofSpeeches }: Props) 
                     <Label htmlFor="name">Pronunciation Audio</Label>
 
                     <FileUpload
-                      value={data.pronunciation_audio}
-                      onChange={(file) => setData("pronunciation_audio", file as File)}
                       multiple={false}
                       accept="audio/*"
-                      existingFiles={audio}
-                      onRemoveExisting={handleRemoveImageExisting}
-                    
                     />
                     <InputError message={errors.pronunciation_audio} />
                   </div>
@@ -255,11 +221,10 @@ export default function CreateWord({ WordEntry, words, partofSpeeches }: Props) 
                     <Input
                       id="syllables"
                       type="text"
+                     
                       autoFocus
                       name="syllables"
                       placeholder="Syllables"
-                      value={data.syllables}
-                      onChange={(e) => setData("syllables", e.target.value.trim())}
                       className="bg-background/50"
                     />
                     <InputError message={errors.syllables} />
@@ -280,7 +245,7 @@ export default function CreateWord({ WordEntry, words, partofSpeeches }: Props) 
                     className="w-full bg-black text-white hover:bg-black/80 cursor-pointer"
                   >
                     <Save className="mr-2 h-4 w-4" />
-                    {processing ? "Updating..." : "Update Entry"}
+                    {processing ? "Creating..." : "Create Entry"}
                   </Button>
                 </CardContent>
               </Card>
