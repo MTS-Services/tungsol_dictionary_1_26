@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\DefinitionController;
 use App\Http\Controllers\Admin\ExampleManagementController;
 use App\Http\Controllers\Admin\LanguageManagementController;
 use App\Http\Controllers\Admin\PartOfSpeechManagementController;
+use App\Http\Controllers\Admin\SynonymManagementController;
 use App\Http\Controllers\Admin\UserManagementController;
 use App\Http\Controllers\Admin\WordEntriesController;
 use App\Http\Controllers\Admin\WordManagmentController;
@@ -79,6 +80,10 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
          Route::prefix('example-management' )->name('em.')->group(function () {
             Route::resource( 'examples',ExampleManagementController::class)->only('index','create', 'store', 'edit', 'update', 'destroy');
+        });
+
+        Route::prefix('synonym-management' )->name('sm.')->group(function () {
+            Route::resource( 'synonyms',SynonymManagementController::class)->only('index','create', 'store', 'edit', 'update', 'destroy');
         });
 
         // Category Management Routes

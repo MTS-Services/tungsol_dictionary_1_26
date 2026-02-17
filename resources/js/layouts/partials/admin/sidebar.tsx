@@ -70,6 +70,12 @@ const adminNavItems: NavItemType[] = [
         slug: 'examples',
     },
     {
+        title: 'Synonyms',
+        href: route('admin.sm.synonyms.index'),
+        icon: WholeWord,
+        slug: 'synonyms',
+    },
+    {
         title: 'Categories',
         href: route('admin.cm.categories.index'),
         icon: Tags,
