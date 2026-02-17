@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\ArticleManagementController;
 use App\Http\Controllers\Admin\CategoryManagementController;
 use App\Http\Controllers\Admin\DefinitionController;
+use App\Http\Controllers\Admin\ExampleManagementController;
 use App\Http\Controllers\Admin\LanguageManagementController;
 use App\Http\Controllers\Admin\PartOfSpeechManagementController;
 use App\Http\Controllers\Admin\UserManagementController;
@@ -74,6 +75,10 @@ Route::prefix('admin')->name('admin.')->group(function () {
         // Word Defination Routes
         Route::prefix('word-management' )->name('wm.')->group(function () {
             Route::resource( 'definitions',DefinitionController::class)->only('index','create', 'store', 'edit', 'update', 'destroy');
+        });
+
+         Route::prefix('example-management' )->name('em.')->group(function () {
+            Route::resource( 'examples',ExampleManagementController::class)->only('index','create', 'store', 'edit', 'update', 'destroy');
         });
 
         // Category Management Routes

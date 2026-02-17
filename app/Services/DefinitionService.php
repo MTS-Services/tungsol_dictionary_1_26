@@ -30,4 +30,9 @@ class DefinitionService
         return $this->model->where('id', $id)->update($data);
         
     }
+
+    public function all(){
+        return $this->model->all();
+    }
+    
 }
