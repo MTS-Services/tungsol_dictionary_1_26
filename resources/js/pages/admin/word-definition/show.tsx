@@ -4,38 +4,40 @@ import { Label } from '@/components/ui/label';
 import AdminLayout from '@/layouts/admin-layout';
 import { ArrowLeft, Edit } from 'lucide-react';
 
+interface WordDefinition {
+    id: number;
+    wordEntry: {
+        id: number;
+        word: string;
+    } | null;
+    definition: string;
+    register: string;
+    domain: string;
+    region: string;
+    usage_note: string;
+    created_at: string;
+    updated_at: string;
+}
+
 interface Props {
-    partOfSpeech: {
-        id: string;
-        name: string;
-        abbreviation: string;
-        created_at: string;
-        updated_at: string;
-    };
+    wordDefinition: WordDefinition;
 }
 
-interface PageProps {
-    partOfSpeech: Props['partOfSpeech'];
-}
-
-export default function show({ partOfSpeech }: PageProps) {
+const show = ({ wordDefinition }: Props) => {
     return (
-        <AdminLayout activeSlug="part-of-speech-management">
+        <AdminLayout activeSlug="word-definition-management">
             <CardHeader className="flex flex-row items-center justify-between">
-                <h1 className="text-2xl font-bold">Detail Part of Speech</h1>
+                <h1 className="text-2xl font-bold">Detail Word Definition</h1>
                 <div className="flex gap-2">
                     <ActionButton
                         IconNode={ArrowLeft}
-                        href={route('admin.posm.parts-of-speech.index')}
+                        href={route('admin.wm.definitions.index')}
                     >
                         Back
                     </ActionButton>
                     <ActionButton
                         IconNode={Edit}
-                        href={route(
-                            'admin.posm.parts-of-speech.edit',
-                            partOfSpeech?.id,
-                        )}
+                        href={route('admin.wm.definitions.edit', wordDefinition?.id)}
                     >
                         Edit
                     </ActionButton>
@@ -46,20 +48,40 @@ export default function show({ partOfSpeech }: PageProps) {
                     <div className="space-y-6 lg:col-span-2">
                         <Card>
                             <CardHeader>
-                                <CardTitle>
-                                    Part of Speech Information
-                                </CardTitle>
+                                <CardTitle>Word Definition Information</CardTitle>
                             </CardHeader>
                             <CardContent className="space-y-4">
                                 <div className="grid gap-2">
-                                    <Label htmlFor="code">Name</Label>
+                                    <Label htmlFor="code">Word Definition</Label>
 
-                                    <p>{partOfSpeech.name}</p>
+                                    <p>{wordDefinition.wordEntry?.word}</p>
                                 </div>
                                 <div className="grid gap-2">
-                                    <Label htmlFor="name">Abbreviation</Label>
+                                    <Label htmlFor="name">Definition</Label>
 
-                                    <p>{partOfSpeech.abbreviation}</p>
+                                    <p>{wordDefinition.definition}</p>
+                                </div>
+                                <div className="grid gap-2">
+                                    <Label htmlFor="name">Registered</Label>
+
+                                    <p>{wordDefinition.register}</p>
+                                </div>
+                                <div className="grid gap-2">
+                                    <Label htmlFor="name">
+                                        domain
+                                    </Label>
+
+                                    <p>{wordDefinition.domain}</p>
+                                </div>
+                                <div className="grid gap-2">
+                                    <Label htmlFor="name">region</Label>
+
+                                    <p>{wordDefinition.region}</p>
+                                </div>
+                                <div className="grid gap-2">
+                                    <Label htmlFor="name">Usage Note</Label>
+
+                                    <p>{wordDefinition.usage_note}</p>
                                 </div>
                             </CardContent>
                         </Card>
@@ -77,7 +99,7 @@ export default function show({ partOfSpeech }: PageProps) {
                                     </Label>
                                     <p className="text-sm font-medium">
                                         {new Date(
-                                            partOfSpeech.created_at,
+                                            wordDefinition.created_at,
                                         ).toLocaleString()}
                                     </p>
                                 </div>
@@ -88,7 +110,7 @@ export default function show({ partOfSpeech }: PageProps) {
                                     </Label>
                                     <p className="text-sm font-medium">
                                         {new Date(
-                                            partOfSpeech.updated_at,
+                                            wordDefinition.updated_at,
                                         ).toLocaleString()}
                                     </p>
                                 </div>
@@ -99,4 +121,6 @@ export default function show({ partOfSpeech }: PageProps) {
             </CardContent>
         </AdminLayout>
     );
-}
+};
+
+export default show;

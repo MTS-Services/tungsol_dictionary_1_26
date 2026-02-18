@@ -32,7 +32,7 @@ export default function EditLanguage({ language }: Props) {
     }
 
     return (
-        <AdminLayout activeSlug="languages">
+        <AdminLayout activeSlug="language-management">
             <Head title={`Edit Language: ${language.name}`} />
 
             <CardHeader className="flex items-center flex-row justify-between">

@@ -1,40 +1,43 @@
 import { ActionButton } from '@/components/ui/action-button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Label } from '@/components/ui/label';
 import AdminLayout from '@/layouts/admin-layout';
 import { ArrowLeft, Edit } from 'lucide-react';
+import { Label } from '@/components/ui/label';
+
+interface categories {
+    id: number;
+    name: string;
+    slug: string;
+    description: string;
+    parent: {
+        id: number;
+        name: string;
+    } | null;
+    created_at: string;
+    updated_at: string;
+}
 
 interface Props {
-    partOfSpeech: {
-        id: string;
-        name: string;
-        abbreviation: string;
-        created_at: string;
-        updated_at: string;
-    };
+    category: categories;
 }
 
-interface PageProps {
-    partOfSpeech: Props['partOfSpeech'];
-}
-
-export default function show({ partOfSpeech }: PageProps) {
+const show = ({ category }: Props) => {
     return (
-        <AdminLayout activeSlug="part-of-speech-management">
+        <AdminLayout activeSlug="category-management">
             <CardHeader className="flex flex-row items-center justify-between">
                 <h1 className="text-2xl font-bold">Detail Part of Speech</h1>
                 <div className="flex gap-2">
                     <ActionButton
                         IconNode={ArrowLeft}
-                        href={route('admin.posm.parts-of-speech.index')}
+                        href={route('admin.cm.categories.index')}
                     >
                         Back
                     </ActionButton>
                     <ActionButton
                         IconNode={Edit}
                         href={route(
-                            'admin.posm.parts-of-speech.edit',
-                            partOfSpeech?.id,
+                            'admin.cm.categories.edit',
+                            category?.id,
                         )}
                     >
                         Edit
@@ -54,12 +57,17 @@ export default function show({ partOfSpeech }: PageProps) {
                                 <div className="grid gap-2">
                                     <Label htmlFor="code">Name</Label>
 
-                                    <p>{partOfSpeech.name}</p>
+                                    <p>{category.name}</p>
                                 </div>
                                 <div className="grid gap-2">
-                                    <Label htmlFor="name">Abbreviation</Label>
+                                    <Label htmlFor="name">Slug</Label>
 
-                                    <p>{partOfSpeech.abbreviation}</p>
+                                    <p>{category.slug}</p>
+                                </div>
+                                <div className="grid gap-2">
+                                    <Label htmlFor="name">Parent</Label>
+
+                                    <p>{category.parent?.name || '-'}</p>
                                 </div>
                             </CardContent>
                         </Card>
@@ -77,7 +85,7 @@ export default function show({ partOfSpeech }: PageProps) {
                                     </Label>
                                     <p className="text-sm font-medium">
                                         {new Date(
-                                            partOfSpeech.created_at,
+                                            category.created_at,
                                         ).toLocaleString()}
                                     </p>
                                 </div>
@@ -88,7 +96,7 @@ export default function show({ partOfSpeech }: PageProps) {
                                     </Label>
                                     <p className="text-sm font-medium">
                                         {new Date(
-                                            partOfSpeech.updated_at,
+                                            category.updated_at,
                                         ).toLocaleString()}
                                     </p>
                                 </div>
@@ -99,4 +107,6 @@ export default function show({ partOfSpeech }: PageProps) {
             </CardContent>
         </AdminLayout>
     );
-}
+};
+
+export default show;

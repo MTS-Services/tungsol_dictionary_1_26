@@ -43,7 +43,7 @@ export default function EditCategory({ category, categories }: Props) {
     }
 
     return (
-        <AdminLayout activeSlug="categories">
+        <AdminLayout activeSlug="category-management">
             <Head title={`Edit Category: ${category.name}`} />
 
             <CardHeader className="flex items-center flex-row justify-between">

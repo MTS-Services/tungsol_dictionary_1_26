@@ -18,7 +18,7 @@ interface Props {
 
 const ShowLanguage: FC<Props> = ({ language }) => {
     return (
-        <AdminLayout>
+        <AdminLayout  activeSlug="language-management">
             <CardHeader className="flex flex-row items-center justify-between">
                 <h1 className="text-2xl font-bold">Detail Language</h1>
                 <div className="flex gap-2">

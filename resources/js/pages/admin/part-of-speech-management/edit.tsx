@@ -32,7 +32,7 @@ export default function EditPartOfSpeech({ partOfSpeech }: Props) {
     }
 
     return (
-        <AdminLayout activeSlug="parts-of-speech">
+        <AdminLayout activeSlug="part-of-speech-management">
             <Head title={`Edit Part of Speech: ${partOfSpeech.name}`} />
 
             <CardHeader className="flex items-center flex-row justify-between">
