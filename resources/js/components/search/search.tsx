@@ -5,9 +5,11 @@ import { router } from '@inertiajs/react';
 interface SearchResult {
     id: number;
     word: string;
+    slug: string;
     definition: string;
     synonyms: string[];
     antonyms: string[];
+    search_count: number;
 }
 
 interface SearchResponse {
@@ -16,6 +18,14 @@ interface SearchResponse {
     last_page: number;
     per_page: number;
     total: number;
+    has_more: boolean;
+    next_page_url?: string;
+    prev_page_url?: string;
+    meta: {
+        query: string;
+        search_time: number;
+        cache_ttl: number;
+    };
 }
 
 interface Props {
@@ -43,50 +53,45 @@ function Search({
     const observerRef = useRef<IntersectionObserver | null>(null);
     const loadMoreRef = useRef<HTMLDivElement>(null);
 
-    // Mock search function with pagination
-    const mockSearch = async (searchQuery: string, page: number = 1): Promise<SearchResponse> => {
-        // Simulate API delay
-        await new Promise(resolve => setTimeout(resolve, 800));
+    // Real API search function
+    const apiSearch = async (searchQuery: string, page: number = 1): Promise<SearchResponse> => {
+        const params = new URLSearchParams({
+            q: searchQuery,
+            page: page.toString(),
+            per_page: '30',
+            sort: 'popularity',
+            order: 'desc',
+        });
+
+        const response = await fetch(`/search?${params}`);
         
-        if (!searchQuery.trim()) {
-            return {
-                data: [],
-                current_page: 1,
-                last_page: 1,
-                per_page: 30,
-                total: 0
-            };
+        if (!response.ok) {
+            throw new Error('Search failed');
         }
-        
-        // Generate 30 mock results per page
-        const generateMockResults = (pageNum: number, searchTerm: string): SearchResult[] => {
-            const results: SearchResult[] = [];
-            const startIndex = (pageNum - 1) * 30;
-            
-            for (let i = 0; i < 30; i++) {
-                const resultIndex = startIndex + i + 1;
-                results.push({
-                    id: resultIndex,
-                    word: `${searchTerm} ${resultIndex}`,
-                    definition: `Definition for "${searchTerm} ${resultIndex}" - sample definition number ${resultIndex}`,
-                    synonyms: ['similar', 'related', 'analogous', 'comparable', 'like'],
-                    antonyms: ['different', 'opposite', 'contrary', 'unlike', 'dissimilar']
-                });
-            }
-            
-            return results;
-        };
-        
-        const mockData = generateMockResults(page, searchQuery);
-        const totalResults = 150; // Mock total of 150 results (5 pages)
-        
-        return {
-            data: mockData,
-            current_page: page,
-            last_page: Math.ceil(totalResults / 30),
-            per_page: 30,
-            total: totalResults
-        };
+
+        return await response.json();
+    };
+
+    // Track word click and update search count
+    const trackWordClick = async (wordId: number, word: string, slug: string) => {
+        try {
+            // Track the click to update search_count
+            await fetch(`/search/track-click/${wordId}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '',
+                },
+                body: JSON.stringify({ word }),
+            });
+
+            // Open dummy URL with word slug
+            window.open(`https://test.com/results/${slug}`, '_blank');
+        } catch (error) {
+            console.error('Failed to track word click:', error);
+            // Still open the URL even if tracking fails
+            window.open(`https://test.com/results/${slug}`, '_blank');
+        }
     };
 
     // Handle search with debouncing
@@ -100,14 +105,13 @@ function Search({
             setCurrentPage(1);
             searchTimeoutRef.current = setTimeout(async () => {
                 try {
-                    
-                    const response = await mockSearch(query, 1);
+                    const response = await apiSearch(query, 1);
 
                     setSearchResults(response.data);
                     setShowResults(true);
                     setCurrentPage(response.current_page);
                     setLastPage(response.last_page);
-                    setHasMore(response.current_page < response.last_page);
+                    setHasMore(response.has_more);
                 } catch (error) {
                     console.error('Search error:', error);
                     setSearchResults([]);
@@ -139,11 +143,11 @@ function Search({
         setIsLoadingMore(true);
         try {
             const nextPage = currentPage + 1;
-            const response = await mockSearch(query, nextPage);
+            const response = await apiSearch(query, nextPage);
             
             setSearchResults(prev => [...prev, ...response.data]);
             setCurrentPage(response.current_page);
-            setHasMore(response.current_page < response.last_page);
+            setHasMore(response.has_more);
         } catch (error) {
             console.error('Load more error:', error);
         } finally {
@@ -194,6 +198,10 @@ function Search({
         setTimeout(() => {
             setIsOpen(false);
         }, 200);
+    };
+
+    const handleWordClick = (word: SearchResult) => {
+        trackWordClick(word.id, word.word, word.slug);
     };
 
     return (
@@ -267,7 +275,8 @@ function Search({
                         {searchResults.map((result) => (
                             <div
                                 key={result.id}
-                                className="border-b border-gray-100 last:border-b-0 pb-3 mb-3 last:pb-0 last:mb-0 hover:bg-gray-50 p-2 rounded transition-colors duration-150"
+                                onClick={() => handleWordClick(result)}
+                                className="border-b border-gray-100 last:border-b-0 pb-3 mb-3 last:pb-0 last:mb-0 hover:bg-gray-50 p-2 rounded transition-colors duration-150 cursor-pointer"
                             >
                                 <div className="font-semibold text-gray-900 mb-1">
                                     {result.word}
