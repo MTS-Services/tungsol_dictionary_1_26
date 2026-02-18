@@ -1,4 +1,22 @@
 import { cn } from '@/lib/utils';
+import { useState, useEffect, useRef, useCallback } from 'react';
+import { router } from '@inertiajs/react';
+
+interface SearchResult {
+    id: number;
+    word: string;
+    definition: string;
+    synonyms: string[];
+    antonyms: string[];
+}
+
+interface SearchResponse {
+    data: SearchResult[];
+    current_page: number;
+    last_page: number;
+    per_page: number;
+    total: number;
+}
 
 interface Props {
     className?: string;
@@ -9,6 +27,175 @@ function Search({
     className,
     placeholder = 'Search for synonyms and antonyms',
 }: Props) {
+    
+    const [query, setQuery] = useState('');
+    const [isOpen, setIsOpen] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
+    const [isLoadingMore, setIsLoadingMore] = useState(false);
+    const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
+    const [showResults, setShowResults] = useState(false);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [lastPage, setLastPage] = useState(1);
+    const [hasMore, setHasMore] = useState(false);
+    const inputRef = useRef<HTMLInputElement>(null);
+    const searchTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+    const dropdownRef = useRef<HTMLDivElement>(null);
+    const observerRef = useRef<IntersectionObserver | null>(null);
+    const loadMoreRef = useRef<HTMLDivElement>(null);
+
+    // Mock search function with pagination
+    const mockSearch = async (searchQuery: string, page: number = 1): Promise<SearchResponse> => {
+        // Simulate API delay
+        await new Promise(resolve => setTimeout(resolve, 800));
+        
+        if (!searchQuery.trim()) {
+            return {
+                data: [],
+                current_page: 1,
+                last_page: 1,
+                per_page: 30,
+                total: 0
+            };
+        }
+        
+        // Generate 30 mock results per page
+        const generateMockResults = (pageNum: number, searchTerm: string): SearchResult[] => {
+            const results: SearchResult[] = [];
+            const startIndex = (pageNum - 1) * 30;
+            
+            for (let i = 0; i < 30; i++) {
+                const resultIndex = startIndex + i + 1;
+                results.push({
+                    id: resultIndex,
+                    word: `${searchTerm} ${resultIndex}`,
+                    definition: `Definition for "${searchTerm} ${resultIndex}" - sample definition number ${resultIndex}`,
+                    synonyms: ['similar', 'related', 'analogous', 'comparable', 'like'],
+                    antonyms: ['different', 'opposite', 'contrary', 'unlike', 'dissimilar']
+                });
+            }
+            
+            return results;
+        };
+        
+        const mockData = generateMockResults(page, searchQuery);
+        const totalResults = 150; // Mock total of 150 results (5 pages)
+        
+        return {
+            data: mockData,
+            current_page: page,
+            last_page: Math.ceil(totalResults / 30),
+            per_page: 30,
+            total: totalResults
+        };
+    };
+
+    // Handle search with debouncing
+    useEffect(() => {
+        if (searchTimeoutRef.current) {
+            clearTimeout(searchTimeoutRef.current);
+        }
+
+        if (query.trim()) {
+            setIsLoading(true);
+            setCurrentPage(1);
+            searchTimeoutRef.current = setTimeout(async () => {
+                try {
+                    
+                    const response = await mockSearch(query, 1);
+
+                    setSearchResults(response.data);
+                    setShowResults(true);
+                    setCurrentPage(response.current_page);
+                    setLastPage(response.last_page);
+                    setHasMore(response.current_page < response.last_page);
+                } catch (error) {
+                    console.error('Search error:', error);
+                    setSearchResults([]);
+                    setShowResults(false);
+                    setHasMore(false);
+                } finally {
+                    setIsLoading(false);
+                }
+            }, 300);
+        } else {
+            setSearchResults([]);
+            setShowResults(false);
+            setIsLoading(false);
+            setHasMore(false);
+            setCurrentPage(1);
+        }
+
+        return () => {
+            if (searchTimeoutRef.current) {
+                clearTimeout(searchTimeoutRef.current);
+            }
+        };
+    }, [query]);
+
+    // Load more results
+    const loadMoreResults = useCallback(async () => {
+        if (isLoadingMore || !hasMore || !query.trim()) return;
+        
+        setIsLoadingMore(true);
+        try {
+            const nextPage = currentPage + 1;
+            const response = await mockSearch(query, nextPage);
+            
+            setSearchResults(prev => [...prev, ...response.data]);
+            setCurrentPage(response.current_page);
+            setHasMore(response.current_page < response.last_page);
+        } catch (error) {
+            console.error('Load more error:', error);
+        } finally {
+            setIsLoadingMore(false);
+        }
+    }, [isLoadingMore, hasMore, query, currentPage]);
+
+    // Setup intersection observer for infinite scroll
+    useEffect(() => {
+        if (observerRef.current) {
+            observerRef.current.disconnect();
+        }
+
+        observerRef.current = new IntersectionObserver(
+            (entries) => {
+                const [entry] = entries;
+                if (entry.isIntersecting && hasMore && !isLoadingMore) {
+                    loadMoreResults();
+                }
+            },
+            {
+                threshold: 0.1,
+                root: dropdownRef.current,
+            }
+        );
+
+        if (loadMoreRef.current) {
+            observerRef.current.observe(loadMoreRef.current);
+        }
+
+        return () => {
+            if (observerRef.current) {
+                observerRef.current.disconnect();
+            }
+        };
+    }, [loadMoreResults, hasMore, isLoadingMore]);
+
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setQuery(e.target.value);
+    };
+
+    const handleInputFocus = () => {
+        setIsOpen(true);
+    };
+
+    const handleInputBlur = () => {
+        // Delay closing to allow clicking on results
+        setTimeout(() => {
+            setIsOpen(false);
+        }, 200);
+    };
+
     return (
         <div
             className={cn(
@@ -40,18 +227,113 @@ function Search({
                     />
                 </svg>
                 <input
+                    ref={inputRef}
                     type="text"
                     placeholder={placeholder}
+                    value={query}
+                    onChange={handleInputChange}
+                    onFocus={handleInputFocus}
+                    onBlur={handleInputBlur}
                     className="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none"
                 />
             </div>
-            <div className='absolute top-full left-0 w-full h-full bg-background z-10'>
-                <div>
-                    Loading Spinner
-                </div>
-                <div>
-                    list of serach result
-                </div>
+            
+            {/* Search Results Dropdown */}
+            <div
+                ref={dropdownRef}
+                className={cn(
+                    'absolute top-full left-0 w-full bg-white border border-gray-200 rounded-lg shadow-lg z-10 mt-2 transition-all duration-300 ease-in-out origin-top',
+                    isOpen ? 'opacity-100 scale-100 visible' : 'opacity-0 scale-95 invisible',
+                    'max-h-96 overflow-y-auto'
+                )}
+            >
+                {isLoading && (
+                    <div className="p-4 flex items-center justify-center">
+                        <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-blue-500"></div>
+                        <span className="ml-2 text-gray-600">Searching...</span>
+                    </div>
+                )}
+                
+                {!isLoading && showResults && searchResults.length > 0 && (
+                    <div className="p-4">
+                        <div className="text-sm text-gray-500 mb-3 sticky top-0 bg-white pb-2 border-b border-gray-100">
+                            Found {searchResults.length} results
+                            {hasMore && (
+                                <span className="ml-2 text-blue-600">
+                                    (Scroll for more)
+                                </span>
+                            )}
+                        </div>
+                        {searchResults.map((result) => (
+                            <div
+                                key={result.id}
+                                className="border-b border-gray-100 last:border-b-0 pb-3 mb-3 last:pb-0 last:mb-0 hover:bg-gray-50 p-2 rounded transition-colors duration-150"
+                            >
+                                <div className="font-semibold text-gray-900 mb-1">
+                                    {result.word}
+                                </div>
+                                <div className="text-sm text-gray-600 mb-2">
+                                    {result.definition}
+                                </div>
+                                <div className="flex flex-wrap gap-2 text-xs">
+                                    {result.synonyms.length > 0 && (
+                                        <div className="flex items-center gap-1">
+                                            <span className="text-green-600 font-medium">Synonyms:</span>
+                                            <span className="text-gray-600">{result.synonyms.slice(0, 3).join(', ')}
+                                                {result.synonyms.length > 3 && `...+${result.synonyms.length - 3}`}
+                                            </span>
+                                        </div>
+                                    )}
+                                    {result.antonyms.length > 0 && (
+                                        <div className="flex items-center gap-1">
+                                            <span className="text-red-600 font-medium">Antonyms:</span>
+                                            <span className="text-gray-600">{result.antonyms.slice(0, 3).join(', ')}
+                                                {result.antonyms.length > 3 && `...+${result.antonyms.length - 3}`}
+                                            </span>
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
+                        ))}
+                        
+                        {/* Load more trigger */}
+                        {hasMore && (
+                            <div
+                                ref={loadMoreRef}
+                                className="py-3 text-center"
+                            >
+                                {isLoadingMore ? (
+                                    <div className="flex items-center justify-center">
+                                        <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-blue-500"></div>
+                                        <span className="ml-2 text-sm text-gray-600">Loading more...</span>
+                                    </div>
+                                ) : (
+                                    <div className="text-sm text-gray-400">
+                                        Scroll for more results
+                                    </div>
+                                )}
+                            </div>
+                        )}
+                        
+                        {!hasMore && searchResults.length > 0 && (
+                            <div className="py-3 text-center text-sm text-gray-500 border-t border-gray-100">
+                                End of results ({searchResults.length} total)
+                            </div>
+                        )}
+                    </div>
+                )}
+                
+                {!isLoading && showResults && searchResults.length === 0 && query.trim() && (
+                    <div className="p-4 text-center text-gray-500">
+                        No results found for "{query}"
+                    </div>
+                )}
+                
+                {!isLoading && !showResults && isOpen && (
+                    <div className="p-4 text-center text-gray-400 text-sm">
+                        Start typing to search...
+                    </div>
+                )}
             </div>
         </div>
     );
