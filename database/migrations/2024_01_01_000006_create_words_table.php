@@ -19,7 +19,7 @@ return new class extends Migration
 
             // Indexes
             $table->unique(['word', 'language_id']);
-            $table->index('language_id');
+            $table->index(['language_id', 'is_approved']);
             $table->fullText('word')->comment('For autocomplete / fast search');
 
             // Foreign keys
