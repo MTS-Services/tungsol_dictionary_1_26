@@ -68,7 +68,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
         // Word Management Routes
         Route::prefix('word-management' )->name('wm.')->group(function () {
-            Route::resource( 'words',WordManagmentController::class)->only('index','create', 'store', 'edit', 'update', 'destroy');
+            Route::resource( 'words',WordManagmentController::class)->only('index','create', 'store', 'edit', 'show', 'update', 'destroy');
         });
          // Word Entries Routes
         Route::prefix('word-management' )->name('wm.')->group(function () {
