@@ -1,6 +1,6 @@
 import React from 'react';
 import { Head, router, Link } from '@inertiajs/react';
-import { Pencil, Trash2 } from 'lucide-react';
+import { Eye, Pencil, Trash2 } from 'lucide-react';
 import AdminLayout from '@/layouts/admin-layout';
 import { DataTable } from '@/components/ui/data-table';
 import { useDataTable } from '@/hooks/use-data-table';
@@ -94,6 +94,13 @@ export default function Index({
 
     const actions: ActionConfig<Category>[] = [
         {
+            label: 'View',
+            icon: <Eye className="h-4 w-4" />,
+            onClick: (category) => {
+                router.visit(route('admin.cm.categories.show', category?.id));
+            },
+        },
+        {
             label: 'Edit',
             icon: <Pencil className="h-4 w-4" />,
             onClick: (category) => {
@@ -113,7 +120,7 @@ export default function Index({
     ];
 
     return (
-        <AdminLayout activeSlug="categories">
+        <AdminLayout activeSlug="category-management">
             <Head title="Categories" />
 
             <div className="flex justify-end mb-6">

@@ -93,4 +93,13 @@ class CategoryManagementController extends Controller
 
         return back()->with('success', 'Category deleted successfully.');
     }
+
+    public function show(string $id): Response
+    {
+        $category = Category::with('parent')->findOrFail($id);
+
+        return Inertia::render('admin/category-management/show', [
+            'category' => $category,
+        ]);
+    }
 }

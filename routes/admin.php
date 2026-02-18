@@ -97,7 +97,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
         // Category Management Routes
         Route::prefix('category-management' )->name('cm.')->group(function () {
-            Route::resource( 'categories',CategoryManagementController::class)->only('index','create', 'store', 'edit', 'update', 'destroy');
+            Route::resource( 'categories',CategoryManagementController::class)->only('index','create', 'store', 'show', 'edit', 'update', 'destroy');
         });
 
         // Article Management Routes

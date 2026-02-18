@@ -104,7 +104,7 @@ export default function Index({
     ];
 
     return (
-        <AdminLayout activeSlug="languages">
+        <AdminLayout activeSlug="language-management">
             <Head title="Languages" />
 
             <div className="flex justify-end mb-6">

@@ -32,7 +32,7 @@ export default function CreateCategory({ categories }: Props) {
     }
 
     return (
-        <AdminLayout activeSlug="categories">
+        <AdminLayout activeSlug="category-management">
             <Head title="Create Category" />
 
             <CardHeader className="flex items-center flex-row justify-between">
