@@ -72,11 +72,11 @@ Route::prefix('admin')->name('admin.')->group(function () {
         });
          // Word Entries Routes
         Route::prefix('word-management' )->name('wm.')->group(function () {
-            Route::resource( 'words-entries',WordEntriesController::class)->only('index','create', 'store', 'edit', 'update', 'destroy');
+            Route::resource( 'words-entries',WordEntriesController::class)->only('index','create', 'store', 'edit', 'show', 'update', 'destroy');
         });
         // Word Defination Routes
         Route::prefix('word-management' )->name('wm.')->group(function () {
-            Route::resource( 'definitions',DefinitionController::class)->only('index','create', 'store', 'edit', 'update', 'destroy');
+            Route::resource( 'definitions',DefinitionController::class)->only('index','create', 'store', 'edit', 'show', 'update', 'destroy');
         });
 
          Route::prefix('example-management' )->name('em.')->group(function () {
