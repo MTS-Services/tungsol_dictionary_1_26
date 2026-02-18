@@ -16,6 +16,7 @@ Route::controller(FrontendController::class)->group(function () {
         Route::get('/reset-password-successful', 'resetPasswordSuccessful')->name('reset-password-successful'); 
         Route::get('/about', 'about')->name('about');
         Route::get('/contact', 'contact')->name('contact');
+        Route::post('/contact-submit', 'contactSubmit')->name('contact.submit');
         Route::get('/admin-dashboard', 'adminDashboard')->name('admin-dashboard');
         Route::get('/admin-dashboard2', 'adminDashboard2')->name('admin-dashboard2');
 
