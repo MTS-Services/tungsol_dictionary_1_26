@@ -9,6 +9,8 @@ interface Language {
     id: string;
     code: string;
     name: string;
+    created_at: string;
+    updated_at: string;
 }
 interface Props {
     language: Language;
@@ -85,21 +87,6 @@ const ShowLanguage: FC<Props> = ({ language }) => {
                                 </div>
                             </CardContent>
                         </Card>
-
-                        {/* <Card>
-                                <CardContent className="pt-6">
-                                    <Button
-                                        type="submit"
-                                        disabled={processing}
-                                        className="w-full cursor-pointer bg-black text-white hover:bg-black/80"
-                                    >
-                                        <Save className="mr-2 h-4 w-4" />
-                                        {processing
-                                            ? 'Updating...'
-                                            : 'Update Language'}
-                                    </Button>
-                                </CardContent>
-                            </Card> */}
                     </div>
                 </div>
             </CardContent>
