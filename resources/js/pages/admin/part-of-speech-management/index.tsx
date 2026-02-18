@@ -1,6 +1,6 @@
 import React from 'react';
 import { Head, router, Link } from '@inertiajs/react';
-import { Pencil, Trash2 } from 'lucide-react';
+import { Eye, Pencil, Trash2 } from 'lucide-react';
 import AdminLayout from '@/layouts/admin-layout';
 import { DataTable } from '@/components/ui/data-table';
 import { useDataTable } from '@/hooks/use-data-table';
@@ -77,6 +77,13 @@ export default function Index({
     ];
 
     const actions: ActionConfig<PartOfSpeech>[] = [
+        {
+            label: 'View',
+            icon: <Eye className="h-4 w-4" />,
+            onClick: (pos) => {
+                router.visit(route('admin.posm.parts-of-speech.show', pos?.id));
+            },
+        },
         {
             label: 'Edit',
             icon: <Pencil className="h-4 w-4" />,

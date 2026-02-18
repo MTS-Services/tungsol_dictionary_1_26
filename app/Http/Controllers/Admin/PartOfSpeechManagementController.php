@@ -80,4 +80,13 @@ class PartOfSpeechManagementController extends Controller
 
         return back()->with('success', 'Part of Speech deleted successfully.');
     }
+
+    public function show(string $id): Response
+    {
+        $partOfSpeech = PartOfSpeech::findOrFail($id);
+
+        return Inertia::render('admin/part-of-speech-management/show', [
+            'partOfSpeech' => $partOfSpeech
+        ]);
+    }
 }

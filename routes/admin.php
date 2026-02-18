@@ -58,12 +58,12 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
         // Language Management Routes
         Route::prefix('language-management' )->name('lm.')->group(function () {
-            Route::resource( 'languages',LanguageManagementController::class)->only('index','create', 'store', 'edit', 'update', 'destroy');
+            Route::resource( 'languages',LanguageManagementController::class)->only('index','create', 'store', 'show',  'edit', 'update', 'destroy');
         });
 
         // Part of Speech Management Routes
         Route::prefix('part-of-speech-management' )->name('posm.')->group(function () {
-            Route::resource( 'parts-of-speech',PartOfSpeechManagementController::class)->only('index','create', 'store', 'edit', 'update', 'destroy');
+            Route::resource( 'parts-of-speech',PartOfSpeechManagementController::class)->only('index','create', 'store', 'show', 'edit', 'update', 'destroy');
         });
 
         // Word Management Routes
