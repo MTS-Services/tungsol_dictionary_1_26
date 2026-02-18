@@ -63,13 +63,20 @@ function Search({
             order: 'desc',
         });
 
-        const response = await fetch(`/search?${params}`);
+        const url = `/search?${params}`;
+        console.log('Searching URL:', url); // Debug log
+        
+        const response = await fetch(url);
         
         if (!response.ok) {
+            console.error('Search failed:', response.status, response.statusText);
             throw new Error('Search failed');
         }
 
-        return await response.json();
+        const data = await response.json();
+        console.log('Search response:', data); // Debug log
+        
+        return data;
     };
 
     // Track word click and update search count
@@ -96,16 +103,20 @@ function Search({
 
     // Handle search with debouncing
     useEffect(() => {
+        console.log('Search effect triggered with query:', query); // Debug log
+        
         if (searchTimeoutRef.current) {
             clearTimeout(searchTimeoutRef.current);
         }
 
         if (query.trim()) {
+            console.log('Starting search for:', query); // Debug log
             setIsLoading(true);
             setCurrentPage(1);
             searchTimeoutRef.current = setTimeout(async () => {
                 try {
                     const response = await apiSearch(query, 1);
+                    console.log('Setting search results:', response.data); // Debug log
 
                     setSearchResults(response.data);
                     setShowResults(true);
@@ -122,6 +133,7 @@ function Search({
                 }
             }, 300);
         } else {
+            console.log('Clearing search results'); // Debug log
             setSearchResults([]);
             setShowResults(false);
             setIsLoading(false);

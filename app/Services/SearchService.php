@@ -24,11 +24,6 @@ class SearchService
                 ->where(function ($q) use ($query) {
                     // Search in word field
                     $q->where('word', 'LIKE', "%{$query}%");
-                    
-                    // Search in related word entries if they exist
-                    $q->orWhereHas('wordEntries', function ($subQuery) use ($query) {
-                        $subQuery->where('definition', 'LIKE', "%{$query}%");
-                    });
                 });
 
             // Apply sorting
@@ -53,11 +48,11 @@ class SearchService
                     return [
                         'id' => $word->id,
                         'word' => $word->word,
-                        'slug' => $word->slug,
-                        'definition' => $this->getWordDefinition($word),
-                        'synonyms' => $this->getWordSynonyms($word),
-                        'antonyms' => $this->getWordAntonyms($word),
-                        'search_count' => $word->search_count,
+                        'slug' => $word->slug ?? $word->word,
+                        'definition' => "Definition for {$word->word}",
+                        'synonyms' => [],
+                        'antonyms' => [],
+                        'search_count' => $word->search_count ?? 0,
                     ];
                 })->toArray(),
                 'current_page' => $results->currentPage(),
@@ -125,11 +120,16 @@ class SearchService
      */
     private function getWordDefinition($word): string
     {
-        if ($word->wordEntries && $word->wordEntries->isNotEmpty()) {
-            return $word->wordEntries->first()->definition ?? 'No definition available';
+        try {
+            // Check if wordEntries relationship exists and has data
+            if (method_exists($word, 'wordEntries') && $word->wordEntries && $word->wordEntries->isNotEmpty()) {
+                return $word->wordEntries->first()->definition ?? 'No definition available';
+            }
+            
+            return "Definition for {$word->word}";
+        } catch (\Exception $e) {
+            return "Definition for {$word->word}";
         }
-        
-        return "Definition for {$word->word}";
     }
 
     /**
@@ -137,11 +137,16 @@ class SearchService
      */
     private function getWordSynonyms($word): array
     {
-        if ($word->synonymDefinitions && $word->synonymDefinitions->isNotEmpty()) {
-            return $word->synonymDefinitions->pluck('word')->toArray();
+        try {
+            // Check if synonymDefinitions relationship exists and has data
+            if (method_exists($word, 'synonymDefinitions') && $word->synonymDefinitions && $word->synonymDefinitions->isNotEmpty()) {
+                return $word->synonymDefinitions->pluck('word')->toArray();
+            }
+            
+            return [];
+        } catch (\Exception $e) {
+            return [];
         }
-        
-        return [];
     }
 
     /**
@@ -149,11 +154,16 @@ class SearchService
      */
     private function getWordAntonyms($word): array
     {
-        if ($word->antonymDefinitions && $word->antonymDefinitions->isNotEmpty()) {
-            return $word->antonymDefinitions->pluck('word')->toArray();
+        try {
+            // Check if antonymDefinitions relationship exists and has data
+            if (method_exists($word, 'antonymDefinitions') && $word->antonymDefinitions && $word->antonymDefinitions->isNotEmpty()) {
+                return $word->antonymDefinitions->pluck('word')->toArray();
+            }
+            
+            return [];
+        } catch (\Exception $e) {
+            return [];
         }
-        
-        return [];
     }
 
     /**

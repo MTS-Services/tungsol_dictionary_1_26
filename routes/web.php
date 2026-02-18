@@ -27,3 +27,4 @@ Route::prefix('search')->group(function () {
 include __DIR__.'/frontend.php';
 include __DIR__.'/admin.php';
 include __DIR__.'/user.php';
+include __DIR__.'/debug.php';
