@@ -1,8 +1,10 @@
 
 import FrontendLayout from "@/layouts/frontend-layout";
 import React from "react";
-
-export default function home2() {
+interface Props {
+    word: any;
+}
+export default function Word({ word }: Props) {
   return (
    <FrontendLayout>
  <>
@@ -26,7 +28,7 @@ export default function home2() {
 
     <div className="bg-white rounded-2xl shadow-sm p-4">
       <div className="flex justify-between items-start mb-2">
-      <h1 className="text-4xl font-medium text-foreground font-arial">Knowledge</h1>
+      <h1 className="text-4xl font-medium text-foreground font-arial">{word.word}</h1>
       <div className="flex gap-2 ">
         <button className="p-2 hover:bg-slate-100 rounded-full text-blue-500 font-arial text-md ">
 

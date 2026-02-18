@@ -1,3 +1,4 @@
+import { Search } from '@/components/search/search';
 import { home1, home2 } from '@/routes';
 import React from 'react';
 const trendingWords = [
@@ -46,32 +47,12 @@ const HomeContent = () => {
           </p>
           
           <div className="max-w-2xl mx-auto lg:mb-12 mb-6">
-            <div className="rounded-lg lg:p-4 flex flex-col sm:flex-row gap-3">
-              <div className="flex gap-3 justify-center">
-                <button className="bg-btn-secondary font-arial text-text-white font-normal text-sm lg:text-base px-6 py-3.5 rounded-lg cursor-pointer">
-                  Dictionary
-                </button>
-                <button className="bg-btn-primary font-arial text-text-white font-normal text-sm lg:text-base px-6 py-3.5 rounded-lg cursor-pointer">
-                  Thesaurus
-                </button>
-              </div>
-              <div className="flex-1 relative">
-                <svg
-                  className="absolute right-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-text-secondary"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                </svg>
-                <input
-                  type="text"
-                  placeholder="Search for synonyms and antonyms"
-                  className="w-full text-sm px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
-                />
-              </div>
-            </div>
+
+          {/* Search Component */}
+
+            <Search />
+
+           {/* Search Component End */}
             
             <div className="flex flex-col sm:flex-row justify-center gap-4 mt-6">
               <button className="bg-accent text-secondary-foreground font-arial px-6 py-2 text-sm lg:text-base rounded-lg font-semibold flex items-center justify-center gap-2 shadow-md transition-all active:scale-95">

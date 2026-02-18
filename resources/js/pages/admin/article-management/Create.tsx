@@ -34,7 +34,6 @@ export default function Create({ authors, words }: Props) {
         author_id: "",
         is_published: false,
         published_at: "",
-        word_ids: [],
     });
 
     const handleSubmit = (e: React.FormEvent) => {
@@ -140,27 +139,6 @@ export default function Create({ authors, words }: Props) {
                         className="mt-1"
                     />
                     {errors.published_at && <p className="text-red-500 text-sm mt-1">{errors.published_at}</p>}
-                </div>
-                <div>
-                    <Label htmlFor="word_ids">Associated Words</Label>
-                    <Select
-                        onValueChange={(values) => setData("word_ids", values.map(Number))}
-                        value={data.word_ids.map(String)}
-                        multiple // Assuming multiple select is available or using a multi-select component
-                    >
-                        <SelectTrigger className="mt-1">
-                            <SelectValue placeholder="Select associated words" />
-                        </SelectTrigger>
-                        <SelectContent>
-                            {words.map((word) => (
-                                <SelectItem key={word.id} value={String(word.id)}>
-                                    {word.word}
-                                </SelectItem>
-                            ))}
-                        </SelectContent>
-                    </Select>
-                    {errors.word_ids && <p className="text-red-500 text-sm mt-1">{errors.word_ids}</p>}
-                    {errors['word_ids.*'] && <p className="text-red-500 text-sm mt-1">{errors['word_ids.*']}</p>}
                 </div>
                 <Button type="submit" disabled={processing}>
                     {processing ? "Creating..." : "Create Article"}

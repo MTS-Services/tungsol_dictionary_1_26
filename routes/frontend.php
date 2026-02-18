@@ -19,5 +19,6 @@ Route::controller(FrontendController::class)->group(function () {
         Route::post('/contact-submit', 'contactSubmit')->name('contact.submit');
         Route::get('/admin-dashboard', 'adminDashboard')->name('admin-dashboard');
         Route::get('/admin-dashboard2', 'adminDashboard2')->name('admin-dashboard2');
+        Route::get('/word/{slug}', 'word')->name('word');
 
     });

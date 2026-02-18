@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Jobs\ContactJob;
 use App\Mail\ContactMail;
 use App\Services\ContactService;
+use App\Services\WordService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\RateLimiter;
@@ -15,7 +16,7 @@ use Inertia\Response;
 class FrontendController extends Controller
 {
      //
-     public function __construct(protected ContactService $contactService) {}
+     public function __construct(protected ContactService $contactService, protected WordService $wordService) {}
 
      public function index(): Response
      {
@@ -120,5 +121,13 @@ class FrontendController extends Controller
           RateLimiter::hit($key, 3600);
 
           return redirect()->back()->with('success', 'Contact form submitted successfully!');
+     }
+
+     public function word($slug){
+          $word = $this->wordService->find($slug, 'slug');
+          $word->load(['relatedWords', 'wordEntries']);
+          return Inertia::render('frontend/word', [
+               'word' => $word,
+          ]);
      }
 }
