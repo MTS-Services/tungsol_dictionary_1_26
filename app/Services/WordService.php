@@ -18,5 +18,10 @@ class WordService
     {
         return $this->model->all();
     }
+
+    public function find($slug, $column = 'id')
+    {
+        return $this->model->where($column, $slug)->first();
+    }
     
 }

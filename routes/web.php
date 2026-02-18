@@ -22,6 +22,8 @@ Route::prefix('search')->group(function () {
     Route::post('/track-click/{id}', [SearchController::class, 'trackWordClick'])->name('search.track-click');
 });
 
+
+
 //Include Frontend Route
 
 include __DIR__.'/frontend.php';

@@ -55,6 +55,8 @@ class HandleInertiaRequests extends Middleware
                 'canVerifyEmail' => false,
                 'canUseTwoFactorAuthentication' => false,
             ],
+            'app_url' => config('app.url'),
+
         ];
     }
 }

@@ -1,3 +1,4 @@
+import { Search } from "@/components/search/search";
 import FrontendLayout from "@/layouts/frontend-layout";
 import React from "react";
 
@@ -40,37 +41,7 @@ export default function Dictionary() {
               Search meanings, play word games, and enhance your vocabulary.
             </p>
             <div className="max-w-2xl mx-auto lg:mb-12 mb-6">
-              <div className="  rounded-lg p-4 flex flex-col sm:flex-row gap-3">
-                <div className="flex gap-3 justify-center">
-                  <button className="font-arial bg-parpal font-verdana text-text-white px-4 py-2 rounded-lg font-regular text-md whitespace-nowrap transition-colors">
-                    Dictionary
-                  </button>
-                  <button className="font-arial bg-blue-700 hover:bg-blue-600 text-white px-4 py-2 rounded-lg font-regular text-md whitespace-nowrap transition-colors">
-                    Thesaurus
-                  </button>
-                </div>
-                <div className="flex-1 relative">
-                  <svg
-                    className="absolute right-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                    />
-                  </svg>
-                  <input
-                    type="text "
-                    placeholder="Search for synonyms and antonyms"
-                    className="w-full text-sm px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
-                  />
-                </div>
-              </div>
+              <Search />
             </div>
             <div className="max-w-7xl mx-auto bg-white  rounded-2xl p-8 mb-12 border-2 border-gray-300">
               <h2 className="text-2xl font-arial font-regular text-gray-800 mb-6 flex items-center ">

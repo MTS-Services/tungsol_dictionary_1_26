@@ -1,6 +1,6 @@
 import { cn } from '@/lib/utils';
 import { useState, useEffect, useRef, useCallback } from 'react';
-import { router } from '@inertiajs/react';
+import { router, usePage } from '@inertiajs/react';
 
 interface SearchResult {
     id: number;
@@ -38,6 +38,7 @@ function Search({
     placeholder = 'Search for synonyms and antonyms',
 }: Props) {
     
+   
     const [query, setQuery] = useState('');
     const [isOpen, setIsOpen] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
@@ -52,6 +53,7 @@ function Search({
     const dropdownRef = useRef<HTMLDivElement>(null);
     const observerRef = useRef<IntersectionObserver | null>(null);
     const loadMoreRef = useRef<HTMLDivElement>(null);
+    const {app_url} = usePage().props;
 
     // Real API search function
     const apiSearch = async (searchQuery: string, page: number = 1): Promise<SearchResponse> => {
@@ -83,7 +85,7 @@ function Search({
     const trackWordClick = async (wordId: number, word: string, slug: string) => {
         try {
             // Track the click to update search_count
-            await fetch(`/search/track-click/${wordId}`, {
+            await fetch(`${app_url}/search/track-click/${wordId}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -93,11 +95,12 @@ function Search({
             });
 
             // Open dummy URL with word slug
-            window.open(`https://test.com/results/${slug}`, '_blank');
+            router.visit(route('word', slug));
+            // window.open(`${app_url}/word/${slug}`, '_blank');
         } catch (error) {
             console.error('Failed to track word click:', error);
             // Still open the URL even if tracking fails
-            window.open(`https://test.com/results/${slug}`, '_blank');
+            window.open(`${app_url}/results/${slug}`, '_blank');
         }
     };
 
