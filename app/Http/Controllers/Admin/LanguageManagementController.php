@@ -81,4 +81,15 @@ class LanguageManagementController extends Controller
 
         return back()->with('success', 'Language deleted successfully.');
     }
+    
+    public function show(string $id)
+    {
+        $language = Language::findOrFail($id);
+
+        return Inertia::render('admin/language-management/show', [
+            'language' => $language
+        ]);
+
+    //    dd($language);
+    }
 }
