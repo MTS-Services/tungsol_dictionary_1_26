@@ -28,7 +28,6 @@ interface Props {
 }
 
 export default function Create({ word_entries }: Props) {
-
   const [search, setSearch] = useState("");
   const searchTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
@@ -60,6 +59,7 @@ export default function Create({ word_entries }: Props) {
       }
     };
   }, [search]);
+
   const { data, setData, post, processing, errors } = useForm({
     word_entry_id: 0,
     definition: "",

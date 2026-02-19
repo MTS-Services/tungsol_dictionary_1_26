@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Definition;
 use App\Models\Example;
 use App\Services\DataTableService;
 use App\Services\DefinitionService;
@@ -20,13 +21,12 @@ class ExampleManagementController extends Controller
      */
     public function index(): Response
     {
-        $queryBody = Example::query();
+        $queryBody = Example::query()->with(['definition']);
 
         $result = $this->dataTableService->process($queryBody, request(), [
             'searchable' => ['sentence', 'source', 'author', 'year'],
             'sortable' => ['id', 'source', 'author', 'year', 'created_at'],
         ]);
-
         return Inertia::render('admin/example-management/index', [
             'examples' => $result['data'],
             'pagination' => $result['pagination'],
@@ -41,15 +41,25 @@ class ExampleManagementController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request): Response
     {
-        // 
-        $WordDefinitions = $this->definitionService->all();
+        $search = $request->input('search', '');
+
+        $query = Definition::with('wordEntry');
+
+        if (!empty($search)) {
+            $query->where('definition', 'like', "%{$search}%");
+        }
+
+        $WordDefinitions = Inertia::scroll(
+            fn() => $query->orderBy('word_entry_id')->paginate(15)
+        );
 
         return Inertia::render('admin/example-management/create', [
             'WordDefinitions' => $WordDefinitions
         ]);
     }
+
 
     /**
      * Store a newly created resource in storage.
