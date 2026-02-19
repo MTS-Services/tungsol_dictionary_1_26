@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Definition;
 use App\Models\Example;
 use App\Services\DataTableService;
 use App\Services\DefinitionService;
 use App\Services\ExampleService;
-use Dflydev\DotAccessData\Data;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -15,12 +15,13 @@ use Inertia\Response;
 class ExampleManagementController extends Controller
 {
     public function __construct(protected DefinitionService $definitionService, protected ExampleService $exampleService, protected DataTableService $dataTableService) {}
+
     /**
      * Display a listing of the resource.
      */
     public function index(): Response
     {
-        $queryBody = Example::query();
+        $queryBody = Example::query()->with(['definition']);
 
         $result = $this->dataTableService->process($queryBody, request(), [
             'searchable' => ['sentence', 'source', 'author', 'year'],
@@ -34,20 +35,29 @@ class ExampleManagementController extends Controller
             'filters' => $result['filters'],
             'search' => $result['search'],
             'sortBy' => $result['sort_by'],
-            'sortOrder' => $result['sort_order']
+            'sortOrder' => $result['sort_order'],
         ]);
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request): Response
     {
-        // 
-        $WordDefinitions = $this->definitionService->all();
+        $search = $request->input('search', '');
+
+        $query = Definition::with('wordEntry');
+
+        if (! empty($search)) {
+            $query->where('definition', 'like', "%{$search}%");
+        }
+
+        $WordDefinitions = Inertia::scroll(
+            fn () => $query->orderBy('word_entry_id')->paginate(15)
+        );
 
         return Inertia::render('admin/example-management/create', [
-            'WordDefinitions' => $WordDefinitions
+            'WordDefinitions' => $WordDefinitions,
         ]);
     }
 
@@ -56,7 +66,7 @@ class ExampleManagementController extends Controller
      */
     public function store(Request $request)
     {
-        $data =  $request->validate([
+        $data = $request->validate([
             'definition_id' => 'required|integer',
             'sentence' => 'required|string|max:255',
             'source' => 'nullable|string|max:255',
@@ -86,21 +96,31 @@ class ExampleManagementController extends Controller
         // dd($example);
 
         return Inertia::render('admin/example-management/show', [
-            'example' => $example
+            'example' => $example,
         ]);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Request $request, string $id): Response
     {
-        $exmaple = $this->exampleService->find($id);
-        $WordDefinitions = $this->definitionService->all();
+        $example = $this->exampleService->find($id);
+        $search = $request->input('search', '');
+
+        $query = Definition::with('wordEntry');
+
+        if (! empty($search)) {
+            $query->where('definition', 'like', "%{$search}%");
+        }
+
+        $WordDefinitions = Inertia::scroll(
+            fn () => $query->orderBy('word_entry_id')->paginate(15)
+        );
 
         return Inertia::render('admin/example-management/edit', [
-            'example' => $exmaple,
-            'WordDefinitions' => $WordDefinitions
+            'example' => $example,
+            'WordDefinitions' => $WordDefinitions,
         ]);
     }
 
@@ -112,11 +132,11 @@ class ExampleManagementController extends Controller
 
         $oldExample = $this->exampleService->find($id);
 
-        if (!$oldExample) {
+        if (! $oldExample) {
             return redirect()->route('admin.em.examples.index');
         }
 
-        $data =  $request->validate([
+        $data = $request->validate([
             'definition_id' => 'required|integer',
             'sentence' => 'required|string|max:255',
             'source' => 'nullable|string|max:255',

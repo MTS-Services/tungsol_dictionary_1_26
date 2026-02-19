@@ -3,24 +3,63 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import AdminLayout from "@/layouts/admin-layout";
-import { Head, Link, useForm } from "@inertiajs/react";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@radix-ui/react-select";
+import { Head, InfiniteScroll, Link, router, useForm } from "@inertiajs/react";
 import { Save } from "lucide-react";
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 
 interface WordDefinition {
   id: number;
   definition: string;
+  wordEntry?: {
+    word: string;
+  };
 }
+
+interface PaginationWords {
+  data: WordDefinition[];
+}
+
 interface Props {
-  WordDefinitions: WordDefinition[];
+  WordDefinitions: PaginationWords;
 }
+
 export default function Create({ WordDefinitions }: Props) {
+  const [search, setSearch] = useState("");
+  const searchTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  useEffect(() => {
+    if (searchTimeoutRef.current) {
+      clearTimeout(searchTimeoutRef.current);
+    }
+
+    searchTimeoutRef.current = setTimeout(() => {
+      router.get(
+        route("admin.em.examples.create"),
+        { search },
+        {
+          preserveState: true,
+          preserveScroll: true,
+          replace: true,
+          only: ["WordDefinitions"],
+          reset: ["WordDefinitions"],
+        }
+      );
+    }, 300);
+
+    return () => {
+      if (searchTimeoutRef.current) {
+        clearTimeout(searchTimeoutRef.current);
+      }
+    };
+  }, [search]);
+
+
   const { data, setData, post, errors, processing } = useForm({
-    definition_id: "",
+    definition_id: null as number | null,
     sentence: "",
     source: "",
     author: "",
@@ -60,12 +99,56 @@ export default function Create({ WordDefinitions }: Props) {
                   <CardTitle>Word Example</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  <div className="grid gap-2">
+                  {/* <div className="grid gap-2">
                     <Label htmlFor="definition_id">Word Definition</Label>
-                    <select onChange={e => setData("definition_id", e.target.value)}>
-                      {WordDefinitions.map((word) => <option key={word.id} value={word.id}>{word.definition}</option>)}
+                    <select
+                      onChange={e => setData("definition_id", e.target.value)}
+                    >
+                      {WordDefinitions?.data?.length > 0 ? (
+                        WordDefinitions.data.map((item) => (
+                          <option key={item.id} value={item.id}>
+                            {item.definition}
+                          </option>
+                        ))
+                      ) : (
+                        <option disabled>No definitions found</option>
+                      )}
                     </select>
 
+
+                    <InputError message={errors.definition_id} />
+                  </div> */}
+
+                  <div className="grid gap-2">
+                    <Label htmlFor="code">Word Definition</Label>
+                    <Select onValueChange={(value) => setData("definition_id", Number(value))}>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select a definition" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <div className="p-2">
+                          <Input
+                            placeholder="Search definitions..."
+                            className="mb-2"
+                            value={search}
+                            onChange={(e) => setSearch(e.target.value)}
+                            autoFocus
+                          />
+                        </div>
+
+                        <InfiniteScroll data="WordDefinitions">
+                          {WordDefinitions.data.map((item) => (
+                            <SelectItem
+                              key={item.id}
+                              value={String(item.id)}
+                            >
+                              {item.definition}
+                            </SelectItem>
+                          ))
+                          }
+                        </InfiniteScroll>
+                      </SelectContent>
+                    </Select>
                     <InputError message={errors.definition_id} />
                   </div>
 
