@@ -7,6 +7,7 @@ use App\Jobs\ContactJob;
 use App\Mail\ContactMail;
 use App\Services\ContactService;
 use App\Services\SearchService;
+use App\Services\WordOfTheDayService;
 use App\Services\WordService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -17,14 +18,23 @@ use Inertia\Response;
 class FrontendController extends Controller
 {
      //
-     public function __construct(protected ContactService $contactService, protected WordService $wordService, protected SearchService $searchService) {}
+     public function __construct(
+          protected ContactService $contactService, 
+          protected WordService $wordService, 
+          protected SearchService $searchService,
+          protected WordOfTheDayService $wordOfTheDayService
+     ) {}
 
      public function index(): Response
      {
           $trendingWords = $this->wordService->getTrendingWords();
-        
+          
+          $wordOfTheDay = $this->wordOfTheDayService->getWordOfTheDay();
+          $wordOfTheDay->load(['word.wordEntries.partOfSpeech','word.wordEntries.definitions.examples']);
+
           return Inertia::render('frontend/index', [
                'trendingWords' => $trendingWords,
+               'wordOfTheDay' => $wordOfTheDay,
           ]);
      }
 
