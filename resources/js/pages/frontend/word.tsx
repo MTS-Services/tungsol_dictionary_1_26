@@ -1,20 +1,44 @@
 import FrontendLayout from '@/layouts/frontend-layout';
+import { Link } from '@inertiajs/react';
+import AudioPlayer from '@/components/ui/audio-player';
 
-
+interface Example {
+    id: number;
+    sentence: string;
+}
+interface Definition {
+    id: number;
+    definition: string;
+    examples: Example[];
+}
+interface PartOfSpeech {
+    id: number;
+    name: string;
+}
 interface WordEntry {
-  audio_url: string;
-  pronunciation_ipa: string; 
+    audio_url: string;
+    pronunciation_ipa: string;
+    definitions: Definition[];
+    part_of_speech: PartOfSpeech[];
+    synonyms?: string[];
+    antonyms?: string[];
+}
+interface RelatedWord {
+    word: Word;
+    slug: string;
 }
 interface Word {
-  slug: string;
-  word:string;
-  word_entries:any[];
+    slug: string;
+    word: string;
+    etymology: string;
+    word_entries: WordEntry[];
+    related_words: RelatedWord[];
 }
 interface Props {
     word: Word;
 }
 export default function Word({ word }: Props) {
-  console.log(word);
+    console.log(word);
     return (
         <FrontendLayout>
             <>
@@ -73,15 +97,10 @@ export default function Word({ word }: Props) {
                                     {word.word}
                                 </h1>
                                 <div className="flex gap-2">
-                                    <button className="text-md rounded-full p-2 font-arial text-blue-500 hover:bg-slate-100">
-                                        <svg
-                                            className="h-5 w-5"
-                                            fill="currentColor"
-                                            viewBox="0 0 24 24"
-                                        >
-                                            <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z" />
-                                        </svg>
-                                    </button>
+                                    <AudioPlayer 
+                                        audioUrl={word.word_entries[0]?.audio_url}
+                                        className="text-md rounded-full p-2 font-arial text-blue-500 hover:bg-slate-100"
+                                    />
 
                                     <button className="text-md rounded-full p-2 font-arial text-foreground hover:bg-slate-100">
                                         <svg
@@ -122,7 +141,7 @@ export default function Word({ word }: Props) {
                                 </div>
                             </div>
                             <p className="text-md font-inter text-gray-500">
-                               {word.word_entries[0]?.pronunciation}
+                                {word.word_entries[0]?.pronunciation_ipa}
                             </p>
                         </div>
 
@@ -132,59 +151,39 @@ export default function Word({ word }: Props) {
                             </h3>
 
                             <div className="space-y-6 px-4">
-                                <div>
-                                    <span className="rounded bg-slate-100 px-2 py-0.5 text-[10px] font-bold text-slate-500 uppercase">
-                                        noun
-                                    </span>
-                                    <p className="mt-3 font-arial font-medium text-slate-700">
-                                        The state or quality of being knowledge.
-                                    </p>
-                                    <div className="mt-2 rounded-lg border-l-4 border-blue-500 bg-slate-50/80 p-4">
-                                        <p className="mb-1 font-arial text-xs font-medium tracking-tight text-gray-400 uppercase">
-                                            Example:
+                                {word.word_entries.map((entry, index) => (
+                                    <div key={index}>
+                                        <span className="rounded bg-slate-100 px-2 py-0.5 text-[10px] font-bold text-slate-500 uppercase">
+                                            {entry.part_of_speech[0]?.name}
+                                        </span>
+                                        <p className="mt-3 font-arial font-medium text-slate-700">
+                                            {word.etymology}
                                         </p>
-                                        <p className="text-sm text-foreground italic">
-                                            "The knowledge of the landscape was
-                                            breathtaking."
-                                        </p>
+                                        {entry.definitions.map(
+                                            (definition, index) => (
+                                                <>
+                                                    {definition.examples.map(
+                                                        (example, index) => (
+                                                            <div className="mt-3 rounded-lg border-l-4 border-blue-500 bg-slate-50/80 p-4">
+                                                                <p className="mb-1 font-arial text-xs font-medium tracking-tight text-gray-400 uppercase">
+                                                                    Example {index + 1} :
+                                                                </p>
+                                                                <p
+                                                                    key={index}
+                                                                    className="text-sm text-foreground italic"
+                                                                >
+                                                                    {
+                                                                        example.sentence
+                                                                    }
+                                                                </p>
+                                                            </div>
+                                                        ),
+                                                    )}
+                                                </>
+                                            ),
+                                        )}
                                     </div>
-                                </div>
-
-                                <div>
-                                    <p className="font-arial font-medium text-slate-700">
-                                        Something that possesses the
-                                        characteristics of knowledge.
-                                    </p>
-                                    <div className="mt-2 rounded-lg border-l-4 border-blue-500 bg-slate-50/80 p-4">
-                                        <p className="mb-1 font-arial text-xs font-medium tracking-tight text-gray-400 uppercase">
-                                            Example:
-                                        </p>
-                                        <p className="text-sm text-foreground italic">
-                                            "She found knowledge in the simple
-                                            things in life."
-                                        </p>
-                                    </div>
-                                </div>
-
-                                <div className="pt-4">
-                                    <span className="rounded bg-slate-100 px-2 py-0.5 text-[10px] font-bold text-slate-500 uppercase">
-                                        adjective
-                                    </span>
-                                    <p className="mt-3 font-arial font-medium text-slate-700">
-                                        Possessing qualities that give great
-                                        pleasure or satisfaction to see, hear,
-                                        think about, etc.
-                                    </p>
-                                    <div className="mt-2 rounded-lg border-l-4 border-blue-500 bg-slate-50/80 p-4">
-                                        <p className="mb-1 font-arial text-xs font-medium tracking-tight text-gray-400 uppercase">
-                                            Example:
-                                        </p>
-                                        <p className="text-sm text-foreground italic">
-                                            "It was a knowledge day for a walk
-                                            in the park."
-                                        </p>
-                                    </div>
-                                </div>
+                                ))}
                             </div>
                         </div>
 
@@ -194,27 +193,13 @@ export default function Word({ word }: Props) {
                                     Synonyms
                                 </h3>
                                 <div className="flex flex-wrap gap-2">
-                                    <span className="rounded-full border border-green-100 bg-green-50 px-3 py-1 text-xs font-medium text-green-500">
-                                        lovely
-                                    </span>
-                                    <span className="rounded-full border border-green-100 bg-green-50 px-3 py-1 text-xs font-medium text-green-500">
-                                        attractive
-                                    </span>
-                                    <span className="rounded-full border border-green-100 bg-green-50 px-3 py-1 text-xs font-medium text-green-500">
-                                        gorgeous
-                                    </span>
-                                    <span className="rounded-full border border-green-100 bg-green-50 px-3 py-1 text-xs font-medium text-green-500">
-                                        stunning
-                                    </span>
-                                    <span className="rounded-full border border-green-100 bg-green-50 px-3 py-1 text-xs font-medium text-green-500">
-                                        elegant
-                                    </span>
-                                    <span className="rounded-full border border-green-100 bg-green-50 px-3 py-1 text-xs font-medium text-green-500">
-                                        graceful
-                                    </span>
-                                    <span className="rounded-full border border-green-100 bg-green-50 px-3 py-1 text-xs font-medium text-green-500">
-                                        charming
-                                    </span>
+                                    {word.word_entries[0]?.synonyms?.map((synonym, index) => (
+                                        <span key={index} className="rounded-full border border-green-100 bg-green-50 px-3 py-1 text-xs font-medium text-green-500">
+                                            {synonym}
+                                        </span>
+                                    )) || (
+                                        <span className="text-gray-400 text-sm">No synonyms available</span>
+                                    )}
                                 </div>
                             </div>
                             <div className="rounded-2xl bg-white p-6 shadow-sm">
@@ -222,18 +207,13 @@ export default function Word({ word }: Props) {
                                     Antonyms
                                 </h3>
                                 <div className="flex flex-wrap gap-2">
-                                    <span className="rounded-full border border-red-100 bg-red-50 px-3 py-1 text-xs font-medium text-red-500">
-                                        ugly
-                                    </span>
-                                    <span className="rounded-full border border-red-100 bg-red-50 px-3 py-1 text-xs font-medium text-red-500">
-                                        unattractive
-                                    </span>
-                                    <span className="rounded-full border border-red-100 bg-red-50 px-3 py-1 text-xs font-medium text-red-500">
-                                        plain
-                                    </span>
-                                    <span className="rounded-full border border-red-100 bg-red-50 px-3 py-1 text-xs font-medium text-red-500">
-                                        unpleasant
-                                    </span>
+                                    {word.word_entries[0]?.antonyms?.map((antonym, index) => (
+                                        <span key={index} className="rounded-full border border-red-100 bg-red-50 px-3 py-1 text-xs font-medium text-red-500">
+                                            {antonym}
+                                        </span>
+                                    )) || (
+                                        <span className="text-gray-400 text-sm">No antonyms available</span>
+                                    )}
                                 </div>
                             </div>
                         </div>
@@ -243,21 +223,12 @@ export default function Word({ word }: Props) {
                                 Related Words
                             </h3>
                             <div className="divide-y divide-slate-50">
-                                <button className="group flex w-full items-center justify-between py-3 text-left font-arial text-sm font-medium text-slate-700 hover:text-blue-500">
-                                    beauty →
-                                </button>
-                                <button className="group flex w-full items-center justify-between py-3 text-left font-arial text-sm font-medium text-slate-700 hover:text-blue-500">
-                                    beautifully →
-                                </button>
-                                <button className="group flex w-full items-center justify-between py-3 text-left font-arial text-sm font-medium text-slate-700 hover:text-blue-500">
-                                    beautify →
-                                </button>
-                                <button className="group flex w-full items-center justify-between py-3 text-left font-arial text-sm font-medium text-slate-700 hover:text-blue-500">
-                                    beautifully →
-                                </button>
-                                <button className="group flex w-full items-center justify-between py-3 text-left font-arial text-sm font-medium text-slate-700 hover:text-blue-500">
-                                    beautify →
-                                </button>
+                                {word.related_words.map((relatedWord) => (
+                                    
+                                    <Link key={relatedWord.word.slug} href={route('word', { slug: relatedWord.word.slug })} className="group flex w-full items-center justify-between py-3 text-left font-arial text-sm font-medium text-slate-700 hover:text-blue-500">
+                                        {relatedWord.word.word} →
+                                    </Link>
+                                ))}
                             </div>
                         </div>
                     </div>

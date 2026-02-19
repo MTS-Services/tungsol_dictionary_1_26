@@ -169,11 +169,11 @@ class SearchService
     /**
      * Get trending searches
      */
-    public function getTrendingSearches(int $limit = 10): array
+    public function getPopularSerach(int $limit = 10): array
     {
         return Cache::remember('trending_searches', 3600, function () use ($limit) {
             return SearchHistory::select('query', DB::raw('COUNT(*) as search_count'))
-                ->where('searched_at', '>=', now()->subDays(7))
+                // ->where('searched_at', '>=', now()->subDays(7))
                 ->groupBy('query')
                 ->orderBy('search_count', 'desc')
                 ->limit($limit)

@@ -1,4 +1,5 @@
 import { Search } from '@/components/search/search';
+import AudioPlayer from '@/components/ui/audio-player';
 
 import { router } from '@inertiajs/react';
 import React from 'react';
@@ -12,9 +13,12 @@ interface TrendingWord {
 
 interface HomeContentProps {
   trendingWords: TrendingWord[];
+  wordOfTheDay: any;
 }
 
-const HomeContent = ({ trendingWords }: HomeContentProps) => {
+const HomeContent = ({ trendingWords, wordOfTheDay }: HomeContentProps) => {
+
+  console.log(wordOfTheDay.word.word_entries);
   return (
     <div className="min-h-screen bg-white">
       {/* --- HERO SECTION --- */}
@@ -65,28 +69,31 @@ const HomeContent = ({ trendingWords }: HomeContentProps) => {
           </div>
 
           {/* Word of the Day Card */}
-          <div onClick={() => window.location.href = '/home2'} className="max-w-6xl mx-auto bg-white/95 backdrop-blur-md rounded-xl shadow-2xl p-8 relative overflow-hidden border border-white/20 cursor-pointer">
+          <div className="max-w-6xl mx-auto bg-white/95 backdrop-blur-md rounded-xl shadow-2xl p-8 relative overflow-hidden border border-white/20 cursor-pointer">
             <div className="flex justify-between items-start mb-4">
               <span className="bg-btn-primary text-white px-2 py-1 rounded text-sm font-normal uppercase tracking-wider font-arial">
                 Word of the Day
               </span>
-              <button className="text-gray-400 hover:text-gray-600">
-                <svg width={24} height={24} viewBox="0 0 24 24" fill="none" stroke="#155DFC" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M11 5L6 9H2v6h4l5 4V5z" /><path d="M15.54 8.46a5 5 0 0 1 0 7.07" />
-                </svg>
-              </button>
+              <AudioPlayer 
+                audioUrl={wordOfTheDay.word.word_entries[0]?.audio_url}
+                className="text-gray-400 hover:text-gray-600"
+              />
             </div>
-            <h2 className="text-3xl font-arial font-regular text-text-primary mb-2">Perspicacious</h2>
+            <h2 className="text-3xl font-arial font-regular text-text-primary mb-2">
+              {wordOfTheDay.word.word}
+            </h2>
             <p className="text-text-secondary text-sm mb-4">
-              <span className="font-regular italic">per·spi·ca·cious</span><br /> • adjective
+              <span className="font-regular italic">
+                {wordOfTheDay.word.word_entries[0]?.pronunciation_ipa}
+                </span><br /> • {wordOfTheDay.word.word_entries[0].part_of_speech.name}
             </p>
             <p className="text-text-primary text-lg font-medium mb-4 leading-relaxed">
-              Having a ready insight into and understanding of things: mentally sharp or keen.
+             {wordOfTheDay.word.word_entries[0].definitions[0].definition}
             </p>
             <div className="bg-gray-100 p-4 rounded pt-4">
               <p className="text-text-secondary text-xs font-regular uppercase mb-2">Example:</p>
               <p className="text-text-secondary">
-                "The perspicacious detective noticed the tiny clue that everyone else had missed."
+                {wordOfTheDay.word.word_entries[0]?.definitions[0]?.examples[0]?.sentence}
               </p>
             </div>
           </div>

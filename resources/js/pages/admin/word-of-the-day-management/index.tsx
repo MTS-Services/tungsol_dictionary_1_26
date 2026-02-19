@@ -55,14 +55,22 @@ const index = ({ wordOfTheDays, pagination, offset, filters, search, sortBy, sor
             label: 'Date',
             sortable: true,
             render: (row) => (
+
                 <div className="text-gray-600 dark:text-gray-400">
-                    {row.date}
+                    {new Date(row.date).toLocaleDateString()}
                 </div>
             ),
         },
     ]
 
     const actions: ActionConfig<WordOfTheDay>[] = [
+        {
+            label: 'View',
+            icon: <Eye className="h-4 w-4" />,
+            onClick: (wordOfTheDay) => {
+                router.visit(route('admin.wotdm.word-of-the-day.show', wordOfTheDay?.id));
+            },
+        },
         {
             label: 'Edit',
             icon: <Pencil className="h-4 w-4" />,

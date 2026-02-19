@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Jobs\ContactJob;
 use App\Mail\ContactMail;
 use App\Services\ContactService;
+use App\Services\SearchService;
+use App\Services\WordOfTheDayService;
 use App\Services\WordService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -16,14 +18,23 @@ use Inertia\Response;
 class FrontendController extends Controller
 {
      //
-     public function __construct(protected ContactService $contactService, protected WordService $wordService) {}
+     public function __construct(
+          protected ContactService $contactService, 
+          protected WordService $wordService, 
+          protected SearchService $searchService,
+          protected WordOfTheDayService $wordOfTheDayService
+     ) {}
 
      public function index(): Response
      {
           $trendingWords = $this->wordService->getTrendingWords();
-        
+          
+          $wordOfTheDay = $this->wordOfTheDayService->getWordOfTheDay();
+          $wordOfTheDay->load(['word.wordEntries.partOfSpeech','word.wordEntries.definitions.examples']);
+
           return Inertia::render('frontend/index', [
                'trendingWords' => $trendingWords,
+               'wordOfTheDay' => $wordOfTheDay,
           ]);
      }
 
@@ -40,8 +51,11 @@ class FrontendController extends Controller
      public function dictionary(): Response
      {
           $trendingWords = $this->wordService->getTrendingWords();
+          $popularSerach = $this->searchService->getPopularSerach(10);
+          // dd($popularSerach);
           return Inertia::render('frontend/dictionary', [
                'trendingWords' => $trendingWords,
+               'popularSerach' => $popularSerach,
           ]);
      }
 
@@ -134,9 +148,7 @@ class FrontendController extends Controller
 
           $word = $this->wordService->find($slug, 'slug');
 
-          $word->load(['relatedWords', 'wordEntries.definitions.examples', 'wordEntries.partOfSpeech']);
-
-
+          $word->load(['relatedWords.word', 'wordEntries.definitions.examples', 'wordEntries.partOfSpeech', 'wordEntries.definitions.synonyms','wordEntries.definitions.antonyms']);
 
           return Inertia::render('frontend/word', [
                'word' => $word,
