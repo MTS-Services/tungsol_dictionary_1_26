@@ -1,6 +1,7 @@
 import { cn } from '@/lib/utils';
 import { useState, useEffect, useRef, useCallback } from 'react';
-import { router, usePage } from '@inertiajs/react';
+import { router, useForm, usePage } from '@inertiajs/react';
+import { toast } from 'sonner';
 
 interface SearchResult {
     id: number;
@@ -55,6 +56,11 @@ function Search({
     const loadMoreRef = useRef<HTMLDivElement>(null);
     const {app_url} = usePage().props;
 
+    const {data, setData, post } = useForm({
+        _method: 'PUT',
+    });
+
+
     // Real API search function
     const apiSearch = async (searchQuery: string, page: number = 1): Promise<SearchResponse> => {
         const params = new URLSearchParams({
@@ -84,23 +90,15 @@ function Search({
     // Track word click and update search count
     const trackWordClick = async (wordId: number, word: string, slug: string) => {
         try {
-            // Track the click to update search_count
-            await fetch(`${app_url}/search/track-click/${wordId}`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '',
-                },
-                body: JSON.stringify({ word }),
-            });
-
-            // Open dummy URL with word slug
-            router.visit(route('word', slug));
-            // window.open(`${app_url}/word/${slug}`, '_blank');
+            // Track the click and navigate to word page using Inertia
+            await router.put(route('search.track-click', wordId));
+            
+            // toast.success('Word Count Increased');
         } catch (error) {
             console.error('Failed to track word click:', error);
-            // Still open the URL even if tracking fails
-            window.open(`${app_url}/results/${slug}`, '_blank');
+            // toast.error('Failed to Increase Word Count');
+            // Fallback navigation if tracking fails
+            router.visit(route('word', slug));
         }
     };
 

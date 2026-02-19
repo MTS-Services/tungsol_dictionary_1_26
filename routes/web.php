@@ -19,7 +19,7 @@ Route::prefix('search')->group(function () {
     Route::get('/', [SearchController::class, 'search'])->name('search');
     Route::get('/suggestions', [SearchController::class, 'suggestions'])->name('search.suggestions');
     Route::get('/trending', [SearchController::class, 'trending'])->name('search.trending');
-    Route::post('/track-click/{id}', [SearchController::class, 'trackWordClick'])->name('search.track-click');
+    Route::put('/track-click/{id}', [SearchController::class, 'trackWordClick'])->name('search.track-click');
 });
 
 
