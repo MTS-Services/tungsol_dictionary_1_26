@@ -4,7 +4,7 @@ import { useDataTable } from '@/hooks/use-data-table';
 import AdminLayout from '@/layouts/admin-layout'
 import { ActionConfig, ColumnConfig, PaginationData } from '@/types/data-table.types';
 import { Head, Link, router } from '@inertiajs/react'
-import { Pencil, Trash2 } from 'lucide-react';
+import { Eye, Pencil, Trash2 } from 'lucide-react';
 import React from 'react'
 
 interface RelatedWord {
@@ -97,6 +97,13 @@ export default function Index({relatedWords,pagination,offset,filters,search,sor
       ];
 
     const actions: ActionConfig<RelatedWord>[] = [
+      {
+      label: "View",
+      icon: <Eye className="h-4 w-4" />,
+      onClick: (relatedWord) => {
+        router.visit(route("admin.rwm.related-words.show", relatedWord.id));
+      },
+    },
     {
       label: "Edit",
       icon: <Pencil className="h-4 w-4" />,

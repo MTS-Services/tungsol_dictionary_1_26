@@ -4,7 +4,7 @@ import { useDataTable } from '@/hooks/use-data-table';
 import AdminLayout from '@/layouts/admin-layout'
 import { ActionConfig, ColumnConfig, PaginationData } from '@/types/data-table.types';
 import { Head, Link, router } from '@inertiajs/react'
-import { Pencil, Trash2 } from 'lucide-react';
+import { Eye, Pencil, Trash2 } from 'lucide-react';
 import React from 'react'
 
 interface Antonym {
@@ -87,6 +87,13 @@ export default function Index({antonyms,pagination,offset,filters,search,sortBy,
       ];
 
     const actions: ActionConfig<Antonym>[] = [
+      {
+        label: "Show",
+        icon: <Eye className="h-4 w-4" />,
+        onClick: (antonym) => {
+          router.visit(route("admin.am.antonyms.show", antonym.id));
+        },
+      },
     {
       label: "Edit",
       icon: <Pencil className="h-4 w-4" />,

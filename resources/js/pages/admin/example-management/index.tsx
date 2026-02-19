@@ -5,7 +5,7 @@ import { DataTable } from '@/components/ui/data-table';
 import { useDataTable } from '@/hooks/use-data-table';
 import { PaginationData, ColumnConfig, ActionConfig } from '@/types/data-table.types';
 import { Head, Link, router } from "@inertiajs/react";
-import { Pencil, Trash2 } from "lucide-react";
+import { Eye, Pencil, Trash2 } from "lucide-react";
 import React from "react";
 
 interface Example {
@@ -109,6 +109,13 @@ export default function Index({
   ];
 
   const actions: ActionConfig<Example>[] = [
+    {
+      label: "View",
+      icon: <Eye className="h-4 w-4" />,
+      onClick: (example) => {
+        router.visit(route("admin.em.examples.show", example?.id));
+      },
+    },
     {
       label: "Edit",
       icon: <Pencil className="h-4 w-4" />,

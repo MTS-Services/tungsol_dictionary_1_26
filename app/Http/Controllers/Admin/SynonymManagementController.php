@@ -74,7 +74,11 @@ class SynonymManagementController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $synonym = Synonym::with(['definition', 'synonymWord'])->findOrFail($id);
+
+        return Inertia::render('admin/synonym-management/show', [
+            'synonym' => $synonym
+        ]);
     }
 
     /**
