@@ -4,7 +4,7 @@ import { useDataTable } from '@/hooks/use-data-table';
 import AdminLayout from '@/layouts/admin-layout'
 import { ActionConfig, ColumnConfig, PaginationData } from '@/types/data-table.types';
 import { Head, Link, router } from '@inertiajs/react'
-import { Pencil, Trash2 } from 'lucide-react';
+import { Eye, Pencil, Trash2 } from 'lucide-react';
 import React from 'react'
 
 interface Article {
@@ -119,6 +119,13 @@ export default function Index({articles, pagination, offset, filters, search, so
       ];
 
     const actions: ActionConfig<Article>[] = [
+      {
+        label: "View",
+        icon: <Eye className="h-4 w-4" />,
+        onClick: (article) => {
+          router.visit(route("admin.am.articles.show", article.id));
+        },
+      },
     {
       label: "Edit",
       icon: <Pencil className="h-4 w-4" />,
@@ -138,7 +145,7 @@ export default function Index({articles, pagination, offset, filters, search, so
     },
   ];
   return (
-     <AdminLayout activeSlug="articles">
+     <AdminLayout activeSlug="article-management">
       <Head title="Articles" />
 
       <div className="flex justify-end mb-6">
