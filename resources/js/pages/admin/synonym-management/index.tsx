@@ -4,7 +4,7 @@ import { useDataTable } from '@/hooks/use-data-table';
 import AdminLayout from '@/layouts/admin-layout'
 import { ActionConfig, ColumnConfig, PaginationData } from '@/types/data-table.types';
 import { Head, Link, router } from '@inertiajs/react'
-import { Pencil, Trash2 } from 'lucide-react';
+import { Eye, Pencil, Trash2 } from 'lucide-react';
 import React from 'react'
 
 interface Synonym {
@@ -87,6 +87,13 @@ export default function Index({synonyms,pagination,offset,filters,search,sortBy,
       ];
 
     const actions: ActionConfig<Synonym>[] = [
+      {
+        label: "View",
+        icon: <Eye className="h-4 w-4" />,
+        onClick: (synonym) => {
+          router.visit(route("admin.sm.synonyms.show", synonym.id));
+        },
+      },
     {
       label: "Edit",
       icon: <Pencil className="h-4 w-4" />,
