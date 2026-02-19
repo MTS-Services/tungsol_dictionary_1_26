@@ -87,4 +87,13 @@ class WordOfTheDayManagementController extends Controller
 
         return back()->with('success', 'Word of the Day deleted successfully.');
     }
+
+    public function show(string $id): Response
+    {
+        $wordOfTheDay = WordOfTheDay::with('word')->findOrFail($id);
+
+        return Inertia::render('admin/word-of-the-day-management/show', [
+            'wordOfTheDay' => $wordOfTheDay,
+        ]);
+    }
 }
