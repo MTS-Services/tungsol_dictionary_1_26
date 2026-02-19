@@ -92,7 +92,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         });
 
         Route::prefix('antonym-management' )->name('am.')->group(function () {
-            Route::resource( 'antonyms',AntonymManagementController::class)->only('index','create', 'store', 'edit', 'update', 'destroy');
+            Route::resource( 'antonyms',AntonymManagementController::class)->only('index','create', 'store', 'edit', 'show', 'update', 'destroy');
         });
 
         // Category Management Routes

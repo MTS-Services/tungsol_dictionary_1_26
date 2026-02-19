@@ -75,7 +75,11 @@ class AntonymManagementController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $antonym = Antonym::with(['definition', 'antonymWord'])->findOrFail($id);
+        
+        return Inertia::render('admin/antonym-management/show', [
+            'antonym' => $antonym
+        ]);
     }
 
     /**
