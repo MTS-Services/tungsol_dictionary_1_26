@@ -65,7 +65,7 @@ export default function Edit({ article, authors, words }: Props) {
     };
 
     return (
-        <AdminLayout activeSlug="articles">
+        <AdminLayout activeSlug="article-management">
             <Head title={`Edit Article: ${article.title}`} />
             <div className="flex justify-between items-center mb-6">
                 <h1 className="text-2xl font-semibold">Edit Article: {article.title}</h1>
