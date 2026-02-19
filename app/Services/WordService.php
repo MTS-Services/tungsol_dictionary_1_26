@@ -23,5 +23,11 @@ class WordService
     {
         return $this->model->where($column, $slug)->first();
     }
+
+    // getTrendingWords
+    public function getTrendingWords()
+    {
+        return $this->model->orderBy('search_count', 'desc')->limit(10)->get();
+    }
     
 }
