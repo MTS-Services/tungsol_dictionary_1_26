@@ -103,7 +103,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
         // Article Management Routes
         Route::prefix('article-management' )->name('am.')->group(function () {
-            Route::resource( 'articles',ArticleManagementController::class)->only('index','create', 'store', 'edit', 'update', 'destroy');
+            Route::resource( 'articles',ArticleManagementController::class)->only('index','create', 'store', 'edit', 'show', 'update', 'destroy');
         });
 
         // Word of the Day Management Routes
