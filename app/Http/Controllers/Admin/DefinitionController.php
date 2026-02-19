@@ -92,14 +92,19 @@ class DefinitionController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Request $request, string $id)
     {
         $definition = $this->definitionService->find($id);
         if (! $definition) {
             return redirect()->route('admin.wm.definitions.index');
         }
-        $word_entries = WordEntry::all();
-        $word_entries->load('word');
+        $search = $request->input('search', '');
+        $query = WordEntry::with('word')->whereHas('word', function ($q) use ($search) {
+            if (! empty($search)) {
+                $q->where('word', 'like', "%{$search}%");
+            }
+        });
+        $word_entries = Inertia::scroll(fn () => $query->orderBy('word_id')->paginate(15));
 
         return Inertia::render('admin/word-definition/edit', [
             'definition' => $definition,
