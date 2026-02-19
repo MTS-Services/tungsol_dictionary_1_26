@@ -5,18 +5,24 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Word;
 use App\Services\SearchService;
+use App\Services\WordService;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
+use Inertia\Inertia;
+use Inertia\Response as InertiaResponse;
 
 class SearchController extends Controller
 {
     protected SearchService $searchService;
+    protected WordService $wordService;
 
-    public function __construct(SearchService $searchService)
+    public function __construct(SearchService $searchService, WordService $wordService)
     {
         $this->searchService = $searchService;
+        $this->wordService = $wordService;
     }
 
     /**
@@ -106,29 +112,16 @@ class SearchController extends Controller
     /**
      * Increment word search count when word is clicked
      */
-    public function trackWordClick(Request $request, int $id): JsonResponse
+    public function trackWordClick(Request $request, int $id): InertiaResponse
     {
-        $request->validate([
-            'word' => 'required|string',
-        ]);
-
         try {
             $this->searchService->incrementWordSearchCount($id);
-
-            return response()->json([
-                'success' => true,
-                'message' => 'Word click tracked',
-            ]);
+            $word = $this->wordService->find($id);
+          return Inertia::render('frontend/word', [
+            'word' => $word,
+        ]);
         } catch (\Exception $e) {
-            Log::error('Word click tracking error: ' . $e->getMessage(), [
-                'word_id' => $id,
-                'user_id' => Auth::id(),
-            ]);
-
-            return response()->json([
-                'success' => false,
-                'message' => 'Failed to track click',
-            ], 500);
+           abort(400);
         }
     }
 }
