@@ -1,6 +1,7 @@
 import { Search } from "@/components/search/search";
 import { TrendingWords } from "@/components/sections/frontend/common/trending-word";
 import FrontendLayout from "@/layouts/frontend-layout";
+import { Link } from "@inertiajs/react";
 import React from "react";
 interface TrendingWord {
   word: string;
@@ -90,7 +91,7 @@ export default function Dictionary({ trendingWords }: DictionaryProps) {
                     </h2>
                     {/* Links List */}
                     <div className="space-y-4">
-                      <a
+                      {/* <a
                         href="#"
                         className="flex items-center justify-between bg-gray-100 hover:bg-blue-100 text-gray-800 font-medium py-4 px-6 rounded-lg transition-colors group"
                       >
@@ -128,9 +129,9 @@ export default function Dictionary({ trendingWords }: DictionaryProps) {
                           />
                         </svg></span>     
                         
-                      </a>
-                      <a
-                        href="#"
+                      </a> */}
+                      <Link
+                        href={route('word-of-the-day')}
                         className="flex items-center justify-between bg-gray-100 hover:bg-blue-100 text-gray-800 font-medium py-4 px-6 rounded-lg transition-colors group"
                       >
                         <span className="flex items-center gap-2 font-arial font-medium text-foreground text-1xl">Word of the Day<svg
@@ -147,7 +148,7 @@ export default function Dictionary({ trendingWords }: DictionaryProps) {
                           />
                         </svg> </span>
                         
-                      </a>
+                      </Link>
                     </div>
                   </div>
 

@@ -13,26 +13,26 @@ const adminNavItems: NavItemType[] = [
         icon: LayoutGrid,
         slug: 'dashboard',
     },
-    {
-        title: 'User Management',
-        href: '#',
-        icon: Users,
-        badge: 2,
-        children: [
-            {
-                title: 'Admins',
-                href: route('admin.all'),
-                icon: Shield,
-                permission: 'manage admins',
-                slug: 'admin-admins',
-            },
-            {
-                title: 'Users',
-                href: '#',
-                icon: User,
-            },
-        ],
-    },
+    // {
+    //     title: 'User Management',
+    //     href: '#',
+    //     icon: Users,
+    //     badge: 2,
+    //     children: [
+    //         {
+    //             title: 'Admins',
+    //             href: route('admin.all'),
+    //             icon: Shield,
+    //             permission: 'manage admins',
+    //             slug: 'admin-admins',
+    //         },
+    //         {
+    //             title: 'Users',
+    //             href: '#',
+    //             icon: User,
+    //         },
+    //     ],
+    // },
     {
         title: 'Languages',
         href: route('admin.lm.languages.index'),

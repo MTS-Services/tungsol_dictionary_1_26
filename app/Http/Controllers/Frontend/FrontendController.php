@@ -158,4 +158,18 @@ class FrontendController extends Controller
      {
           return Inertia::render('frontend/browse-alphabetically');
      }
+
+     public function wordOfTheDay(){
+
+         $trendingWords = $this->wordService->getTrendingWords();
+          
+          $wordOfTheDay = $this->wordOfTheDayService->getWordOfTheDay();
+          $wordOfTheDay->load(['word.wordEntries.partOfSpeech','word.wordEntries.definitions.examples']);
+
+          return Inertia::render('frontend/word-of-the-day', [
+               'wordOfTheDay' => $wordOfTheDay,
+               'trendingWords' => $trendingWords,
+               
+          ]);
+     }
 }
