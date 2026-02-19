@@ -72,7 +72,12 @@ class RelatedWordManagementController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $relatedWord = RelatedWord::with(['word', 'relatedWord'])->findOrFail($id);
+        
+        return Inertia::render('admin/related-word-management/show', [
+            'relatedWord' => $relatedWord
+        ]);
+        
     }
 
     /**

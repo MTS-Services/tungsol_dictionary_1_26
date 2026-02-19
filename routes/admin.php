@@ -80,19 +80,19 @@ Route::prefix('admin')->name('admin.')->group(function () {
         });
 
          Route::prefix('example-management' )->name('em.')->group(function () {
-            Route::resource( 'examples',ExampleManagementController::class)->only('index','create', 'store', 'edit', 'update', 'destroy');
+            Route::resource( 'examples',ExampleManagementController::class)->only('index','create', 'store', 'edit', 'show', 'update', 'destroy');
         });
 
         Route::prefix('synonym-management' )->name('sm.')->group(function () {
-            Route::resource( 'synonyms',SynonymManagementController::class)->only('index','create', 'store', 'edit', 'update', 'destroy');
+            Route::resource( 'synonyms',SynonymManagementController::class)->only('index','create', 'store', 'edit', 'show', 'update', 'destroy');
         });
 
         Route::prefix('related-word-management' )->name('rwm.')->group(function () {
-            Route::resource( 'related-words',\App\Http\Controllers\Admin\RelatedWordManagementController::class)->only('index','create', 'store', 'edit', 'update', 'destroy');
+            Route::resource( 'related-words',\App\Http\Controllers\Admin\RelatedWordManagementController::class)->only('index','create', 'store', 'edit', 'show', 'update', 'destroy');
         });
 
         Route::prefix('antonym-management' )->name('am.')->group(function () {
-            Route::resource( 'antonyms',AntonymManagementController::class)->only('index','create', 'store', 'edit', 'update', 'destroy');
+            Route::resource( 'antonyms',AntonymManagementController::class)->only('index','create', 'store', 'edit', 'show', 'update', 'destroy');
         });
 
         // Category Management Routes
