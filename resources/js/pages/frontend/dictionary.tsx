@@ -191,36 +191,7 @@ export default function Dictionary({ trendingWords }: DictionaryProps) {
                   Trending Words
                 </h2>
                 <div className="flex flex-wrap gap-2 sm:gap-3 md:gap-4">
-                  <span className="px-4 sm:px-6 md:px-8 lg:px-12 py-2 sm:py-2.5 bg-white rounded-full text-sm sm:text-base text-foreground font-medium transition-shadow cursor-pointer border border-gray-200/100 border-2">
-                    serendipity
-                  </span>
-                  <span className="px-4 sm:px-6 md:px-8 lg:px-12 py-2 sm:py-2.5 bg-white rounded-full text-sm sm:text-base text-foreground font-medium transition-shadow cursor-pointer border border-gray-200/100 border-2">
-                    ephemeral
-                  </span>
-                  <span className="px-4 sm:px-6 md:px-8 lg:px-12 py-2 sm:py-2.5 bg-white rounded-full text-sm sm:text-base text-foreground font-medium transition-shadow cursor-pointer border border-gray-200/100 border-2">
-                    resilience
-                  </span>
-                  <span className="px-4 sm:px-6 md:px-8 lg:px-12 py-2 sm:py-2.5 bg-white rounded-full text-sm sm:text-base text-foreground font-medium transition-shadow cursor-pointer border border-gray-200/100 border-2">
-                    paradigm
-                  </span>
-                  <span className="px-4 sm:px-6 md:px-8 lg:px-12 py-2 sm:py-2.5 bg-white rounded-full text-sm sm:text-base text-foreground font-medium transition-shadow cursor-pointer border border-gray-200/100 border-2">
-                    ubiquitous
-                  </span>
-                  <span className="px-4 sm:px-6 md:px-8 lg:px-12 py-2 sm:py-2.5 bg-white rounded-full text-sm sm:text-base text-foreground font-medium transition-shadow cursor-pointer border border-gray-200/100 border-2">
-                    eloquent
-                  </span>
-                  <span className="px-4 sm:px-6 md:px-8 lg:px-12 py-2 sm:py-2.5 bg-white rounded-full text-sm sm:text-base text-foreground font-medium transition-shadow cursor-pointer border border-gray-200/100 border-2">
-                    enigma
-                  </span>
-                  <span className="px-4 sm:px-6 md:px-8 lg:px-12 py-2 sm:py-2.5 bg-white rounded-full text-sm sm:text-base text-foreground font-medium transition-shadow cursor-pointer border border-gray-200/100 border-2">
-                    nostalgia
-                  </span>
-                  <span className="px-4 sm:px-6 md:px-8 lg:px-12 py-2 sm:py-2.5 bg-white rounded-full text-sm sm:text-base text-foreground font-medium transition-shadow cursor-pointer border border-gray-200/100 border-2">
-                    aesthetic
-                  </span>
-                  <span className="px-4 sm:px-6 md:px-8 lg:px-12 py-2 sm:py-2.5 bg-white rounded-full text-sm sm:text-base text-foreground font-medium transition-shadow cursor-pointer border border-gray-200/100 border-2">
-                    ambiguous
-                  </span>
+                    <TrendingWords trendingWords={trendingWords} />
                 </div>
                 
               </div>

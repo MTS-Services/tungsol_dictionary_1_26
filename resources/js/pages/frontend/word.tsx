@@ -1,20 +1,41 @@
 import FrontendLayout from '@/layouts/frontend-layout';
+import { Link } from '@inertiajs/react';
 
-
+interface Example {
+    id: number;
+    sentence: string;
+}
+interface Definition {
+    id: number;
+    definition: string;
+    examples: Example[];
+}
+interface PartOfSpeech {
+    id: number;
+    name: string;
+}
 interface WordEntry {
-  audio_url: string;
-  pronunciation_ipa: string; 
+    audio_url: string;
+    pronunciation_ipa: string;
+    definitions: Definition[];
+    part_of_speech: PartOfSpeech[];
+}
+interface RelatedWord {
+    word: Word;
+    slug: string;
 }
 interface Word {
-  slug: string;
-  word:string;
-  word_entries:any[];
+    slug: string;
+    word: string;
+    etymology: string;
+    word_entries: WordEntry[];
+    related_words: RelatedWord[];
 }
 interface Props {
     word: Word;
 }
 export default function Word({ word }: Props) {
-  console.log(word);
+    console.log(word);
     return (
         <FrontendLayout>
             <>
@@ -122,7 +143,7 @@ export default function Word({ word }: Props) {
                                 </div>
                             </div>
                             <p className="text-md font-inter text-gray-500">
-                               {word.word_entries[0]?.pronunciation}
+                                {word.word_entries[0]?.pronunciation}
                             </p>
                         </div>
 
@@ -132,59 +153,39 @@ export default function Word({ word }: Props) {
                             </h3>
 
                             <div className="space-y-6 px-4">
-                                <div>
-                                    <span className="rounded bg-slate-100 px-2 py-0.5 text-[10px] font-bold text-slate-500 uppercase">
-                                        noun
-                                    </span>
-                                    <p className="mt-3 font-arial font-medium text-slate-700">
-                                        The state or quality of being knowledge.
-                                    </p>
-                                    <div className="mt-2 rounded-lg border-l-4 border-blue-500 bg-slate-50/80 p-4">
-                                        <p className="mb-1 font-arial text-xs font-medium tracking-tight text-gray-400 uppercase">
-                                            Example:
+                                {word.word_entries.map((entry, index) => (
+                                    <div key={index}>
+                                        <span className="rounded bg-slate-100 px-2 py-0.5 text-[10px] font-bold text-slate-500 uppercase">
+                                            {entry.part_of_speech?.name}
+                                        </span>
+                                        <p className="mt-3 font-arial font-medium text-slate-700">
+                                            {entry.etymology}
                                         </p>
-                                        <p className="text-sm text-foreground italic">
-                                            "The knowledge of the landscape was
-                                            breathtaking."
-                                        </p>
+                                        {entry.definitions.map(
+                                            (definition, index) => (
+                                                <>
+                                                    {definition.examples.map(
+                                                        (example, index) => (
+                                                            <div className="mt-3 rounded-lg border-l-4 border-blue-500 bg-slate-50/80 p-4">
+                                                                <p className="mb-1 font-arial text-xs font-medium tracking-tight text-gray-400 uppercase">
+                                                                    Example {index + 1} :
+                                                                </p>
+                                                                <p
+                                                                    key={index}
+                                                                    className="text-sm text-foreground italic"
+                                                                >
+                                                                    {
+                                                                        example.sentence
+                                                                    }
+                                                                </p>
+                                                            </div>
+                                                        ),
+                                                    )}
+                                                </>
+                                            ),
+                                        )}
                                     </div>
-                                </div>
-
-                                <div>
-                                    <p className="font-arial font-medium text-slate-700">
-                                        Something that possesses the
-                                        characteristics of knowledge.
-                                    </p>
-                                    <div className="mt-2 rounded-lg border-l-4 border-blue-500 bg-slate-50/80 p-4">
-                                        <p className="mb-1 font-arial text-xs font-medium tracking-tight text-gray-400 uppercase">
-                                            Example:
-                                        </p>
-                                        <p className="text-sm text-foreground italic">
-                                            "She found knowledge in the simple
-                                            things in life."
-                                        </p>
-                                    </div>
-                                </div>
-
-                                <div className="pt-4">
-                                    <span className="rounded bg-slate-100 px-2 py-0.5 text-[10px] font-bold text-slate-500 uppercase">
-                                        adjective
-                                    </span>
-                                    <p className="mt-3 font-arial font-medium text-slate-700">
-                                        Possessing qualities that give great
-                                        pleasure or satisfaction to see, hear,
-                                        think about, etc.
-                                    </p>
-                                    <div className="mt-2 rounded-lg border-l-4 border-blue-500 bg-slate-50/80 p-4">
-                                        <p className="mb-1 font-arial text-xs font-medium tracking-tight text-gray-400 uppercase">
-                                            Example:
-                                        </p>
-                                        <p className="text-sm text-foreground italic">
-                                            "It was a knowledge day for a walk
-                                            in the park."
-                                        </p>
-                                    </div>
-                                </div>
+                                ))}
                             </div>
                         </div>
 
@@ -243,21 +244,12 @@ export default function Word({ word }: Props) {
                                 Related Words
                             </h3>
                             <div className="divide-y divide-slate-50">
-                                <button className="group flex w-full items-center justify-between py-3 text-left font-arial text-sm font-medium text-slate-700 hover:text-blue-500">
-                                    beauty →
-                                </button>
-                                <button className="group flex w-full items-center justify-between py-3 text-left font-arial text-sm font-medium text-slate-700 hover:text-blue-500">
-                                    beautifully →
-                                </button>
-                                <button className="group flex w-full items-center justify-between py-3 text-left font-arial text-sm font-medium text-slate-700 hover:text-blue-500">
-                                    beautify →
-                                </button>
-                                <button className="group flex w-full items-center justify-between py-3 text-left font-arial text-sm font-medium text-slate-700 hover:text-blue-500">
-                                    beautifully →
-                                </button>
-                                <button className="group flex w-full items-center justify-between py-3 text-left font-arial text-sm font-medium text-slate-700 hover:text-blue-500">
-                                    beautify →
-                                </button>
+                                {word.related_words.map((relatedWord) => (
+                                    
+                                    <Link key={relatedWord.word.slug} href={route('word', { slug: relatedWord.word.slug })} className="group flex w-full items-center justify-between py-3 text-left font-arial text-sm font-medium text-slate-700 hover:text-blue-500">
+                                        {relatedWord.word.word} →
+                                    </Link>
+                                ))}
                             </div>
                         </div>
                     </div>
