@@ -79,7 +79,15 @@ class ExampleManagementController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $example = Example::with([
+            'definition',
+        ])->findOrFail($id);
+
+        // dd($example);
+
+        return Inertia::render('admin/example-management/show', [
+            'example' => $example
+        ]);
     }
 
     /**

@@ -80,7 +80,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         });
 
          Route::prefix('example-management' )->name('em.')->group(function () {
-            Route::resource( 'examples',ExampleManagementController::class)->only('index','create', 'store', 'edit', 'update', 'destroy');
+            Route::resource( 'examples',ExampleManagementController::class)->only('index','create', 'store', 'edit', 'show', 'update', 'destroy');
         });
 
         Route::prefix('synonym-management' )->name('sm.')->group(function () {
