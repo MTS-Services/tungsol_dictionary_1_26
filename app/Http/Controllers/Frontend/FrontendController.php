@@ -20,7 +20,11 @@ class FrontendController extends Controller
 
      public function index(): Response
      {
-          return Inertia::render('frontend/index');
+          $trendingWords = $this->wordService->getTrendingWords();
+        
+          return Inertia::render('frontend/index', [
+               'trendingWords' => $trendingWords,
+          ]);
      }
 
      public function home2(): Response
@@ -35,7 +39,10 @@ class FrontendController extends Controller
 
      public function dictionary(): Response
      {
-          return Inertia::render('frontend/dictionary');
+          $trendingWords = $this->wordService->getTrendingWords();
+          return Inertia::render('frontend/dictionary', [
+               'trendingWords' => $trendingWords,
+          ]);
      }
 
      public function adminDashboard(): Response
@@ -124,8 +131,13 @@ class FrontendController extends Controller
      }
 
      public function word($slug){
+
           $word = $this->wordService->find($slug, 'slug');
-          $word->load(['relatedWords', 'wordEntries']);
+
+          $word->load(['relatedWords', 'wordEntries.definitions.examples', 'wordEntries.partOfSpeech']);
+
+
+
           return Inertia::render('frontend/word', [
                'word' => $word,
           ]);
