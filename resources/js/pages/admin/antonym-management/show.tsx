@@ -1,18 +1,16 @@
-import { ActionButton } from '@/components/ui/action-button'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Label } from '@/components/ui/label'
-import AdminLayout from '@/layouts/admin-layout'
-import React from 'react'
-import { ArrowLeft, Edit } from 'lucide-react'
-
+import { ActionButton } from '@/components/ui/action-button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Label } from '@/components/ui/label';
+import AdminLayout from '@/layouts/admin-layout';
+import { ArrowLeft, Edit } from 'lucide-react';
 
 interface Antonym {
     id: number;
-    definition:{
+    definition: {
         id: number;
         definition: string;
     };
-    antonym_word:{
+    antonym_word: {
         id: number;
         word: string;
     };
@@ -25,13 +23,10 @@ interface Props {
     antonym: Antonym;
 }
 
-
-
-
 const show = ({ antonym }: Props) => {
-  return (
-    <AdminLayout activeSlug="antonyms">
-                  <CardHeader className="flex flex-row items-center justify-between">
+    return (
+        <AdminLayout activeSlug="antonyms">
+            <CardHeader className="flex flex-row items-center justify-between">
                 <h1 className="text-2xl font-bold">Detail Antonym</h1>
                 <div className="flex gap-2">
                     <ActionButton
@@ -53,33 +48,37 @@ const show = ({ antonym }: Props) => {
                     <div className="space-y-6 lg:col-span-2">
                         <Card>
                             <CardHeader>
-                                <CardTitle>
-                                    Antonym Information
-                                </CardTitle>
+                                <CardTitle>Antonym Information</CardTitle>
                             </CardHeader>
                             <CardContent className="space-y-4">
-                                <div className="grid gap-2">
-                                    <Label htmlFor="code">
-                                        Word Definition
-                                    </Label>
+                                <Card className="p-4">
+                                    <div className="grid gap-2">
+                                        <Label htmlFor="code">
+                                            Word Definition
+                                        </Label>
 
-                                    <p>{antonym.definition?.definition}</p>
-                                </div>
-                                <div className="grid gap-2">
-                                    <Label htmlFor="code">
-                                        Antonym Word
-                                    </Label>
+                                        <p>{antonym.definition?.definition}</p>
+                                    </div>
+                                </Card>
+                                <Card className="p-4">
+                                    <div className="grid gap-2">
+                                        <Label htmlFor="code">
+                                            Antonym Word
+                                        </Label>
 
-                                    <p>{antonym.antonym_word?.word}</p>
-                                </div>
-                                <div className="grid gap-2">
-                                    <Label htmlFor="code">
-                                        Relevance Score
-                                    </Label>
+                                        <p>{antonym.antonym_word?.word}</p>
+                                    </div>
+                                </Card>
 
-                                    <p>{antonym.relevance_score}</p>
-                                </div>
-                               
+                                <Card className="p-4">
+                                    <div className="grid gap-2">
+                                        <Label htmlFor="code">
+                                            Relevance Score
+                                        </Label>
+
+                                        <p>{antonym.relevance_score}</p>
+                                    </div>
+                                </Card>
                             </CardContent>
                         </Card>
                     </div>
@@ -90,34 +89,38 @@ const show = ({ antonym }: Props) => {
                                 <CardTitle>Details</CardTitle>
                             </CardHeader>
                             <CardContent className="space-y-4">
-                                <div>
-                                    <Label className="text-sm text-muted-foreground">
-                                        Created At
-                                    </Label>
-                                    <p className="text-sm font-medium">
-                                        {new Date(
-                                            antonym.created_at,
-                                        ).toLocaleString()}
-                                    </p>
-                                </div>
+                                <Card className="p-4">
+                                    <div>
+                                        <Label className="text-sm text-muted-foreground">
+                                            Created At
+                                        </Label>
+                                        <p className="text-sm font-medium">
+                                            {new Date(
+                                                antonym.created_at,
+                                            ).toLocaleString()}
+                                        </p>
+                                    </div>
+                                </Card>
 
-                                <div>
-                                    <Label className="text-sm text-muted-foreground">
-                                        Updated At
-                                    </Label>
-                                    <p className="text-sm font-medium">
-                                        {new Date(
-                                            antonym.updated_at,
-                                        ).toLocaleString()}
-                                    </p>
-                                </div>
+                                <Card className="p-4">
+                                    <div>
+                                        <Label className="text-sm text-muted-foreground">
+                                            Updated At
+                                        </Label>
+                                        <p className="text-sm font-medium">
+                                            {new Date(
+                                                antonym.updated_at,
+                                            ).toLocaleString()}
+                                        </p>
+                                    </div>
+                                </Card>
                             </CardContent>
                         </Card>
                     </div>
                 </div>
             </CardContent>
-    </AdminLayout>
-  )
-}
+        </AdminLayout>
+    );
+};
 
-export default show
+export default show;

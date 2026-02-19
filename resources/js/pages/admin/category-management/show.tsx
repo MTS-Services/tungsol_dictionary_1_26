@@ -1,8 +1,8 @@
 import { ActionButton } from '@/components/ui/action-button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Label } from '@/components/ui/label';
 import AdminLayout from '@/layouts/admin-layout';
 import { ArrowLeft, Edit } from 'lucide-react';
-import { Label } from '@/components/ui/label';
 
 interface categories {
     id: number;
@@ -35,10 +35,7 @@ const show = ({ category }: Props) => {
                     </ActionButton>
                     <ActionButton
                         IconNode={Edit}
-                        href={route(
-                            'admin.cm.categories.edit',
-                            category?.id,
-                        )}
+                        href={route('admin.cm.categories.edit', category?.id)}
                     >
                         Edit
                     </ActionButton>
@@ -54,21 +51,27 @@ const show = ({ category }: Props) => {
                                 </CardTitle>
                             </CardHeader>
                             <CardContent className="space-y-4">
-                                <div className="grid gap-2">
-                                    <Label htmlFor="code">Name</Label>
+                                <Card className="p-4">
+                                    <div className="grid gap-2">
+                                        <Label htmlFor="code">Name</Label>
 
-                                    <p>{category.name}</p>
-                                </div>
-                                <div className="grid gap-2">
+                                        <p>{category.name}</p>
+                                    </div>
+                                </Card>
+                                <Card className="p-4">
+                                    <div className="grid gap-2">
                                     <Label htmlFor="name">Slug</Label>
 
                                     <p>{category.slug}</p>
                                 </div>
-                                <div className="grid gap-2">
+                                </Card>
+                                <Card className="p-4">
+                                    <div className="grid gap-2">
                                     <Label htmlFor="name">Parent</Label>
 
                                     <p>{category.parent?.name || '-'}</p>
                                 </div>
+                                </Card>
                             </CardContent>
                         </Card>
                     </div>
@@ -79,27 +82,31 @@ const show = ({ category }: Props) => {
                                 <CardTitle>Details</CardTitle>
                             </CardHeader>
                             <CardContent className="space-y-4">
-                                <div>
-                                    <Label className="text-sm text-muted-foreground">
-                                        Created At
-                                    </Label>
-                                    <p className="text-sm font-medium">
-                                        {new Date(
-                                            category.created_at,
-                                        ).toLocaleString()}
-                                    </p>
-                                </div>
+                                <Card className="p-4">
+                                    <div>
+                                        <Label className="text-sm text-muted-foreground">
+                                            Created At
+                                        </Label>
+                                        <p className="text-sm font-medium">
+                                            {new Date(
+                                                category.created_at,
+                                            ).toLocaleString()}
+                                        </p>
+                                    </div>
+                                </Card>
 
-                                <div>
-                                    <Label className="text-sm text-muted-foreground">
-                                        Updated At
-                                    </Label>
-                                    <p className="text-sm font-medium">
-                                        {new Date(
-                                            category.updated_at,
-                                        ).toLocaleString()}
-                                    </p>
-                                </div>
+                                <Card className="p-4">
+                                    <div>
+                                        <Label className="text-sm text-muted-foreground">
+                                            Updated At
+                                        </Label>
+                                        <p className="text-sm font-medium">
+                                            {new Date(
+                                                category.updated_at,
+                                            ).toLocaleString()}
+                                        </p>
+                                    </div>
+                                </Card>
                             </CardContent>
                         </Card>
                     </div>

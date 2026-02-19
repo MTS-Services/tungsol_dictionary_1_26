@@ -51,38 +51,51 @@ const show = ({ wordDefinition }: Props) => {
                                 <CardTitle>Word Definition Information</CardTitle>
                             </CardHeader>
                             <CardContent className="space-y-4">
-                                <div className="grid gap-2">
+                                <Card className="p-4">
+                                    <div className="grid gap-2">
                                     <Label htmlFor="code">Word Definition</Label>
 
                                     <p>{wordDefinition.wordEntry?.word}</p>
                                 </div>
-                                <div className="grid gap-2">
+                                </Card>
+
+                                <Card className="p-4">
+                                    <div className="grid gap-2">
                                     <Label htmlFor="name">Definition</Label>
 
                                     <p>{wordDefinition.definition}</p>
                                 </div>
-                                <div className="grid gap-2">
+                                </Card>
+                                <Card className="p-4">
+                                    <div className="grid gap-2">
                                     <Label htmlFor="name">Registered</Label>
 
                                     <p>{wordDefinition.register}</p>
                                 </div>
-                                <div className="grid gap-2">
+                                </Card>
+                                <Card className="p-4">
+                                    <div className="grid gap-2">
                                     <Label htmlFor="name">
                                         domain
                                     </Label>
 
                                     <p>{wordDefinition.domain}</p>
                                 </div>
-                                <div className="grid gap-2">
+                                </Card>
+                                <Card className="p-4">
+                                    <div className="grid gap-2">
                                     <Label htmlFor="name">region</Label>
 
                                     <p>{wordDefinition.region}</p>
                                 </div>
-                                <div className="grid gap-2">
+                                </Card>
+                                <Card className="p-4">
+                                    <div className="grid gap-2">
                                     <Label htmlFor="name">Usage Note</Label>
 
                                     <p>{wordDefinition.usage_note}</p>
                                 </div>
+                                </Card>
                             </CardContent>
                         </Card>
                     </div>
@@ -93,27 +106,31 @@ const show = ({ wordDefinition }: Props) => {
                                 <CardTitle>Details</CardTitle>
                             </CardHeader>
                             <CardContent className="space-y-4">
-                                <div>
-                                    <Label className="text-sm text-muted-foreground">
-                                        Created At
-                                    </Label>
-                                    <p className="text-sm font-medium">
-                                        {new Date(
-                                            wordDefinition.created_at,
-                                        ).toLocaleString()}
-                                    </p>
-                                </div>
+                                <Card className="p-4">
+                                    <div>
+                                        <Label className="text-sm text-muted-foreground">
+                                            Created At
+                                        </Label>
+                                        <p className="text-sm font-medium">
+                                            {new Date(
+                                                wordDefinition.created_at,
+                                            ).toLocaleString()}
+                                        </p>
+                                    </div>
+                                </Card>
 
-                                <div>
-                                    <Label className="text-sm text-muted-foreground">
-                                        Updated At
-                                    </Label>
-                                    <p className="text-sm font-medium">
-                                        {new Date(
-                                            wordDefinition.updated_at,
-                                        ).toLocaleString()}
-                                    </p>
-                                </div>
+                                <Card className="p-4">
+                                    <div>
+                                        <Label className="text-sm text-muted-foreground">
+                                            Updated At
+                                        </Label>
+                                        <p className="text-sm font-medium">
+                                            {new Date(
+                                                wordDefinition.updated_at,
+                                            ).toLocaleString()}
+                                        </p>
+                                    </div>
+                                </Card>
                             </CardContent>
                         </Card>
                     </div>
