@@ -52,28 +52,33 @@ const Show = ({ synonym }: PageProps) => {
                                 <CardTitle>Synonym Information</CardTitle>
                             </CardHeader>
                             <CardContent className="space-y-4">
-                                <div className="grid gap-2">
-                                    <Label htmlFor="code">
-                                        Word Definition
-                                    </Label>
+                                <Card className="p-4">
+                                    <div className="grid gap-2">
+                                        <Label htmlFor="code">
+                                            Word Definition
+                                        </Label>
 
-                                    <p>{synonym.definition?.definition}</p>
-                                </div>
-                                <div className="grid gap-2">
-                                    <Label htmlFor="code">
-                                        Synonym Word
-                                    </Label>
+                                        <p>{synonym.definition?.definition}</p>
+                                    </div>
+                                </Card>
+                                <Card className="p-4">
+                                    <div className="grid gap-2">
+                                        <Label htmlFor="code">
+                                            Synonym Word
+                                        </Label>
 
-                                    <p>{synonym.synonym_word?.word}</p>
-                                </div>
-                                <div className="grid gap-2">
-                                    <Label htmlFor="code">
-                                        Relevance Score
-                                    </Label>
+                                        <p>{synonym.synonym_word?.word}</p>
+                                    </div>
+                                </Card>
+                                <Card className="p-4">
+                                    <div className="grid gap-2">
+                                        <Label htmlFor="code">
+                                            Relevance Score
+                                        </Label>
 
-                                    <p>{synonym.relevance_score}</p>
-                                </div>
-                                
+                                        <p>{synonym.relevance_score}</p>
+                                    </div>
+                                </Card>
                             </CardContent>
                         </Card>
                     </div>

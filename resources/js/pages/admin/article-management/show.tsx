@@ -4,7 +4,6 @@ import { Label } from '@/components/ui/label';
 import AdminLayout from '@/layouts/admin-layout';
 import { ArrowLeft, Edit } from 'lucide-react';
 
-
 interface Article {
     id: string;
     title: string;
@@ -30,17 +29,15 @@ interface PageProps {
     article: Article;
 }
 
-
 const show = ({ article }: PageProps) => {
     return (
-        <AdminLayout>
+        <AdminLayout activeSlug="article-management">
             <CardHeader className="flex flex-row items-center justify-between">
                 <h1 className="text-2xl font-bold">Detail Article</h1>
                 <div className="flex gap-2">
                     <ActionButton
                         IconNode={ArrowLeft}
                         href={route('admin.am.articles.index')}
-                        
                     >
                         Back
                     </ActionButton>
@@ -60,48 +57,73 @@ const show = ({ article }: PageProps) => {
                                 <CardTitle> Article Information</CardTitle>
                             </CardHeader>
                             <CardContent className="space-y-4">
-                                <div className="grid gap-2">
-                                    <Label htmlFor="title">Title</Label>
+                                <Card className="p-4">
+                                    <div className="grid gap-2">
+                                        <Label htmlFor="title">Title</Label>
 
-                                    <p>{article.title}</p>
-                                </div>
-                                <div className="grid gap-2">
-                                    <Label htmlFor="slug">Body</Label>
+                                        <p>{article.title}</p>
+                                    </div>
+                                </Card>
+                                <Card className="p-4">
+                                    <div className="grid gap-2">
+                                        <Label htmlFor="body">Body</Label>
 
-                                    <p>{article.body}</p>
-                                </div>
-                                <div className="grid gap-2">
-                                    <Label htmlFor="slug">Excerpt</Label>
+                                        <p>{article.body}</p>
+                                    </div>
+                                </Card>
+                                <Card className="p-4">
+                                    <div className="grid gap-2">
+                                        <Label htmlFor="excerpt">Excerpt</Label>
 
-                                    <p>{article.excerpt}</p>
-                                </div>
-                                <div className="grid gap-2">
-                                    <Label htmlFor="slug">Category</Label>
+                                        <p>{article.excerpt}</p>
+                                    </div>
+                                </Card>
+                                <Card className="p-4">
+                                    <div className="grid gap-2">
+                                        <Label htmlFor="slug">Excerpt</Label>
 
-                                    <p>{article.category}</p>
-                                </div>
-                                <div className="grid gap-2">
-                                    <Label htmlFor="slug">Author</Label>
+                                        <p>{article.excerpt}</p>
+                                    </div>
+                                </Card>
+                                <Card className="p-4">
+                                    <div className="grid gap-2">
+                                        <Label htmlFor="slug">Category</Label>
 
-                                    <p>{article.author?.name}</p>
-                                </div>
-                                <div className="grid gap-2">
-                                    <Label htmlFor="slug">Word</Label>
+                                        <p>{article.category}</p>
+                                    </div>
+                                </Card>
+                                <Card className="p-4">
+                                    <div className="grid gap-2">
+                                        <Label htmlFor="slug">Author</Label>
 
-                                    <p>{article.word?.word}</p>
-                                </div>
-                                <div className="grid gap-2">
-                                    <Label htmlFor="slug">Is Published</Label>
+                                        <p>{article.author?.name}</p>
+                                    </div>
+                                </Card>
+                                <Card className="p-4">
+                                    <div className="grid gap-2">
+                                        <Label htmlFor="slug">Word</Label>
 
-                                    <p>{article.is_published ? 'Yes' : 'No'}</p>
-                                </div>
-                                <div className="grid gap-2">
-                                    <Label htmlFor="slug">Published At</Label>
+                                        <p>{article.word?.word}</p>
+                                    </div>
+                                </Card>
+                                <Card className="p-4">
+                                    <div className="grid gap-2">
+                                        <Label htmlFor="slug">Is Published</Label>
 
-                                    <p>{new Date(
-                                            article.published_at,
-                                        ).toLocaleString() }</p>
-                                </div>
+                                        <p>{article.is_published ? 'Yes' : 'No'}</p>
+                                    </div>
+                                </Card>
+                                <Card className="p-4">
+                                    <div className="grid gap-2">
+                                        <Label htmlFor="slug">Published At</Label>
+
+                                        <p>
+                                            {new Date(
+                                                article.published_at,
+                                            ).toLocaleString()}
+                                        </p>
+                                    </div>
+                                </Card>
                             </CardContent>
                         </Card>
                     </div>

@@ -26,7 +26,7 @@ interface Props {
 
 const show = ({ wordOfTheDay }: Props) => {
     return (
-        <AdminLayout>
+        <AdminLayout activeSlug="word-of-the-day-management">
             <CardHeader className="flex flex-row items-center justify-between">
                 <h1 className="text-2xl font-bold">Detail Word of the Day</h1>
                 <div className="flex gap-2">
@@ -38,7 +38,10 @@ const show = ({ wordOfTheDay }: Props) => {
                     </ActionButton>
                     <ActionButton
                         IconNode={Edit}
-                        href={route('admin.wotdm.word-of-the-day.edit', wordOfTheDay?.id)}
+                        href={route(
+                            'admin.wotdm.word-of-the-day.edit',
+                            wordOfTheDay?.id,
+                        )}
                     >
                         Edit
                     </ActionButton>
@@ -52,16 +55,24 @@ const show = ({ wordOfTheDay }: Props) => {
                                 <CardTitle>Word Information</CardTitle>
                             </CardHeader>
                             <CardContent className="space-y-4">
-                                <div className="grid gap-2">
-                                    <Label htmlFor="code">Word</Label>
+                                <Card className="p-4">
+                                    <div className="grid gap-2">
+                                        <Label htmlFor="code">Word</Label>
 
-                                    <p>{wordOfTheDay.word?.word}</p>
-                                </div>
-                                <div className="grid gap-2">
-                                    <Label htmlFor="name">Date</Label>
+                                        <p>{wordOfTheDay.word?.word}</p>
+                                    </div>
+                                </Card>
+                                <Card className="p-4">
+                                    <div className="grid gap-2">
+                                        <Label htmlFor="name">Date</Label>
 
-                                    <p>{new Date(wordOfTheDay.date).toLocaleDateString()}</p>
-                                </div>
+                                        <p>
+                                            {new Date(
+                                                wordOfTheDay.date,
+                                            ).toLocaleDateString()}
+                                        </p>
+                                    </div>
+                                </Card>
                             </CardContent>
                         </Card>
                     </div>

@@ -51,16 +51,22 @@ export default function show({ partOfSpeech }: PageProps) {
                                 </CardTitle>
                             </CardHeader>
                             <CardContent className="space-y-4">
-                                <div className="grid gap-2">
-                                    <Label htmlFor="code">Name</Label>
+                                <Card className="p-4">
+                                    <div className="grid gap-2">
+                                        <Label htmlFor="code">Name</Label>
 
-                                    <p>{partOfSpeech.name}</p>
-                                </div>
-                                <div className="grid gap-2">
-                                    <Label htmlFor="name">Abbreviation</Label>
+                                        <p>{partOfSpeech.name}</p>
+                                    </div>
+                                </Card>
+                                <Card className="p-4">
+                                    <div className="grid gap-2">
+                                        <Label htmlFor="name">
+                                            Abbreviation
+                                        </Label>
 
-                                    <p>{partOfSpeech.abbreviation}</p>
-                                </div>
+                                        <p>{partOfSpeech.abbreviation}</p>
+                                    </div>
+                                </Card>
                             </CardContent>
                         </Card>
                     </div>

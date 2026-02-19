@@ -44,16 +44,20 @@ const ShowLanguage: FC<Props> = ({ language }) => {
                                 <CardTitle>Language Information</CardTitle>
                             </CardHeader>
                             <CardContent className="space-y-4">
-                                <div className="grid gap-2">
+                               <Card className="p-4">
+                                 <div className="grid gap-2">
                                     <Label htmlFor="code">Language Code</Label>
 
                                     <p>{language.code}</p>
                                 </div>
-                                <div className="grid gap-2">
+                               </Card>
+                                <Card className="p-4">
+                                    <div className="grid gap-2">
                                     <Label htmlFor="name">Language name</Label>
 
                                     <p>{language.name}</p>
                                 </div>
+                                </Card>
                             </CardContent>
                         </Card>
                     </div>

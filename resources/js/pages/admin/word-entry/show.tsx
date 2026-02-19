@@ -10,7 +10,7 @@ interface WordEntry {
         id: number;
         word: string;
     } | null;
-    part_of_speech_id:{
+    part_of_speech_id: {
         id: number;
         name: string;
     } | null;
@@ -58,40 +58,61 @@ const show = ({ wordEntry }: Props) => {
                                 <CardTitle>Word Entry Information</CardTitle>
                             </CardHeader>
                             <CardContent className="space-y-4">
-                                <div className="grid gap-2">
-                                    <Label htmlFor="code">Word</Label>
+                                <Card className="p-4">
+                                    <div className="grid gap-2">
+                                        <Label htmlFor="code">Word</Label>
 
-                                    <p>{wordEntry.word?.word}</p>
-                                </div>
+                                        <p>{wordEntry.word?.word}</p>
+                                    </div>
+                                </Card>
+                                
+                                <Card className="p-4">
                                 <div className="grid gap-2">
+
                                     <Label htmlFor="name">Part of Speech</Label>
 
                                     <p>{wordEntry.part_of_speech_id?.name}</p>
                                 </div>
+                                </Card>
+                                
+                                <Card className="p-4">
                                 <div className="grid gap-2">
                                     <Label htmlFor="name">Etymology</Label>
 
                                     <p>{wordEntry.etymology}</p>
                                 </div>
+                                </Card>
+                                
+                                <Card className="p-4">
                                 <div className="grid gap-2">
-                                    <Label htmlFor="name">Pronunciation IPA</Label>
+                                    <Label htmlFor="name">
+                                        Pronunciation IPA
+                                    </Label>
 
                                     <p>{wordEntry.pronunciation_ipa}</p>
                                 </div>
+                                </Card>
+                                
+                                <Card className="p-4">
                                 <div className="grid gap-2">
                                     <Label htmlFor="name">Syllables</Label>
 
                                     <p>{wordEntry.syllables}</p>
                                 </div>
+                                </Card>
+                                
+                                <Card className="p-4">
                                 <div className="grid gap-2">
                                     <Label htmlFor="name">Syllables</Label>
 
                                     <div className="font-medium text-gray-900 dark:text-gray-100">
-                                    <audio src={wordEntry.pronunciation_audio} controls></audio>
+                                        <audio
+                                            src={wordEntry.pronunciation_audio || ''}
+                                            controls
+                                        ></audio>
                                     </div>
                                 </div>
-
-                                
+                                </Card>
                             </CardContent>
                         </Card>
                     </div>

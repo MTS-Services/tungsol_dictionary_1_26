@@ -53,26 +53,34 @@ export default function Show({ word }: Props) {
                                 </CardTitle>
                             </CardHeader>
                             <CardContent className="space-y-4">
-                                <div className="grid gap-2">
-                                    <Label htmlFor="code">Word</Label>
+                                <Card className="p-4">
+                                    <div className="grid gap-2">
+                                        <Label htmlFor="code">Word</Label>
 
-                                    <p>{word.word}</p>
-                                </div>
-                                <div className="grid gap-2">
-                                    <Label htmlFor="name">Slug</Label>
+                                        <p>{word.word}</p>
+                                    </div>
+                                </Card>
+                                <Card className="p-4">
+                                    <div className="grid gap-2">
+                                        <Label htmlFor="name">Slug</Label>
 
-                                    <p>{word.slug}</p>
-                                </div>
-                                <div className="grid gap-2">
-                                    <Label htmlFor="name">Language</Label>
+                                        <p>{word.slug}</p>
+                                    </div>
+                                </Card>
+                                <Card className="p-4">
+                                    <div className="grid gap-2">
+                                        <Label htmlFor="name">Language</Label>
 
-                                    <p>{word.language?.name || '-'}</p>
-                                </div>
-                                <div className="grid gap-2">
-                                    <Label htmlFor="name">Search Count</Label>
+                                        <p>{word.language?.name || '-'}</p>
+                                    </div>
+                                </Card>
+                                <Card className="p-4">
+                                    <div className="grid gap-2">
+                                        <Label htmlFor="name">Search Count</Label>
 
-                                    <p>{word.search_count || '-'}</p>
-                                </div>
+                                        <p>{word.search_count || '-'}</p>
+                                    </div>
+                                </Card>
                             </CardContent>
                         </Card>
                     </div>

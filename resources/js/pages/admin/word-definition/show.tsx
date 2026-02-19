@@ -51,38 +51,51 @@ const show = ({ wordDefinition }: Props) => {
                                 <CardTitle>Word Definition Information</CardTitle>
                             </CardHeader>
                             <CardContent className="space-y-4">
-                                <div className="grid gap-2">
+                                <Card className="p-4">
+                                    <div className="grid gap-2">
                                     <Label htmlFor="code">Word Definition</Label>
 
                                     <p>{wordDefinition.wordEntry?.word}</p>
                                 </div>
-                                <div className="grid gap-2">
+                                </Card>
+
+                                <Card className="p-4">
+                                    <div className="grid gap-2">
                                     <Label htmlFor="name">Definition</Label>
 
                                     <p>{wordDefinition.definition}</p>
                                 </div>
-                                <div className="grid gap-2">
+                                </Card>
+                                <Card className="p-4">
+                                    <div className="grid gap-2">
                                     <Label htmlFor="name">Registered</Label>
 
                                     <p>{wordDefinition.register}</p>
                                 </div>
-                                <div className="grid gap-2">
+                                </Card>
+                                <Card className="p-4">
+                                    <div className="grid gap-2">
                                     <Label htmlFor="name">
                                         domain
                                     </Label>
 
                                     <p>{wordDefinition.domain}</p>
                                 </div>
-                                <div className="grid gap-2">
+                                </Card>
+                                <Card className="p-4">
+                                    <div className="grid gap-2">
                                     <Label htmlFor="name">region</Label>
 
                                     <p>{wordDefinition.region}</p>
                                 </div>
-                                <div className="grid gap-2">
+                                </Card>
+                                <Card className="p-4">
+                                    <div className="grid gap-2">
                                     <Label htmlFor="name">Usage Note</Label>
 
                                     <p>{wordDefinition.usage_note}</p>
                                 </div>
+                                </Card>
                             </CardContent>
                         </Card>
                     </div>

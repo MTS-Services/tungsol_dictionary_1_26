@@ -48,47 +48,46 @@ const show = ({ example }: Props) => {
                     <div className="space-y-6 lg:col-span-2">
                         <Card>
                             <CardHeader>
-                                <CardTitle>
-                                    Word Example Information
-                                </CardTitle>
+                                <CardTitle>Word Example Information</CardTitle>
                             </CardHeader>
                             <CardContent className="space-y-4">
-                                <div className="grid gap-2">
-                                    <Label htmlFor="code">
-                                        Word Definition
-                                    </Label>
+                                <Card className="p-4">
+                                    <div className="grid gap-2">
+                                        <Label htmlFor="code">
+                                            Word Definition
+                                        </Label>
 
-                                    <p>{example.definition?.definition}</p>
-                                </div>
-                                <div className="grid gap-2">
-                                    <Label htmlFor="code">
-                                        Sentence
-                                    </Label>
+                                        <p>{example.definition?.definition}</p>
+                                    </div>
+                                </Card>
+                                <Card className="p-4">
+                                    <div className="grid gap-2">
+                                        <Label htmlFor="code">Sentence</Label>
 
-                                    <p>{example.sentence}</p>
-                                </div>
-                                <div className="grid gap-2">
-                                    <Label htmlFor="code">
-                                        Source
-                                    </Label>
+                                        <p>{example.sentence}</p>
+                                    </div>
+                                </Card>
+                                <Card className="p-4">
+                                    <div className="grid gap-2">
+                                        <Label htmlFor="code">Source</Label>
 
-                                    <p>{example.source}</p>
-                                </div>
-                                <div className="grid gap-2">
-                                    <Label htmlFor="code">
-                                        Author
-                                    </Label>
+                                        <p>{example.source}</p>
+                                    </div>
+                                </Card>
+                                <Card className="p-4">
+                                    <div className="grid gap-2">
+                                        <Label htmlFor="code">Author</Label>
 
-                                    <p>{example.author}</p>
-                                </div>
-                                <div className="grid gap-2">
-                                    <Label htmlFor="code">
-                                        Year
-                                    </Label>
+                                        <p>{example.author}</p>
+                                    </div>
+                                </Card>
+                                <Card className="p-4">
+                                    <div className="grid gap-2">
+                                        <Label htmlFor="code">Year</Label>
 
-                                    <p>{example.year}</p>
-                                </div>
-                               
+                                        <p>{example.year}</p>
+                                    </div>
+                                </Card>
                             </CardContent>
                         </Card>
                     </div>
