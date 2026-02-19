@@ -84,7 +84,8 @@ const Show = ({ contact }: PageProps) => {
                                 <CardTitle>Details</CardTitle>
                             </CardHeader>
                             <CardContent className="space-y-4">
-                                <div>
+                               <Card className="p-4">
+                                 <div>
                                     <Label className="text-sm text-muted-foreground">
                                         Received At
                                     </Label>
@@ -94,6 +95,7 @@ const Show = ({ contact }: PageProps) => {
                                         ).toLocaleString()}
                                     </p>
                                 </div>
+                               </Card>
                             </CardContent>
                         </Card>
                     </div>

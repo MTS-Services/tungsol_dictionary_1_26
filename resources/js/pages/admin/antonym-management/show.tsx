@@ -89,27 +89,31 @@ const show = ({ antonym }: Props) => {
                                 <CardTitle>Details</CardTitle>
                             </CardHeader>
                             <CardContent className="space-y-4">
-                                <div>
-                                    <Label className="text-sm text-muted-foreground">
-                                        Created At
-                                    </Label>
-                                    <p className="text-sm font-medium">
-                                        {new Date(
-                                            antonym.created_at,
-                                        ).toLocaleString()}
-                                    </p>
-                                </div>
+                                <Card className="p-4">
+                                    <div>
+                                        <Label className="text-sm text-muted-foreground">
+                                            Created At
+                                        </Label>
+                                        <p className="text-sm font-medium">
+                                            {new Date(
+                                                antonym.created_at,
+                                            ).toLocaleString()}
+                                        </p>
+                                    </div>
+                                </Card>
 
-                                <div>
-                                    <Label className="text-sm text-muted-foreground">
-                                        Updated At
-                                    </Label>
-                                    <p className="text-sm font-medium">
-                                        {new Date(
-                                            antonym.updated_at,
-                                        ).toLocaleString()}
-                                    </p>
-                                </div>
+                                <Card className="p-4">
+                                    <div>
+                                        <Label className="text-sm text-muted-foreground">
+                                            Updated At
+                                        </Label>
+                                        <p className="text-sm font-medium">
+                                            {new Date(
+                                                antonym.updated_at,
+                                            ).toLocaleString()}
+                                        </p>
+                                    </div>
+                                </Card>
                             </CardContent>
                         </Card>
                     </div>
