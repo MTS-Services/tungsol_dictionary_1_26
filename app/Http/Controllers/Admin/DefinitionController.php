@@ -5,8 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Definition;
 use App\Models\WordEntry;
-use App\Services\DefinitionService;
 use App\Services\DataTableService;
+use App\Services\DefinitionService;
 use App\Services\WordEntryService;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -14,8 +14,8 @@ use Inertia\Response;
 
 class DefinitionController extends Controller
 {
-
     public function __construct(private DataTableService $dataTableService, protected WordEntryService $wordEntryService, protected DefinitionService $definitionService) {}
+
     public function index()
     {
 
@@ -33,22 +33,25 @@ class DefinitionController extends Controller
             'filters' => $result['filters'],
             'search' => $result['search'],
             'sortBy' => $result['sort_by'],
-            'sortOrder' => $result['sort_order']
+            'sortOrder' => $result['sort_order'],
         ]);
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create(): Response
+    public function create(Request $request): Response
     {
-
-
-        $word_entries = WordEntry::all();
-        $word_entries->load('word');
+        $search = $request->input('search', '');
+        $query = WordEntry::with('word')->whereHas('word', function ($q) use ($search) {
+            if (! empty($search)) {
+                $q->where('word', 'like', "%{$search}%");
+            }
+        });
+        $word_entries = Inertia::scroll(fn () => $query->orderBy('word_id')->paginate(15));
 
         return Inertia::render('admin/word-definition/create', [
-            'word_entries' => $word_entries
+            'word_entries' => $word_entries,
         ]);
     }
 
@@ -57,7 +60,7 @@ class DefinitionController extends Controller
      */
     public function store(Request $request)
     {
-        $data =   $request->validate([
+        $data = $request->validate([
             'word_entry_id' => ['required', 'exists:word_entries,id'],
             'definition' => ['required', 'string'],
             'register' => ['nullable', 'string'],
@@ -78,14 +81,13 @@ class DefinitionController extends Controller
     {
         $wordDefinition = Definition::with([
             'wordEntry.word',
-            'wordEntry.partOfSpeech'
+            'wordEntry.partOfSpeech',
         ])->findOrFail($id);
 
         return Inertia::render('admin/word-definition/show', [
-            'wordDefinition' => $wordDefinition
+            'wordDefinition' => $wordDefinition,
         ]);
     }
-
 
     /**
      * Show the form for editing the specified resource.
@@ -93,14 +95,15 @@ class DefinitionController extends Controller
     public function edit(string $id)
     {
         $definition = $this->definitionService->find($id);
-        if (!$definition) {
+        if (! $definition) {
             return redirect()->route('admin.wm.definitions.index');
         }
         $word_entries = WordEntry::all();
         $word_entries->load('word');
+
         return Inertia::render('admin/word-definition/edit', [
             'definition' => $definition,
-            'word_entries' => $word_entries
+            'word_entries' => $word_entries,
         ]);
     }
 
@@ -111,10 +114,10 @@ class DefinitionController extends Controller
     {
         $oldDefinition = $this->definitionService->find($id);
 
-        if (!$oldDefinition) {
+        if (! $oldDefinition) {
             return redirect()->route('admin.wm.definitions.index');
         }
-        $data =   $request->validate([
+        $data = $request->validate([
             'word_entry_id' => ['required', 'exists:word_entries,id'],
             'definition' => ['required', 'string'],
             'register' => ['nullable', 'string'],
