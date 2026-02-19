@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Antonym;
+use App\Models\Definition;
+use App\Models\Word;
 use App\Services\AntonymService;
 use App\Services\DataTableService;
 use App\Services\DefinitionService;
@@ -41,10 +43,35 @@ class AntonymManagementController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request): Response
     {
-        $wordDefinitions = $this->definitionService->all();
-        $words = $this->wordService->all();
+        $definitionSearch = $request->input('definition_search', '');
+        $wordSearch = $request->input('word_search', '');
+
+        $definitionQuery = Definition::with('wordEntry.word');
+
+        if (! empty($definitionSearch)) {
+            $definitionQuery->where(function ($query) use ($definitionSearch) {
+                $query->where('definition', 'like', "%{$definitionSearch}%")
+                    ->orWhereHas('wordEntry.word', function ($wordQuery) use ($definitionSearch) {
+                        $wordQuery->where('word', 'like', "%{$definitionSearch}%");
+                    });
+            });
+        }
+
+        $wordQuery = Word::query();
+
+        if (! empty($wordSearch)) {
+            $wordQuery->where('word', 'like', "%{$wordSearch}%");
+        }
+
+        $wordDefinitions = Inertia::scroll(
+            fn () => $definitionQuery->orderBy('word_entry_id')->paginate(15, ['*'], 'definition_page')
+        );
+
+        $words = Inertia::scroll(
+            fn () => $wordQuery->orderBy('word')->paginate(15, ['*'], 'word_page')
+        );
         return Inertia::render('admin/antonym-management/create', [
             'WordDefinitions' => $wordDefinitions,
             'Words' => $words
@@ -58,7 +85,7 @@ class AntonymManagementController extends Controller
     {
       
         $data = $request->validate([
-            'definition_id' => ['required', 'exists:word_entries,id'],
+            'definition_id' => ['required', 'exists:definitions,id'],
             'antonym_word_id' => ['required', 'exists:words,id'],
             'relevance_score' => ['required', 'integer', 'between:0,100'],
         ]);
@@ -85,15 +112,40 @@ class AntonymManagementController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Request $request, string $id): Response
     {
         $antonym = $this->antonymService->find($id);
         if (!$antonym) {
             abort(404, 'Antonym not found');
         }
 
-        $wordDefinitions = $this->definitionService->all();
-        $words = $this->wordService->all();
+        $definitionSearch = $request->input('definition_search', '');
+        $wordSearch = $request->input('word_search', '');
+
+        $definitionQuery = Definition::with('wordEntry.word');
+
+        if (! empty($definitionSearch)) {
+            $definitionQuery->where(function ($query) use ($definitionSearch) {
+                $query->where('definition', 'like', "%{$definitionSearch}%")
+                    ->orWhereHas('wordEntry.word', function ($wordQuery) use ($definitionSearch) {
+                        $wordQuery->where('word', 'like', "%{$definitionSearch}%");
+                    });
+            });
+        }
+
+        $wordQuery = Word::query();
+
+        if (! empty($wordSearch)) {
+            $wordQuery->where('word', 'like', "%{$wordSearch}%");
+        }
+
+        $wordDefinitions = Inertia::scroll(
+            fn () => $definitionQuery->orderBy('word_entry_id')->paginate(15, ['*'], 'definition_page')
+        );
+
+        $words = Inertia::scroll(
+            fn () => $wordQuery->orderBy('word')->paginate(15, ['*'], 'word_page')
+        );
 
         return Inertia::render('admin/antonym-management/edit', [
             'Antonym' => $antonym,

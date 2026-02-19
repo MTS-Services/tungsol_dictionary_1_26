@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\RelatedWord;
+use App\Models\Word;
 use App\Services\DataTableService;
 use App\Services\DefinitionService;
 use App\Services\WordService;
@@ -41,11 +42,32 @@ class RelatedWordManagementController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request): Response
     {
-        $words = $this->wordService->all();
+        $baseWordSearch = $request->input('base_word_search', '');
+        $relatedWordSearch = $request->input('related_word_search', '');
+
+        $baseWordQuery = Word::query();
+        $relatedWordQuery = Word::query();
+
+        if (! empty($baseWordSearch)) {
+            $baseWordQuery->where('word', 'like', "%{$baseWordSearch}%");
+        }
+
+        if (! empty($relatedWordSearch)) {
+            $relatedWordQuery->where('word', 'like', "%{$relatedWordSearch}%");
+        }
+
+        $baseWords = Inertia::scroll(
+            fn () => $baseWordQuery->orderBy('word')->paginate(15, ['*'], 'base_word_page')
+        );
+
+        $relatedWords = Inertia::scroll(
+            fn () => $relatedWordQuery->orderBy('word')->paginate(15, ['*'], 'related_word_page')
+        );
         return Inertia::render('admin/related-word-management/create', [
-            'Words' => $words
+            'BaseWords' => $baseWords,
+            'RelatedWords' => $relatedWords,
         ]);
     }
 
@@ -83,18 +105,39 @@ class RelatedWordManagementController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Request $request, string $id): Response
     {
         $relatedWord = $this->relatedWordService->find($id);
         if (!$relatedWord) {
             abort(404, 'Related Word not found');
         }
 
-        $words = $this->wordService->all();
+        $baseWordSearch = $request->input('base_word_search', '');
+        $relatedWordSearch = $request->input('related_word_search', '');
+
+        $baseWordQuery = Word::query();
+        $relatedWordQuery = Word::query();
+
+        if (! empty($baseWordSearch)) {
+            $baseWordQuery->where('word', 'like', "%{$baseWordSearch}%");
+        }
+
+        if (! empty($relatedWordSearch)) {
+            $relatedWordQuery->where('word', 'like', "%{$relatedWordSearch}%");
+        }
+
+        $baseWords = Inertia::scroll(
+            fn () => $baseWordQuery->orderBy('word')->paginate(15, ['*'], 'base_word_page')
+        );
+
+        $relatedWords = Inertia::scroll(
+            fn () => $relatedWordQuery->orderBy('word')->paginate(15, ['*'], 'related_word_page')
+        );
 
         return Inertia::render('admin/related-word-management/edit', [
             'RelatedWord' => $relatedWord,
-            'Words' => $words
+            'BaseWords' => $baseWords,
+            'RelatedWords' => $relatedWords,
         ]);
     }
 

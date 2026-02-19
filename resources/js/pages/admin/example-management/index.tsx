@@ -15,6 +15,10 @@ interface Example {
   author: string;
   year: string;
   definition_id: number;
+  definition: {
+    id: number;
+    definition: string;
+  }
   created_at: string;
   updated_at: string;
 }
@@ -52,7 +56,7 @@ export default function Index({
       sortable: true,
       render: (example) => (
         <div className="font-medium text-gray-900 dark:text-gray-100">
-          {example.definition_id}
+          {example.definition.definition}
         </div>
       ),
     },
