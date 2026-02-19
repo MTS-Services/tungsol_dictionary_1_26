@@ -108,7 +108,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
         // Word of the Day Management Routes
         Route::prefix('word-of-the-day-management' )->name('wotdm.')->group(function () {
-            Route::resource( 'word-of-the-day',WordOfTheDayManagementController::class)->only('index','create', 'store', 'edit', 'update', 'destroy');
+            Route::resource( 'word-of-the-day',WordOfTheDayManagementController::class)->only('index','create', 'store', 'edit', 'show', 'update', 'destroy');
         });
         
         // Contact Us Management Routes
