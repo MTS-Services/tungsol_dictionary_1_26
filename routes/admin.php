@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\LanguageManagementController;
 use App\Http\Controllers\Admin\PartOfSpeechManagementController;
 use App\Http\Controllers\Admin\SynonymManagementController;
 use App\Http\Controllers\Admin\AntonymManagementController;
+use App\Http\Controllers\Admin\ContactUsController;
 use App\Http\Controllers\Admin\UserManagementController;
 use App\Http\Controllers\Admin\WordEntriesController;
 use App\Http\Controllers\Admin\WordManagmentController;
@@ -108,6 +109,11 @@ Route::prefix('admin')->name('admin.')->group(function () {
         // Word of the Day Management Routes
         Route::prefix('word-of-the-day-management' )->name('wotdm.')->group(function () {
             Route::resource( 'word-of-the-day',WordOfTheDayManagementController::class)->only('index','create', 'store', 'edit', 'update', 'destroy');
+        });
+        
+        // Contact Us Management Routes
+        Route::prefix('contact-us-management' )->name('cu.')->group(function () {
+            Route::resource( 'contact-us',ContactUsController::class)->only('index','create', 'store', 'edit', 'show', 'update', 'destroy');
         });
     });
 

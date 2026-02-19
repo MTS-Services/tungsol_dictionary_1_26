@@ -108,7 +108,7 @@ const adminNavItems: NavItemType[] = [
     },
     {
         title: 'Inquiries',
-        href: '#',
+        href: route('admin.cu.contact-us.index'),
         icon: BarChart,
         permission: 'view analytics',
         slug: 'admin-inquiries',
