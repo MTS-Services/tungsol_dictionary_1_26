@@ -3,21 +3,32 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import AdminLayout from "@/layouts/admin-layout";
-import { Head, Link, useForm } from "@inertiajs/react";
+import { Head, InfiniteScroll, Link, router, useForm } from "@inertiajs/react";
 import { Save } from "lucide-react";
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 
 interface Props {
   WordDefinitions: {
-    id: number;
-    definition: string;
-  }[];
+    data: {
+      id: number;
+      definition: string;
+      word_entry_id: number;
+      word_entry?: {
+        word?: {
+          word: string;
+        };
+      };
+    }[];
+  };
   Words: {
-    id: number;
-    word: string;
-  }[];
+    data: {
+      id: number;
+      word: string;
+    }[];
+  };
   Antonym: {
     id: number;
     definition_id: number;
@@ -26,10 +37,49 @@ interface Props {
   };
 }
 export default function Edit({ WordDefinitions, Words, Antonym }: Props) {
+  const [definitionSearch, setDefinitionSearch] = useState("");
+  const [wordSearch, setWordSearch] = useState("");
+  const searchTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const hasInitializedRef = useRef(false);
+
+  useEffect(() => {
+    if (!hasInitializedRef.current) {
+      hasInitializedRef.current = true;
+      return;
+    }
+
+    if (searchTimeoutRef.current) {
+      clearTimeout(searchTimeoutRef.current);
+    }
+
+    searchTimeoutRef.current = setTimeout(() => {
+      router.get(
+        route("admin.am.antonyms.edit", Antonym.id),
+        {
+          definition_search: definitionSearch,
+          word_search: wordSearch,
+        },
+        {
+          preserveState: true,
+          preserveScroll: true,
+          replace: true,
+          only: ["WordDefinitions", "Words"],
+          reset: ["WordDefinitions", "Words"],
+        },
+      );
+    }, 300);
+
+    return () => {
+      if (searchTimeoutRef.current) {
+        clearTimeout(searchTimeoutRef.current);
+      }
+    };
+  }, [definitionSearch, wordSearch, Antonym.id]);
+
   const { data, setData, post, processing, errors } = useForm({
     definition_id: Antonym.definition_id,
     antonym_word_id: Antonym.antonym_word_id,
-    relevance_score: Antonym.relevance_score,
+    relevance_score: Antonym.relevance_score?.toString() ?? "",
     _method: "put",
   });
   const handleSubmit = (e: React.FormEvent) => {
@@ -65,28 +115,72 @@ export default function Edit({ WordDefinitions, Words, Antonym }: Props) {
                 <CardContent className="space-y-4">
                   <div className="grid gap-2">
                     <Label htmlFor="definition_id">Word Definition</Label>
-                    <select
-                      value={data.definition_id}
-                      onChange={e => setData("definition_id", e.target.value)}
-                       className="w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                    <Select
+                      value={String(data.definition_id)}
+                      onValueChange={(value) => setData("definition_id", Number(value))}
                     >
-                      <option value="">Select a Definition</option>
-                      {WordDefinitions.map((word) => <option key={word.id} value={word.id}>{word.definition}</option>)}
-                    </select>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select a definition" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <div className="p-2">
+                          <Input
+                            placeholder="Search definitions..."
+                            className="mb-2"
+                            value={definitionSearch}
+                            onChange={(event) => setDefinitionSearch(event.target.value)}
+                          />
+                        </div>
+
+                        <InfiniteScroll data="WordDefinitions">
+                          {WordDefinitions?.data?.length ? (
+                            WordDefinitions.data.map((word) => (
+                              <SelectItem key={word.id} value={String(word.id)}>
+                                {word.definition}
+                              </SelectItem>
+                            ))
+                          ) : (
+                            <div className="px-3 py-2 text-sm text-muted-foreground">No definitions found</div>
+                          )}
+                        </InfiniteScroll>
+                      </SelectContent>
+                    </Select>
 
                     <InputError message={errors.definition_id} />
                   </div>
 
                   <div className="grid gap-2">
                     <Label htmlFor="antonym_word_id">Antonym Word</Label>
-                    <select
-                      value={data.antonym_word_id}
-                      onChange={e => setData("antonym_word_id", e.target.value)}
-                       className="w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                    <Select
+                      value={String(data.antonym_word_id)}
+                      onValueChange={(value) => setData("antonym_word_id", Number(value))}
                     >
-                      <option value="">Select a Word</option>
-                      {Words.map((word) => <option key={word.id} value={word.id}>{word.word}</option>)}
-                    </select>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select antonym word" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <div className="p-2">
+                          <Input
+                            placeholder="Search words..."
+                            className="mb-2"
+                            value={wordSearch}
+                            onChange={(event) => setWordSearch(event.target.value)}
+                          />
+                        </div>
+
+                        <InfiniteScroll data="Words">
+                          {Words?.data?.length ? (
+                            Words.data.map((word) => (
+                              <SelectItem key={word.id} value={String(word.id)}>
+                                {word.word}
+                              </SelectItem>
+                            ))
+                          ) : (
+                            <div className="px-3 py-2 text-sm text-muted-foreground">No words found</div>
+                          )}
+                        </InfiniteScroll>
+                      </SelectContent>
+                    </Select>
 
                     <InputError message={errors.antonym_word_id} />
                   </div>

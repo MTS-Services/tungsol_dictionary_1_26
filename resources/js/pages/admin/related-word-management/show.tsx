@@ -6,18 +6,17 @@ import { ArrowLeft, Edit } from 'lucide-react';
 
 interface relatedWord {
     id: number;
-    word:{
+    word: {
         id: number;
         word: string;
     } | null;
-    relatedWord:{
+    relatedWord: {
         id: number;
         word: string;
     } | null;
     relation_type: string;
     created_at: string;
     updated_at: string;
-
 }
 
 interface PageProps {
@@ -38,7 +37,10 @@ const show = ({ relatedWord }: PageProps) => {
                     </ActionButton>
                     <ActionButton
                         IconNode={Edit}
-                        href={route('admin.rwm.related-words.edit', relatedWord.id)}
+                        href={route(
+                            'admin.rwm.related-words.edit',
+                            relatedWord.id,
+                        )}
                     >
                         Edit
                     </ActionButton>
@@ -52,25 +54,27 @@ const show = ({ relatedWord }: PageProps) => {
                                 <CardTitle>Related Word Information</CardTitle>
                             </CardHeader>
                             <CardContent className="space-y-4">
-                                <div className="grid gap-2">
-                                    <Label htmlFor="code">
-                                        Word
-                                    </Label>
+                                <Card className="p-4">
+                                    <div className="grid gap-2">
+                                        <Label htmlFor="code">Word</Label>
 
-                                    <p>{relatedWord.word?.word}</p>
-                                </div>
-                                <div className="grid gap-2">
-                                    <Label htmlFor="code">Related Word</Label>
+                                        <p>{relatedWord.word?.word}</p>
+                                    </div>
+                                </Card>
+                                <Card className="p-4">
+                                    <div className="grid gap-2">
+                                        <Label htmlFor="code">Related Word</Label>
 
-                                    <p>{relatedWord.related_word?.word}</p>
-                                </div>
-                                <div className="grid gap-2">
-                                    <Label htmlFor="code">
-                                        Relation Type
-                                    </Label>
+                                        <p>{relatedWord.relatedWord?.word}</p>
+                                    </div>
+                                </Card>
+                                <Card className="p-4">
+                                    <div className="grid gap-2">
+                                        <Label htmlFor="code">Relation Type</Label>
 
-                                    <p>{relatedWord.relation_type}</p>
-                                </div>
+                                        <p>{relatedWord.relation_type}</p>
+                                    </div>
+                                </Card>
                             </CardContent>
                         </Card>
                     </div>
@@ -81,27 +85,31 @@ const show = ({ relatedWord }: PageProps) => {
                                 <CardTitle>Details</CardTitle>
                             </CardHeader>
                             <CardContent className="space-y-4">
-                                <div>
-                                    <Label className="text-sm text-muted-foreground">
-                                        Created At
-                                    </Label>
-                                    <p className="text-sm font-medium">
-                                        {new Date(
-                                            relatedWord.created_at,
-                                        ).toLocaleString()}
-                                    </p>
-                                </div>
+                                <Card className="p-4">
+                                    <div>
+                                        <Label className="text-sm text-muted-foreground">
+                                            Created At
+                                        </Label>
+                                        <p className="text-sm font-medium">
+                                            {new Date(
+                                                relatedWord.created_at,
+                                            ).toLocaleString()}
+                                        </p>
+                                    </div>
+                                </Card>
 
-                                <div>
-                                    <Label className="text-sm text-muted-foreground">
-                                        Updated At
-                                    </Label>
-                                    <p className="text-sm font-medium">
-                                        {new Date(
-                                            relatedWord.updated_at,
-                                        ).toLocaleString()}
-                                    </p>
-                                </div>
+                                <Card className="p-4">
+                                    <div>
+                                        <Label className="text-sm text-muted-foreground">
+                                            Updated At
+                                        </Label>
+                                        <p className="text-sm font-medium">
+                                            {new Date(
+                                                relatedWord.updated_at,
+                                            ).toLocaleString()}
+                                        </p>
+                                    </div>
+                                </Card>
                             </CardContent>
                         </Card>
                     </div>

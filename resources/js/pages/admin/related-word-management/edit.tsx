@@ -3,17 +3,26 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import AdminLayout from "@/layouts/admin-layout";
-import { Head, Link, useForm } from "@inertiajs/react";
+import { Head, InfiniteScroll, Link, router, useForm } from "@inertiajs/react";
 import { Save } from "lucide-react";
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 
 interface Props {
-  Words: {
-    id: number;
-    word: string;
-  }[];
+  BaseWords: {
+    data: {
+      id: number;
+      word: string;
+    }[];
+  };
+  RelatedWords: {
+    data: {
+      id: number;
+      word: string;
+    }[];
+  };
   RelatedWord: {
     id: number;
     word_id: number;
@@ -21,7 +30,46 @@ interface Props {
     relation_type: string;
   };
 }
-export default function Edit({ Words, RelatedWord }: Props) {
+export default function Edit({ BaseWords, RelatedWords, RelatedWord }: Props) {
+  const [baseSearch, setBaseSearch] = useState("");
+  const [relatedSearch, setRelatedSearch] = useState("");
+  const searchTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const hasInitializedRef = useRef(false);
+
+  useEffect(() => {
+    if (!hasInitializedRef.current) {
+      hasInitializedRef.current = true;
+      return;
+    }
+
+    if (searchTimeoutRef.current) {
+      clearTimeout(searchTimeoutRef.current);
+    }
+
+    searchTimeoutRef.current = setTimeout(() => {
+      router.get(
+        route("admin.rwm.related-words.edit", RelatedWord.id),
+        {
+          base_word_search: baseSearch,
+          related_word_search: relatedSearch,
+        },
+        {
+          preserveState: true,
+          preserveScroll: true,
+          replace: true,
+          only: ["BaseWords", "RelatedWords"],
+          reset: ["BaseWords", "RelatedWords"],
+        },
+      );
+    }, 300);
+
+    return () => {
+      if (searchTimeoutRef.current) {
+        clearTimeout(searchTimeoutRef.current);
+      }
+    };
+  }, [baseSearch, relatedSearch, RelatedWord.id]);
+
   const { data, setData, post, processing, errors } = useForm({
     word_id: RelatedWord.word_id,
     related_word_id: RelatedWord.related_word_id,
@@ -61,24 +109,72 @@ export default function Edit({ Words, RelatedWord }: Props) {
                 <CardContent className="space-y-4">
                   <div className="grid gap-2">
                     <Label htmlFor="word_id">Base Word</Label>
-                    <select
-                      value={data.word_id}
-                      onChange={e => setData("word_id", e.target.value)}
+                    <Select
+                      value={String(data.word_id)}
+                      onValueChange={(value) => setData("word_id", Number(value))}
                     >
-                      {Words.map((word) => <option key={word.id} value={word.id}>{word.word}</option>)}
-                    </select>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select base word" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <div className="p-2">
+                          <Input
+                            placeholder="Search base words..."
+                            className="mb-2"
+                            value={baseSearch}
+                            onChange={(event) => setBaseSearch(event.target.value)}
+                          />
+                        </div>
+
+                        <InfiniteScroll data="BaseWords">
+                          {BaseWords?.data?.length ? (
+                            BaseWords.data.map((word) => (
+                              <SelectItem key={word.id} value={String(word.id)}>
+                                {word.word}
+                              </SelectItem>
+                            ))
+                          ) : (
+                            <div className="px-3 py-2 text-sm text-muted-foreground">No words found</div>
+                          )}
+                        </InfiniteScroll>
+                      </SelectContent>
+                    </Select>
 
                     <InputError message={errors.word_id} />
                   </div>
 
                   <div className="grid gap-2">
                     <Label htmlFor="related_word_id">Related Word</Label>
-                    <select
-                      value={data.related_word_id}
-                      onChange={e => setData("related_word_id", e.target.value)}
+                    <Select
+                      value={String(data.related_word_id)}
+                      onValueChange={(value) => setData("related_word_id", Number(value))}
                     >
-                      {Words.map((word) => <option key={word.id} value={word.id}>{word.word}</option>)}
-                    </select>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select related word" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <div className="p-2">
+                          <Input
+                            placeholder="Search related words..."
+                            className="mb-2"
+                            value={relatedSearch}
+                            onChange={(event) => setRelatedSearch(event.target.value)}
+                          />
+                        </div>
+
+                        <InfiniteScroll data="RelatedWords">
+                          {RelatedWords?.data?.length ? (
+                            RelatedWords.data.map((word) => (
+                              <SelectItem key={word.id} value={String(word.id)}>
+                                {word.word}
+                              </SelectItem>
+                            ))
+                          ) : (
+                            <div className="px-3 py-2 text-sm text-muted-foreground">No words found</div>
+                          )}
+                        </InfiniteScroll>
+                      </SelectContent>
+                    </Select>
 
                     <InputError message={errors.related_word_id} />
                   </div>

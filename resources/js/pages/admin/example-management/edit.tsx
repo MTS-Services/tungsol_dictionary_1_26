@@ -5,15 +5,20 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import AdminLayout from "@/layouts/admin-layout";
-import { Head, Link, useForm } from "@inertiajs/react";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@radix-ui/react-select";
+import { Head, InfiniteScroll, Link, router, useForm } from "@inertiajs/react";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Save } from "lucide-react";
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 
 interface WordDefinition {
   id: number;
+  word: string;
   definition: string;
+}
+
+interface PaginationDefinitions {
+  data: WordDefinition[];
 }
 interface Example {
   id: number;
@@ -26,10 +31,44 @@ interface Example {
   updated_at: string;
 }
 interface Props {
-  WordDefinitions: WordDefinition[];
+  WordDefinitions: PaginationDefinitions;
   example: Example;
 }
+
+
+
 export default function Create({ example, WordDefinitions }: Props) {
+  const [search, setSearch] = useState("");
+  const searchTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  useEffect(() => {
+    // Clear previous timeout
+    if (searchTimeoutRef.current) {
+      clearTimeout(searchTimeoutRef.current);
+    }
+
+    // Debounce search request
+    searchTimeoutRef.current = setTimeout(() => {
+      router.get(
+        route("admin.em.examples.edit", example.id),
+        { search: search },
+        {
+          preserveState: true,
+          preserveScroll: true,
+          replace: true,
+          only: ["WordDefinitions"],
+          reset: ["WordDefinitions"],
+        },
+      );
+    }, 300);
+
+    return () => {
+      if (searchTimeoutRef.current) {
+        clearTimeout(searchTimeoutRef.current);
+      }
+    };
+  }, [search, example.id]);
+
   const { data, setData, post, errors, processing } = useForm({
     definition_id: example.definition_id,
     sentence: example.sentence,
@@ -39,7 +78,6 @@ export default function Create({ example, WordDefinitions }: Props) {
     _method: "put",
   });
 
-  console.log(WordDefinitions, "Test");
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     post(route("admin.em.examples.update", example.id), {
@@ -74,9 +112,40 @@ export default function Create({ example, WordDefinitions }: Props) {
                 <CardContent className="space-y-4">
                   <div className="grid gap-2">
                     <Label htmlFor="definition_id">Word Definition</Label>
-                    <select onChange={e => setData("definition_id", Number(e.target.value))} value={data.definition_id}>
-                      {WordDefinitions.map((word) => <option key={word.id} value={word.id}>{word.definition}</option>)}
-                    </select>
+                    <Select onValueChange={(value) => setData("definition_id", Number(value))} value={String(data.definition_id)}>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select definition" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <div className="p-2">
+                          <Input
+                            placeholder="Search definitions..."
+                            className="mb-2"
+                            value={search}
+                            onChange={(e) => setSearch(e.target.value)}
+                            autoFocus
+                          />
+                        </div>
+
+                        <InfiniteScroll data="WordDefinitions">
+                          {WordDefinitions?.data?.length > 0 ? (
+                            WordDefinitions.data.map((definition) => (
+                              <SelectItem
+                                key={definition.id}
+                                value={String(definition.id)}
+                              >
+                                {definition.definition}
+                              </SelectItem>
+                            ))
+                          ) : (
+                            <div className="p-2 text-sm text-gray-500">
+                              {search ? "No definitions found" : "Start typing to search..."}
+                            </div>
+                          )}
+                        </InfiniteScroll>
+
+                      </SelectContent>
+                    </Select>
 
                     <InputError message={errors.definition_id} />
                   </div>

@@ -4,19 +4,67 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Select } from "@/components/ui/select";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import AdminLayout from "@/layouts/admin-layout";
-import { Head, useForm } from "@inertiajs/react";
+import { Head, InfiniteScroll, router, useForm } from "@inertiajs/react";
 import { ArrowLeft, Save } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 
-export default function Create({ definition , word_entries}: any) {
+interface WordEntry {
+  id: number;
+  word: {
+    word: string;
+  };
+}
+
+interface PaginationWords {
+  data: WordEntry[];
+}
+
+interface Props {
+  definition: any;
+  word_entries: PaginationWords;
+}
+export default function Create({ definition, word_entries }: Props) {
+  const [search, setSearch] = useState("");
+  const searchTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  useEffect(() => {
+    // Clear previous timeout
+    if (searchTimeoutRef.current) {
+      clearTimeout(searchTimeoutRef.current);
+    }
+
+    // Debounce search request
+    searchTimeoutRef.current = setTimeout(() => {
+      // Reset the infinite scroll when search changes
+      router.get(
+        route("admin.wm.definitions.edit", definition.id),
+        { search: search },
+        {
+          preserveState: true,
+          preserveScroll: true,
+          replace: true,
+          only: ["word_entries"],
+          reset: ["word_entries"], // Reset infinite scroll data when search changes
+        },
+      );
+    }, 300);
+
+    return () => {
+      if (searchTimeoutRef.current) {
+        clearTimeout(searchTimeoutRef.current);
+      }
+    };
+  }, [search, definition.id]);
+
   const { data, setData, post, processing, errors } = useForm({
     word_entry_id: definition.word_entry_id,
     definition: definition.definition,
     register: definition.register,
-    domain:definition.domain,
+    domain: definition.domain,
     region: definition.region,
     usage_note: definition.usage_note,
     _method: "PUT",
@@ -24,12 +72,12 @@ export default function Create({ definition , word_entries}: any) {
 
   function handleSubmit(e: React.FormEvent) {
     post(route("admin.wm.definitions.update", definition.id), {
-        onSuccess: () => {
-            toast.success('Definition Updated Successfully');
-        },
-        onError: () => {
-            toast.error('Something went wrong');
-        }
+      onSuccess: () => {
+        toast.success('Definition Updated Successfully');
+      },
+      onError: () => {
+        toast.error('Something went wrong');
+      }
     });
     e.preventDefault();
   }
@@ -37,7 +85,6 @@ export default function Create({ definition , word_entries}: any) {
   return (
     <AdminLayout activeSlug="languages">
       <Head title="Edit Definition" />
-
       <CardHeader className="flex items-center flex-row justify-between">
         <h1 className="text-2xl font-bold">Edit Definition</h1>
         <ActionButton IconNode={ArrowLeft} href={route("admin.wm.definitions.index")}>
@@ -57,17 +104,42 @@ export default function Create({ definition , word_entries}: any) {
                 <CardContent className="space-y-4">
                   <div className="grid gap-2">
                     <Label htmlFor="code">Word Entry</Label>
+                    <Select
+                      value={String(data.word_entry_id)}
+                      onValueChange={(value) => setData("word_entry_id", Number(value))}>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select word" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <div className="p-2">
+                          <Input
+                            placeholder="Search words..."
+                            className="mb-2"
+                            value={search}
+                            onChange={(e) => setSearch(e.target.value)}
+                            autoFocus
+                          />
+                        </div>
 
-                    <select onChange={e => setData("word_entry_id", e.target.value)}>
-                      {word_entries.map((item: any) => <option value={item.id}>{item.word.word}</option>)}
-                    </select>
-
+                        <InfiniteScroll data="word_entries">
+                          {word_entries.data.map((item) => (
+                            <SelectItem
+                              key={item.id}
+                              value={String(item.id)}
+                            >
+                              {item.word.word}
+                            </SelectItem>
+                          ))
+                          }
+                        </InfiniteScroll>
+                      </SelectContent>
+                    </Select>
                     <InputError message={errors.word_entry_id} />
                   </div>
 
                   <div className="grid gap-2">
                     <Label htmlFor="name">Difinition</Label>
-                    <Textarea placeholder="Word Definition" 
+                    <Textarea placeholder="Word Definition"
                       value={data.definition} onChange={e => setData("definition", e.target.value)}>
                     </Textarea>
                     <InputError message={errors.definition} />
