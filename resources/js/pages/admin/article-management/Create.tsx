@@ -50,7 +50,7 @@ export default function Create({ authors, words }: Props) {
     };
 
     return (
-        <AdminLayout activeSlug="articles">
+        <AdminLayout activeSlug="article-management">
             <Head title="Create Article" />
             <div className="flex justify-between items-center mb-6">
                 <h1 className="text-2xl font-semibold">Create Article</h1>

@@ -27,7 +27,6 @@ class ArticleManagementController extends Controller
             'sortable' => ['id', 'title', 'category', 'is_published', 'published_at', 'created_at'],
         ]);
 
-  
         return Inertia::render('admin/article-management/index', [
             'articles' => $result['data'],
             'pagination' => $result['pagination'],
@@ -129,5 +128,15 @@ class ArticleManagementController extends Controller
         $this->articleService->delete($id);
 
         return redirect()->route('admin.am.articles.index');
+    }
+
+    public function show(string $id): Response
+    {
+        $article = Article::with('author', 'words')->find($id);
+        
+
+        return Inertia::render('admin/article-management/show', [
+            'article' => $article,
+        ]);
     }
 }
