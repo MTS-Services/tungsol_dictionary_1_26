@@ -1,28 +1,20 @@
 import { Search } from '@/components/search/search';
-import { home1, home2 } from '@/routes';
-import React from 'react';
-const trendingWords = [
-  { word: 'serendipity', onClick: () => window.location.href = '/home1' },
-  'ephemeral', 
-  'resilience', 
-  'paradigm', 
-  'ubiquitous', 
-  'eloquent', 
-  'enigma', 
-  'nostalgia', 
-  'aesthetic', 
-  'ambiguous'
-].map((item) => (
-  <span 
-    key={typeof item === 'string' ? item : item.word} 
-    className="px-5 py-2.5 bg-background rounded-full text-text-primary font-arial font-medium shadow-sm hover:shadow-md transition-shadow cursor-pointer border border-gray-200/100 border-2"
-    onClick={typeof item === 'object' ? item.onClick : undefined}
-  >
-    {typeof item === 'string' ? item : item.word}
-  </span>
-))
 
-const HomeContent = () => {
+import { router } from '@inertiajs/react';
+import React from 'react';
+import { TrendingWords } from '../common/trending-word';
+
+interface TrendingWord {
+  word: string;
+  slug: string;
+  onClick?: () => void;
+}
+
+interface HomeContentProps {
+  trendingWords: TrendingWord[];
+}
+
+const HomeContent = ({ trendingWords }: HomeContentProps) => {
   return (
     <div className="min-h-screen bg-white">
       {/* --- HERO SECTION --- */}
@@ -124,7 +116,7 @@ const HomeContent = () => {
               Trending Words
             </h2>
             <div className="flex flex-wrap gap-3">
-              {trendingWords}
+              <TrendingWords trendingWords={trendingWords} />
             </div>
           </div>
 

@@ -8,6 +8,7 @@ use App\Services\SearchService;
 use App\Services\WordService;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
@@ -112,16 +113,16 @@ class SearchController extends Controller
     /**
      * Increment word search count when word is clicked
      */
-    public function trackWordClick(Request $request, int $id): InertiaResponse
+    public function trackWordClick(Request $request, int $id): RedirectResponse
     {
         try {
             $this->searchService->incrementWordSearchCount($id);
             $word = $this->wordService->find($id);
-          return Inertia::render('frontend/word', [
-            'word' => $word,
-        ]);
+            return redirect()->route('word', $word->slug);
         } catch (\Exception $e) {
            abort(400);
         }
+        
+        return redirect()->route('word', $word->slug);
     }
 }

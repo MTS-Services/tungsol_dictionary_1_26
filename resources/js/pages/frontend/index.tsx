@@ -1,12 +1,20 @@
 
 import HomeContent from '@/components/sections/frontend/home/home-content'
 import FrontendLayout from '@/layouts/frontend-layout'
-import React from 'react'
 
-export default function Home() {
+
+interface TrendingWord {
+  word: string;
+  slug: string;
+}
+interface HomeProps {
+  trendingWords: TrendingWord[];
+}
+export default function Home({trendingWords}: HomeProps) {
+  
   return (
     <FrontendLayout>
-      <HomeContent />
+      <HomeContent trendingWords={trendingWords} />
     </FrontendLayout>
   )
 }

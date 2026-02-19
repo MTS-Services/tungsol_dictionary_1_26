@@ -1,8 +1,16 @@
 import { Search } from "@/components/search/search";
+import { TrendingWords } from "@/components/sections/frontend/common/trending-word";
 import FrontendLayout from "@/layouts/frontend-layout";
 import React from "react";
+interface TrendingWord {
+  word: string;
+  slug: string;
+}
+interface DictionaryProps {
+  trendingWords: TrendingWord[];
+}
 
-export default function Dictionary() {
+export default function Dictionary({ trendingWords }: DictionaryProps) {
   return (
     <FrontendLayout>
       <>
@@ -48,36 +56,7 @@ export default function Dictionary() {
                 Popular Searches
               </h2>
               <div className="flex flex-wrap gap-4 pb-8">
-                <span className="px-3 py-2.5 bg-garayasa rounded-full font-arial text-gray-900 font-medium transition-shadow cursor-pointer">
-                  serendipity   
-                </span>
-                <span className="px-3 py-2.5 bg-garayasa rounded-full font-arial text-gray-900 font-medium transition-shadow cursor-pointer">
-                  ephemeral
-                </span>
-                <span className="px-3 py-2.5 bg-garayasa rounded-full font-arial text-gray-900 font-medium transition-shadow cursor-pointer">
-                  resilience
-                </span>
-                <span className="px-3 py-2.5 bg-garayasa rounded-full font-arial text-gray-900 font-medium transition-shadow cursor-pointer">
-                  paradigm
-                </span>
-                <span className="px-3 py-2.5 bg-garayasa rounded-full font-arial text-gray-900 font-medium transition-shadow cursor-pointer">
-                  ubiquitous
-                </span>
-                <span className="px-3 py-2.5 bg-garayasa rounded-full font-arial text-gray-900 font-medium transition-shadow cursor-pointer">
-                  eloquent
-                </span>
-                <span className="px-3 py-2.5 bg-garayasa rounded-full font-arial text-gray-900 font-medium transition-shadow cursor-pointer">
-                  enigma
-                </span>
-                <span className="px-3 py-2.5 bg-garayasa rounded-full font-arial text-gray-900 font-medium transition-shadow cursor-pointer">
-                  nostalgia
-                </span>
-                <span className="px-3 py-2.5 bg-garayasa rounded-full font-arial text-gray-900 font-medium transition-shadow cursor-pointer">
-                  aesthetic
-                </span>
-                <span className="px-3 py-2.5 bg-garayasa rounded-full font-arial text-gray-900 font-medium transition-shadow cursor-pointer">
-                  ambiguous
-                </span>
+                <TrendingWords trendingWords={trendingWords} />
               </div>
             </div>
             <section className="#">
