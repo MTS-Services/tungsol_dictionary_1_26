@@ -214,7 +214,7 @@ export default function Create({ WordDefinitions, Words, Synonym }: Props) {
                     className="w-full bg-black text-white hover:bg-black/80 cursor-pointer"
                   >
                     <Save className="mr-2 h-4 w-4" />
-                    {processing ? "Creating..." : "Create Synonym"}
+                    {processing ? "Updating..." : "Update Synonym"}
                   </Button>
                 </CardContent>
               </Card>

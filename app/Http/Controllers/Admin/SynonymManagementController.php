@@ -84,7 +84,7 @@ class SynonymManagementController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'definition_id' => ['required', 'exists:word_entries,id'],
+            'definition_id' => ['required', 'exists:definitions,id'],
             'synonym_word_id' => ['required', 'exists:words,id'],
             'relevance_score' => ['required', 'integer', 'between:0,100'],
         ]);
