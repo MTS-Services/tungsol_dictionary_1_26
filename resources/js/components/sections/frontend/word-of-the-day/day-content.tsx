@@ -16,7 +16,7 @@ interface HomeContentProps {
   wordOfTheDay: any;
 }
 
-const HomeContent = ({ trendingWords, wordOfTheDay }: HomeContentProps) => {
+const DayContent = ({ trendingWords, wordOfTheDay }: HomeContentProps) => {
 
   console.log(wordOfTheDay.word.word_entries);
   return (
@@ -194,4 +194,4 @@ const FeatureCard = ({ title, desc, iconPath, secondPath }: { title: string; des
   </div>
 );
 
-export default HomeContent;
+export default DayContent;

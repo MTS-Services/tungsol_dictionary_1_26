@@ -225,12 +225,12 @@ function Search({
             )}
         >
             <div className="flex justify-center gap-3">
-                <button className="cursor-pointer rounded-lg bg-btn-secondary px-6 py-3.5 font-arial text-sm font-normal text-text-white lg:text-base">
+                <button className="cursor-pointer rounded-lg bg-btn-secondary px-6 py-3 font-arial text-sm font-normal text-text-white lg:text-base">
                     Dictionary
                 </button>
-                <button className="cursor-pointer rounded-lg bg-btn-primary px-6 py-3.5 font-arial text-sm font-normal text-text-white lg:text-base">
+                {/* <button className="cursor-pointer rounded-lg bg-btn-primary px-6 py-3.5 font-arial text-sm font-normal text-text-white lg:text-base">
                     Thesaurus
-                </button>
+                </button> */}
             </div>
             <div className="relative flex-1">
                 <svg

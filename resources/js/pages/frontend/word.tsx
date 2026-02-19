@@ -38,7 +38,7 @@ interface Props {
     word: Word;
 }
 export default function Word({ word }: Props) {
-    console.log(word);
+   
     return (
         <FrontendLayout>
             <>
@@ -152,16 +152,19 @@ export default function Word({ word }: Props) {
 
                             <div className="space-y-6 px-4">
                                 {word.word_entries.map((entry, index) => (
+                                    
                                     <div key={index}>
                                         <span className="rounded bg-slate-100 px-2 py-0.5 text-[10px] font-bold text-slate-500 uppercase">
-                                            {entry.part_of_speech[0]?.name}
+                                            {entry.part_of_speech?.name}
                                         </span>
-                                        <p className="mt-3 font-arial font-medium text-slate-700">
-                                            {word.etymology}
-                                        </p>
+                                       
                                         {entry.definitions.map(
+
                                             (definition, index) => (
                                                 <>
+                                                 <p className="mt-3 font-arial font-medium text-slate-700">
+                                                        {definition.definition}
+                                                    </p>
                                                     {definition.examples.map(
                                                         (example, index) => (
                                                             <div className="mt-3 rounded-lg border-l-4 border-blue-500 bg-slate-50/80 p-4">
