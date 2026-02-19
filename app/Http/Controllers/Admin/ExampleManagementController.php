@@ -8,7 +8,6 @@ use App\Models\Example;
 use App\Services\DataTableService;
 use App\Services\DefinitionService;
 use App\Services\ExampleService;
-use Dflydev\DotAccessData\Data;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -16,6 +15,7 @@ use Inertia\Response;
 class ExampleManagementController extends Controller
 {
     public function __construct(protected DefinitionService $definitionService, protected ExampleService $exampleService, protected DataTableService $dataTableService) {}
+
     /**
      * Display a listing of the resource.
      */
@@ -27,6 +27,7 @@ class ExampleManagementController extends Controller
             'searchable' => ['sentence', 'source', 'author', 'year'],
             'sortable' => ['id', 'source', 'author', 'year', 'created_at'],
         ]);
+
         return Inertia::render('admin/example-management/index', [
             'examples' => $result['data'],
             'pagination' => $result['pagination'],
@@ -34,7 +35,7 @@ class ExampleManagementController extends Controller
             'filters' => $result['filters'],
             'search' => $result['search'],
             'sortBy' => $result['sort_by'],
-            'sortOrder' => $result['sort_order']
+            'sortOrder' => $result['sort_order'],
         ]);
     }
 
@@ -47,26 +48,25 @@ class ExampleManagementController extends Controller
 
         $query = Definition::with('wordEntry');
 
-        if (!empty($search)) {
+        if (! empty($search)) {
             $query->where('definition', 'like', "%{$search}%");
         }
 
         $WordDefinitions = Inertia::scroll(
-            fn() => $query->orderBy('word_entry_id')->paginate(15)
+            fn () => $query->orderBy('word_entry_id')->paginate(15)
         );
 
         return Inertia::render('admin/example-management/create', [
-            'WordDefinitions' => $WordDefinitions
+            'WordDefinitions' => $WordDefinitions,
         ]);
     }
-
 
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
     {
-        $data =  $request->validate([
+        $data = $request->validate([
             'definition_id' => 'required|integer',
             'sentence' => 'required|string|max:255',
             'source' => 'nullable|string|max:255',
@@ -96,21 +96,31 @@ class ExampleManagementController extends Controller
         // dd($example);
 
         return Inertia::render('admin/example-management/show', [
-            'example' => $example
+            'example' => $example,
         ]);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Request $request, string $id): Response
     {
-        $exmaple = $this->exampleService->find($id);
-        $WordDefinitions = $this->definitionService->all();
+        $example = $this->exampleService->find($id);
+        $search = $request->input('search', '');
+
+        $query = Definition::with('wordEntry');
+
+        if (! empty($search)) {
+            $query->where('definition', 'like', "%{$search}%");
+        }
+
+        $WordDefinitions = Inertia::scroll(
+            fn () => $query->orderBy('word_entry_id')->paginate(15)
+        );
 
         return Inertia::render('admin/example-management/edit', [
-            'example' => $exmaple,
-            'WordDefinitions' => $WordDefinitions
+            'example' => $example,
+            'WordDefinitions' => $WordDefinitions,
         ]);
     }
 
@@ -122,11 +132,11 @@ class ExampleManagementController extends Controller
 
         $oldExample = $this->exampleService->find($id);
 
-        if (!$oldExample) {
+        if (! $oldExample) {
             return redirect()->route('admin.em.examples.index');
         }
 
-        $data =  $request->validate([
+        $data = $request->validate([
             'definition_id' => 'required|integer',
             'sentence' => 'required|string|max:255',
             'source' => 'nullable|string|max:255',
