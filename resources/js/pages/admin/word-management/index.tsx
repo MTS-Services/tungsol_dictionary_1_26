@@ -1,6 +1,6 @@
 import React from 'react';
 import { Head, router, Link } from '@inertiajs/react';
-import { Pencil, Trash2, CheckCircle, XCircle } from 'lucide-react';
+import { Pencil, Trash2, CheckCircle, XCircle, Eye } from 'lucide-react';
 import AdminLayout from '@/layouts/admin-layout';
 import { DataTable } from '@/components/ui/data-table';
 import { useDataTable } from '@/hooks/use-data-table';
@@ -111,6 +111,13 @@ export default function Index({
 
     const actions: ActionConfig<Word>[] = [
         {
+            label: 'View',
+            icon: <Eye className="h-4 w-4" />,
+            onClick: (word) => {
+                router.visit(route('admin.wm.words.show', word?.id));
+            },
+        },
+        {
             label: 'Edit',
             icon: <Pencil className="h-4 w-4" />,
             onClick: (word) => {
@@ -130,7 +137,7 @@ export default function Index({
     ];
 
     return (
-        <AdminLayout activeSlug="words">
+        <AdminLayout activeSlug="word-management">
             <Head title="Words" />
 
             <div className="flex justify-end mb-6">

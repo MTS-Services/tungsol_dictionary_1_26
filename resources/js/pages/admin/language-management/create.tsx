@@ -20,7 +20,7 @@ export default function CreateLanguage() {
     }
 
     return (
-        <AdminLayout activeSlug="languages">
+        <AdminLayout activeSlug="language-management">
             <Head title="Create Language" />
 
             <CardHeader className="flex items-center flex-row justify-between">

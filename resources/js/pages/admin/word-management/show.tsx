@@ -4,38 +4,40 @@ import { Label } from '@/components/ui/label';
 import AdminLayout from '@/layouts/admin-layout';
 import { ArrowLeft, Edit } from 'lucide-react';
 
-interface Props {
-    partOfSpeech: {
-        id: string;
+interface Word {
+    id: number;
+    word: string;
+    slug: string;
+    language:{
+        id: number;
         name: string;
-        abbreviation: string;
-        created_at: string;
-        updated_at: string;
-    };
+    } | null;
+    is_approved: boolean;
+    search_count: number;
+    created_at: string;
+    updated_at: string;
 }
 
-interface PageProps {
-    partOfSpeech: Props['partOfSpeech'];
+interface Props {
+    word: Word;
 }
 
-export default function show({ partOfSpeech }: PageProps) {
+
+export default function Show({ word }: Props) {
     return (
-        <AdminLayout activeSlug="part-of-speech-management">
+        <AdminLayout activeSlug="word-management">
             <CardHeader className="flex flex-row items-center justify-between">
                 <h1 className="text-2xl font-bold">Detail Part of Speech</h1>
                 <div className="flex gap-2">
                     <ActionButton
                         IconNode={ArrowLeft}
-                        href={route('admin.posm.parts-of-speech.index')}
+                        href={route('admin.wm.words.index')}
                     >
                         Back
                     </ActionButton>
                     <ActionButton
                         IconNode={Edit}
-                        href={route(
-                            'admin.posm.parts-of-speech.edit',
-                            partOfSpeech?.id,
-                        )}
+                        href={route('admin.wm.words.edit', word?.id)}
                     >
                         Edit
                     </ActionButton>
@@ -52,14 +54,24 @@ export default function show({ partOfSpeech }: PageProps) {
                             </CardHeader>
                             <CardContent className="space-y-4">
                                 <div className="grid gap-2">
-                                    <Label htmlFor="code">Name</Label>
+                                    <Label htmlFor="code">Word</Label>
 
-                                    <p>{partOfSpeech.name}</p>
+                                    <p>{word.word}</p>
                                 </div>
                                 <div className="grid gap-2">
-                                    <Label htmlFor="name">Abbreviation</Label>
+                                    <Label htmlFor="name">Slug</Label>
 
-                                    <p>{partOfSpeech.abbreviation}</p>
+                                    <p>{word.slug}</p>
+                                </div>
+                                <div className="grid gap-2">
+                                    <Label htmlFor="name">Language</Label>
+
+                                    <p>{word.language?.name || '-'}</p>
+                                </div>
+                                <div className="grid gap-2">
+                                    <Label htmlFor="name">Search Count</Label>
+
+                                    <p>{word.search_count || '-'}</p>
                                 </div>
                             </CardContent>
                         </Card>
@@ -77,7 +89,7 @@ export default function show({ partOfSpeech }: PageProps) {
                                     </Label>
                                     <p className="text-sm font-medium">
                                         {new Date(
-                                            partOfSpeech.created_at,
+                                            word.created_at,
                                         ).toLocaleString()}
                                     </p>
                                 </div>
@@ -88,7 +100,7 @@ export default function show({ partOfSpeech }: PageProps) {
                                     </Label>
                                     <p className="text-sm font-medium">
                                         {new Date(
-                                            partOfSpeech.updated_at,
+                                            word.updated_at,
                                         ).toLocaleString()}
                                     </p>
                                 </div>

@@ -62,7 +62,7 @@ export default function EditWord({ word, languages, categories }: Props) {
     };
 
     return (
-        <AdminLayout activeSlug="words">
+        <AdminLayout activeSlug="word-management">
             <Head title={`Edit Word: ${word.word}`} />
 
             <CardHeader className="flex items-center flex-row justify-between">

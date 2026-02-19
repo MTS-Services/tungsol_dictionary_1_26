@@ -49,7 +49,7 @@ export default function CreateWord({ languages, categories }: Props) {
     };
 
     return (
-        <AdminLayout activeSlug="words">
+        <AdminLayout activeSlug="word-management">
             <Head title="Create Word" />
 
             <CardHeader className="flex items-center flex-row justify-between">

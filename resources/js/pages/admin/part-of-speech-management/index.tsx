@@ -104,7 +104,7 @@ export default function Index({
     ];
 
     return (
-        <AdminLayout activeSlug="parts-of-speech">
+        <AdminLayout activeSlug="part-of-speech-management">
             <Head title="Parts of Speech" />
 
             <div className="flex justify-end mb-6">

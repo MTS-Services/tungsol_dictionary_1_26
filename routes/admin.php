@@ -68,15 +68,15 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
         // Word Management Routes
         Route::prefix('word-management' )->name('wm.')->group(function () {
-            Route::resource( 'words',WordManagmentController::class)->only('index','create', 'store', 'edit', 'update', 'destroy');
+            Route::resource( 'words',WordManagmentController::class)->only('index','create', 'store', 'edit', 'show', 'update', 'destroy');
         });
          // Word Entries Routes
         Route::prefix('word-management' )->name('wm.')->group(function () {
-            Route::resource( 'words-entries',WordEntriesController::class)->only('index','create', 'store', 'edit', 'update', 'destroy');
+            Route::resource( 'words-entries',WordEntriesController::class)->only('index','create', 'store', 'edit', 'show', 'update', 'destroy');
         });
         // Word Defination Routes
         Route::prefix('word-management' )->name('wm.')->group(function () {
-            Route::resource( 'definitions',DefinitionController::class)->only('index','create', 'store', 'edit', 'update', 'destroy');
+            Route::resource( 'definitions',DefinitionController::class)->only('index','create', 'store', 'edit', 'show', 'update', 'destroy');
         });
 
          Route::prefix('example-management' )->name('em.')->group(function () {
@@ -97,7 +97,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
         // Category Management Routes
         Route::prefix('category-management' )->name('cm.')->group(function () {
-            Route::resource( 'categories',CategoryManagementController::class)->only('index','create', 'store', 'edit', 'update', 'destroy');
+            Route::resource( 'categories',CategoryManagementController::class)->only('index','create', 'store', 'show', 'edit', 'update', 'destroy');
         });
 
         // Article Management Routes

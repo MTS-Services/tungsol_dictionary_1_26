@@ -5,7 +5,7 @@ import { useDataTable } from "@/hooks/use-data-table";
 import AdminLayout from "@/layouts/admin-layout";
 import { ActionConfig, ColumnConfig, PaginationData } from "@/types/data-table.types";
 import { Head, Link, router } from "@inertiajs/react";
-import { CheckCircle, Pencil, Trash2, XCircle } from "lucide-react";
+import { CheckCircle, Eye, Pencil, Trash2, XCircle } from "lucide-react";
 import React from "react";
 
 interface WordEntry {
@@ -134,6 +134,13 @@ export default function Index({
   ];
 
   const actions: ActionConfig<WordEntry>[] = [
+    {
+      label: "View",
+      icon: <Eye className="h-4 w-4" />,
+      onClick: (wordEntry) => {
+        router.visit(route("admin.wm.words-entries.show", wordEntry?.id));
+      },
+    },
     {
       label: "Edit",
       icon: <Pencil className="h-4 w-4" />,

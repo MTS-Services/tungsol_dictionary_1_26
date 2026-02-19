@@ -111,4 +111,12 @@ class WordManagmentController extends Controller
 
         return back()->with('success', 'Word deleted successfully.');
     }
+    public function show(string $id): Response
+    {
+        $word = Word::with(['language', 'categories'])->findOrFail($id);
+
+        return Inertia::render('admin/word-management/show', [
+            'word' => $word,
+        ]);
+    }
 }

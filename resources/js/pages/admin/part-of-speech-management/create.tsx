@@ -20,7 +20,7 @@ export default function CreatePartOfSpeech() {
     }
 
     return (
-        <AdminLayout activeSlug="parts-of-speech">
+        <AdminLayout activeSlug="part-of-speech-management">
             <Head title="Create Part of Speech" />
 
             <CardHeader className="flex items-center flex-row justify-between">
