@@ -21,6 +21,7 @@ Route::controller(FrontendController::class)->group(function () {
         Route::get('/admin-dashboard2', 'adminDashboard2')->name('admin-dashboard2');
         Route::get('/word/{slug}', 'word')->name('word');
         Route::get('/word/browse-alphabetically/{letter}', 'browseAlphabetically')->name('browse-alphabetically');
+    Route::get('/word/browse-alphabetically/{letter}/{page}', 'browseAlphabetically')->name('browse-alphabetically.paginated');
         Route::get('/word-of-the-day', 'wordOfTheDay')->name('word-of-the-day');
 
     });

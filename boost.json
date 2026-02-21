@@ -1,15 +1,18 @@
 {
     "agents": [
         "claude_code",
+        "codex",
+        "copilot",
         "cursor",
         "gemini",
         "windsurf"
     ],
     "editors": [
         "claude_code",
+        "codex",
         "cursor",
         "gemini",
-        "vscode",
+        "opencode",
         "windsurf"
     ],
     "guidelines": [

@@ -154,10 +154,18 @@ class FrontendController extends Controller
                'word' => $word,
           ]);
      }
-     public function browseAlphabetically($letter): Response
+     public function browseAlphabetically(Request $request, $letter, $page = null): Response
      {
+          $page = (int) ($page ?: $request->get('page', 1));
+          $perPage = (int) $request->get('per_page', 50);
+          
+          $wordsData = $this->wordService->getWordsByLetterInfo($letter, $page, $perPage);
+          
           return Inertia::render('frontend/browse-alphabetically', [
               'letter' => $letter,
+              'wordsData' => $wordsData,
+              'page' => $page,
+              'perPage' => $perPage,
           ]);
      }
 
