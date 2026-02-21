@@ -41,4 +41,8 @@ class RelatedWordService
         return $this->model->all();
     }
     
+
+    public function countRelatedWords(){
+        return $this->model->count();
+    }
 }
