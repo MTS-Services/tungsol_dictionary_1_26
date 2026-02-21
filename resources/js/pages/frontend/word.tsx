@@ -102,7 +102,7 @@ export default function Word({ word }: Props) {
                                         className="text-md rounded-full p-2 font-arial text-blue-500 hover:bg-slate-100"
                                     />
 
-                                    <button className="text-md rounded-full p-2 font-arial text-foreground hover:bg-slate-100">
+                                    {/* <button className="text-md rounded-full p-2 font-arial text-foreground hover:bg-slate-100">
                                         <svg
                                             width="24"
                                             height="24"
@@ -125,7 +125,7 @@ export default function Word({ word }: Props) {
                                                 stroke-linejoin="round"
                                             />
                                         </svg>
-                                    </button>
+                                    </button> */}
 
                                     <button className="text-md rounded-full p-2 font-arial text-foreground hover:bg-slate-100">
                                         <svg
