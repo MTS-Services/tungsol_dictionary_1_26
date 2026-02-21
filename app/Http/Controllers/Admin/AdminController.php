@@ -9,6 +9,11 @@ use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
 use App\Concerns\PasswordValidationRules;
+use App\Models\Contact;
+use App\Services\DefinitionService;
+use App\Services\RelatedWordService;
+use App\Services\SearchService;
+use App\Services\WordService;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 
@@ -17,11 +22,35 @@ class AdminController extends Controller
     use PasswordValidationRules;
     //
 
-    public function __construct(protected DataTableService $dataTableService){}
+    public function __construct(
+        protected DataTableService $dataTableService,
+        protected WordService $wordService,
+        protected SearchService $searchService,
+        protected DefinitionService $definitionService,
+        protected RelatedWordService $relatedWordService,
+        ){}
 
     public function index(): Response
     {
-        return Inertia::render('admin/index');
+
+        $totalInquiries = Contact::count();
+
+
+
+        $totalWords = $this->wordService->countTotalWords();
+       $totalDefinitions = $this->definitionService->countTotalDefinitions();
+       $searchTrends = $this->wordService->getTrendingWords(20);
+       $totalRelatedWords = $this->relatedWordService->countRelatedWords();
+
+    //    dd($searchTrends);
+        
+        return Inertia::render('admin/index', [
+            'totalWords' => $totalWords,
+            'totalDefinitions' => $totalDefinitions,
+            'totalInquiries' => $totalInquiries,
+            'words' => $searchTrends,
+            'totalRelatedWords' => $totalRelatedWords
+        ]);
     }
 
     public function allAdmin(): Response
