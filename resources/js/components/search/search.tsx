@@ -263,7 +263,7 @@ function Search({
             <div
                 ref={dropdownRef}
                 className={cn(
-                    'absolute top-full left-0 w-full bg-white border border-gray-200 rounded-lg shadow-lg z-10 mt-2 transition-all duration-300 ease-in-out origin-top',
+                    'absolute top-full left-0 w-full  bg-white border border-gray-200 rounded-lg shadow-lg z-15 mt-2 transition-all duration-300 ease-in-out origin-top',
                     isOpen ? 'opacity-100 scale-100 visible' : 'opacity-0 scale-95 invisible',
                     'max-h-96 overflow-y-auto'
                 )}

@@ -30,7 +30,8 @@ class FrontendController extends Controller
           $trendingWords = $this->wordService->getTrendingWords();
           
           $wordOfTheDay = $this->wordOfTheDayService->getWordOfTheDay();
-          $wordOfTheDay->load(['word.wordEntries.partOfSpeech','word.wordEntries.definitions.examples']);
+          if($wordOfTheDay) $wordOfTheDay->load(['word.wordEntries.partOfSpeech','word.wordEntries.definitions.examples']);
+         
 
           return Inertia::render('frontend/index', [
                'trendingWords' => $trendingWords,
@@ -154,9 +155,19 @@ class FrontendController extends Controller
                'word' => $word,
           ]);
      }
-     public function browseAlphabetically(): Response
+     public function browseAlphabetically(Request $request, $letter, $page = null): Response
      {
-          return Inertia::render('frontend/browse-alphabetically');
+          $page = (int) ($page ?: $request->get('page', 1));
+          $perPage = (int) $request->get('per_page', 50);
+          
+          $wordsData = $this->wordService->getWordsByLetterInfo($letter, $page, $perPage);
+          
+          return Inertia::render('frontend/browse-alphabetically', [
+              'letter' => $letter,
+              'wordsData' => $wordsData,
+              'page' => $page,
+              'perPage' => $perPage,
+          ]);
      }
 
      public function wordOfTheDay(){
