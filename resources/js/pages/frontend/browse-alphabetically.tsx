@@ -171,7 +171,7 @@ function BrowseAlphabetically({ letter, wordsData, page, perPage }: Props) {
                         </div>
                     </div>
                     <section className="#">
-                        <div className="mx-auto max-w-full px-4">
+                        <div className="mx-auto max-w-full px-0">
                             <div className="flex items-center justify-start">
                                 {/* Browse Alphabetically Section */}
 
@@ -250,13 +250,13 @@ function BrowseAlphabetically({ letter, wordsData, page, perPage }: Props) {
 
                             {/* Pagination Controls */}
                             {words.length > 0 && (
-                                <div className="mt-8 flex items-center justify-between">
+                                <div className="mt-8 flex items-center justify-between md:flex-row flex-col gap-12 md:gap-0">
                                     <div className="flex items-center gap-4">
                                         {/* Page Navigation */}
                                         <button
                                             onClick={handlePreviousPage}
                                             disabled={currentPage <= 1}
-                                            className={`flex items-center gap-2 rounded-lg border px-4 py-2 transition ${
+                                            className={`flex text-xs md:text-base items-center cursor-pointer gap-2 rounded-lg border px-4 py-2 transition ${
                                                 currentPage <= 1
                                                     ? 'cursor-not-allowed border-gray-300 bg-gray-100 text-gray-400'
                                                     : 'border-gray-300 bg-white text-gray-800 hover:bg-gray-50'
@@ -276,7 +276,7 @@ function BrowseAlphabetically({ letter, wordsData, page, perPage }: Props) {
                                             disabled={
                                                 !pagination.has_more_pages
                                             }
-                                            className={`flex items-center gap-2 rounded-lg border px-4 py-2 transition ${
+                                            className={`flex text-xs md:text-base  cursor-pointer  items-center gap-2 rounded-lg border px-4 py-2 transition ${
                                                 !pagination.has_more_pages
                                                     ? 'cursor-not-allowed border-gray-300 bg-gray-100 text-gray-400'
                                                     : 'border-gray-300 bg-white text-gray-800 hover:bg-gray-50'
@@ -288,7 +288,7 @@ function BrowseAlphabetically({ letter, wordsData, page, perPage }: Props) {
                                     </div>
 
                                     {/* Letter Navigation */}
-                                    <div className="flex items-center gap-4">
+                                    <div className="flex  items-center gap-4">
                                         <button
                                             onClick={handlePreviousLetter}
                                             disabled={
@@ -296,7 +296,7 @@ function BrowseAlphabetically({ letter, wordsData, page, perPage }: Props) {
                                                     selectedLetter,
                                                 ) <= 0
                                             }
-                                            className={`flex items-center gap-2 rounded-lg border px-4 py-2 transition ${
+                                            className={`flex items-center text-xs md:text-base  cursor-pointer gap-2 rounded-lg border px-4 py-2 transition ${
                                                 alphabet.indexOf(
                                                     selectedLetter,
                                                 ) <= 0
@@ -316,7 +316,7 @@ function BrowseAlphabetically({ letter, wordsData, page, perPage }: Props) {
                                                 ) >=
                                                 alphabet.length - 1
                                             }
-                                            className={`flex items-center gap-2 rounded-lg border px-4 py-2 transition ${
+                                            className={`flex items-center gap-2  text-xs md:text-base  cursor-pointer rounded-lg border px-4 py-2 transition ${
                                                 alphabet.indexOf(
                                                     selectedLetter,
                                                 ) >=
