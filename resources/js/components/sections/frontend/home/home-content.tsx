@@ -87,17 +87,28 @@ const HomeContent = ({ trendingWords, wordOfTheDay }: HomeContentProps) => {
             <p className="text-text-secondary text-sm mb-4">
               <span className="font-regular italic">
                 {wordOfTheDay.word.word_entries[0]?.pronunciation_ipa}
-                </span><br /> • {wordOfTheDay.word.word_entries[0].part_of_speech.name}
+                </span>
+                { wordOfTheDay.word.word_entries[0]?.part_of_speech.name && (
+                     <>
+                      <br /> • {wordOfTheDay.word.word_entries[0]?.part_of_speech.name}
+                     </>
+                ) }
+               
             </p>
             <p className="text-text-primary text-lg font-medium mb-4 leading-relaxed">
-             {wordOfTheDay.word.word_entries[0].definitions[0].definition}
+             {wordOfTheDay.word.word_entries[0]?.definitions[0]?.definition}
             </p>
-            <div className="bg-gray-100 p-4 rounded pt-4">
+            {
+              wordOfTheDay.word.word_entries[0]?.definitions[0]?.examples[0]?.sentence && (
+          <div className="bg-gray-100 p-4 rounded pt-4">
               <p className="text-text-secondary text-xs font-regular uppercase mb-2">Example:</p>
               <p className="text-text-secondary">
                 {wordOfTheDay.word.word_entries[0]?.definitions[0]?.examples[0]?.sentence}
               </p>
             </div>
+              )   
+            }
+            
           </div>
            )
         }
