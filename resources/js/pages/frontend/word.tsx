@@ -24,7 +24,7 @@ interface WordEntry {
     antonyms?: string[];
 }
 interface RelatedWord {
-    word: Word;
+    related_word: Word;
     slug: string;
 }
 interface Word {
@@ -228,8 +228,8 @@ export default function Word({ word }: Props) {
                             <div className="divide-y divide-slate-50">
                                 {word.related_words.map((relatedWord) => (
                                     
-                                    <Link key={relatedWord.word.slug} href={route('word', { slug: relatedWord.word.slug })} className="group flex w-full items-center justify-between py-3 text-left font-arial text-sm font-medium text-slate-700 hover:text-blue-500">
-                                        {relatedWord.word.word} →
+                                    <Link key={relatedWord.related_word.slug} href={route('word', { slug: relatedWord.related_word.slug })} className="group flex w-full items-center justify-between py-3 text-left font-arial text-sm font-medium text-slate-700 hover:text-blue-500">
+                                        {relatedWord.related_word.word} →
                                     </Link>
                                 ))}
                             </div>

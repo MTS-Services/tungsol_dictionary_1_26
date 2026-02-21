@@ -22,7 +22,7 @@ const HomeContent = ({ trendingWords, wordOfTheDay }: HomeContentProps) => {
   return (
     <div className="min-h-screen bg-white">
       {/* --- HERO SECTION --- */}
-      <section className="relative lg:py-20 py-8 px-4 overflow-hidden">
+      <section className="relative  z-12 lg:py-20 py-8 px-4 overflow-hidden">
         {/* Desktop Background Layer: Hidden on mobile, visible on LG screens */}
         <div 
           className="hidden lg:block absolute inset-0 z-0 bg-cover bg-center"
@@ -117,7 +117,7 @@ const HomeContent = ({ trendingWords, wordOfTheDay }: HomeContentProps) => {
       </section>
 
       {/* --- FEATURES & TRENDING SECTION --- */}
-      <section className="relative lg:py-20 py-8 z-10 px-4 overflow-hidden">
+      <section className="relative lg:py-20 py-8 z-8 px-4 overflow-hidden">
         {/* Background Image/Gradients - ONLY VISIBLE ON DESKTOP */}
         <div className="hidden lg:block absolute inset-0 -z-10 w-full h-full">
           <img

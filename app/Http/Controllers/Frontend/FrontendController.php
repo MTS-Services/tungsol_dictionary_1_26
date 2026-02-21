@@ -149,7 +149,8 @@ class FrontendController extends Controller
 
           $word = $this->wordService->find($slug, 'slug');
 
-          $word->load(['relatedWords.word', 'wordEntries.definitions.examples', 'wordEntries.partOfSpeech', 'wordEntries.definitions.synonyms','wordEntries.definitions.antonyms']);
+          $word->load(['relatedWords.relatedWord', 'wordEntries.definitions.examples', 'wordEntries.partOfSpeech', 'wordEntries.definitions.synonyms','wordEntries.definitions.antonyms']);
+
 
           return Inertia::render('frontend/word', [
                'word' => $word,
