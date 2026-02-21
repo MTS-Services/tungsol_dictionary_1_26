@@ -34,5 +34,9 @@ class DefinitionService
     public function all(){
         return $this->model->all();
     }
+
+    public function countTotalDefinitions(){
+        return $this->model->count();
+    }
     
 }

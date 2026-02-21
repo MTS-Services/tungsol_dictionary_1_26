@@ -25,9 +25,9 @@ class WordService
     }
 
     // getTrendingWords
-    public function getTrendingWords()
+    public function getTrendingWords(int $limit = 10)
     {
-        return $this->model->orderBy('search_count', 'desc')->limit(10)->get();
+        return $this->model->orderBy('search_count', 'desc')->limit($limit)->get();
     }
 
     /**
@@ -63,6 +63,15 @@ class WordService
                 'next_page_url' => $words->nextPageUrl(),
             ]
         ];
+    }
+
+
+        /**
+     * Count total words
+     */
+    public function countTotalWords()
+    {
+        return $this->model->count();
     }
     
 }
