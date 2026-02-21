@@ -175,6 +175,10 @@ class FrontendController extends Controller
          $trendingWords = $this->wordService->getTrendingWords();
           
           $wordOfTheDay = $this->wordOfTheDayService->getWordOfTheDay();
+
+          if(!$wordOfTheDay) return redirect()->route('home');
+
+          
           $wordOfTheDay->load(['word.wordEntries.partOfSpeech','word.wordEntries.definitions.examples']);
 
           return Inertia::render('frontend/word-of-the-day', [
