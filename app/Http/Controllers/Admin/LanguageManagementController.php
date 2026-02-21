@@ -20,7 +20,7 @@ class LanguageManagementController extends Controller
 
         $result = $this->dataTableService->process($queryBody, request(), [
             'searchable' => ['name', 'code'],
-            'sortable' => ['id', 'name', 'code', 'created_at'],
+            'sortable' => [ 'name', 'code', 'created_at'],
         ]);
 
         return Inertia::render('admin/language-management/index', [
