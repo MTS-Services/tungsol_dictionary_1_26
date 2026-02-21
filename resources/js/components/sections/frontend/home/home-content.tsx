@@ -18,7 +18,7 @@ interface HomeContentProps {
 
 const HomeContent = ({ trendingWords, wordOfTheDay }: HomeContentProps) => {
 
-  console.log(wordOfTheDay.word.word_entries);
+
   return (
     <div className="min-h-screen bg-white">
       {/* --- HERO SECTION --- */}
@@ -51,25 +51,27 @@ const HomeContent = ({ trendingWords, wordOfTheDay }: HomeContentProps) => {
            {/* Search Component End */}
             
             <div className="flex flex-col sm:flex-row justify-center gap-4 mt-6">
-              <button className="bg-accent text-secondary-foreground font-arial px-6 py-2 text-sm lg:text-base rounded-lg font-semibold flex items-center justify-center gap-2 shadow-md transition-all active:scale-95">
+              <Link href={route('dictionary')} className="bg-accent text-secondary-foreground font-arial px-6 py-2 text-sm lg:text-base rounded-lg font-semibold flex items-center justify-center gap-2 shadow-md transition-all active:scale-95">
                 <svg className="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
                 </svg>
                 Explore Dictionary
-              </button>
-              <button className="bg-bg-color-1 hover:bg-green-600 text-white font-arial px-6 py-2 text-sm lg:text-base rounded-lg font-medium flex items-center justify-center gap-2 shadow-md transition-all active:scale-95">
+              </Link>
+              <Link href={route('game')} className="bg-bg-color-1 hover:bg-green-600 text-white font-arial px-6 py-2 text-sm lg:text-base rounded-lg font-medium flex items-center justify-center gap-2 shadow-md transition-all active:scale-95">
                 <svg width={20} height={20} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
                   <rect width={20} height={12} x={2} y={6} rx={2} />
                   <circle cx={8} cy={12} r={2} />
                   <path d="M15 12h2" /><path d="M16 11v2" />
                 </svg>
                 Play Word Game
-              </button>
+              </Link>
             </div>
           </div>
 
           {/* Word of the Day Card */}
-          <div className="max-w-6xl mx-auto bg-white/95 backdrop-blur-md rounded-xl shadow-2xl p-8 relative overflow-hidden border border-white/20 cursor-pointer">
+        {
+          wordOfTheDay?.word && (
+              <div className="max-w-6xl mx-auto bg-white/95 backdrop-blur-md rounded-xl shadow-2xl p-8 relative overflow-hidden border border-white/20 cursor-pointer">
             <div className="flex justify-between items-start mb-4">
               <span className="bg-btn-primary text-white px-2 py-1 rounded text-sm font-normal uppercase tracking-wider font-arial">
                 Word of the Day
@@ -97,6 +99,8 @@ const HomeContent = ({ trendingWords, wordOfTheDay }: HomeContentProps) => {
               </p>
             </div>
           </div>
+           )
+        }
 
         </div>
       </section>

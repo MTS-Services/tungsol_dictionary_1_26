@@ -30,7 +30,8 @@ class FrontendController extends Controller
           $trendingWords = $this->wordService->getTrendingWords();
           
           $wordOfTheDay = $this->wordOfTheDayService->getWordOfTheDay();
-          $wordOfTheDay->load(['word.wordEntries.partOfSpeech','word.wordEntries.definitions.examples']);
+          if($wordOfTheDay) $wordOfTheDay->load(['word.wordEntries.partOfSpeech','word.wordEntries.definitions.examples']);
+         
 
           return Inertia::render('frontend/index', [
                'trendingWords' => $trendingWords,
