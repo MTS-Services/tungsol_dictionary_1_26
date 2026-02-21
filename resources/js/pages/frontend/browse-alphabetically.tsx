@@ -1,5 +1,6 @@
 import { Search } from '@/components/search/search';
 import FrontendLayout from '@/layouts/frontend-layout';
+import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { FC } from 'react';
 
 const BrowseAlphabetically: FC = () => {
@@ -8,35 +9,34 @@ const BrowseAlphabetically: FC = () => {
             <>
                 <section className="relative overflow-hidden px-4 py-8 lg:py-20">
                     {/* Mobile Background */}
-                    <div className="absolute inset-0 z-0 bg-[var(--mobilebg)] lg:hidden" />
+                    <div className="absolute inset-0 z-0" />
 
                     <div className="relative z-10 container mx-auto">
                         <h1 className="font-vardana mb-4 px-12 text-center text-3xl font-bold text-text-primary lg:text-6xl">
-                            Discover the Power of Words
+                            Browse Alphabetically
                         </h1>
                         <p className="mx-auto mb-4 px-12 text-center font-medium text-text-secondary">
-                            Search meanings, play word games, and enhance your
-                            vocabulary.
+                            Explore our dictionary by selecting a letter below
                         </p>
                         <div className="mx-auto mb-6 max-w-2xl lg:mb-12">
                             {/* Search Component */}
-                            <Search />
+                            <Search placeholder="Search words starting with 'A'..." />
                         </div>
                     </div>
 
                     <section className="#">
                         <div className="mx-auto max-w-full px-4">
-                            <div className="flex items-center justify-center">
+                            <div className="flex items-center justify-start">
                                 {/* Browse Alphabetically Section */}
 
                                 {/* Alphabet Grid */}
-                                <div className="w-full max-w-4xl rounded-3xl border-2 border-gray-300 bg-white p-8 shadow-lg">
+                                <div className="container w-full rounded-3xl border-2 border-gray-300 bg-white p-8 shadow-lg">
                                     <h2 className="mb-6 text-xl font-semibold text-gray-800">
                                         Browse Alphabetically
                                     </h2>
 
                                     {/* Unified flex container for consistent spacing */}
-                                    <div className="flex flex-wrap gap-3">
+                                    <div className="flex w-full flex-wrap gap-3 md:max-w-3xl">
                                         {[
                                             'A',
                                             'B',
@@ -87,7 +87,7 @@ const BrowseAlphabetically: FC = () => {
                             </h2>
                             {/* Links List */}
                             <div className="space-y-4">
-                                <div className="grid grid-cols-4 gap-2">
+                                <div className="grid grid-cols-2 gap-2 md:grid-cols-4">
                                     <a
                                         href="#"
                                         className="group flex items-center justify-between rounded-lg bg-gray-100 px-6 py-4 font-medium text-gray-800 transition-colors hover:bg-blue-100"
@@ -433,6 +433,22 @@ const BrowseAlphabetically: FC = () => {
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <div className="container flex w-fit items-center gap-4 rounded-xl p-4 mt-4">
+                        {/* Previous Button (Disabled Style) */}
+                        <button
+                            disabled
+                            className="flex cursor-not-allowed items-center gap-2 rounded-lg border border-gray-300 bg-gray-100 px-4 py-2 text-gray-400"
+                        >
+                            <ArrowLeft />
+                            <span>Previous Letter</span>
+                        </button>
+
+                        {/* Next Button (Active Style) */}
+                        <button className="flex items-center gap-2 rounded-lg border border-gray-300 bg-white px-4 py-2 text-gray-800 transition hover:bg-gray-50">
+                            <span>Next Letter</span>
+                            <ArrowRight />
+                        </button>
                     </div>
                 </section>
             </>
