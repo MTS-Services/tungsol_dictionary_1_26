@@ -20,6 +20,7 @@ Route::controller(FrontendController::class)->group(function () {
         Route::get('/admin-dashboard', 'adminDashboard')->name('admin-dashboard');
         Route::get('/admin-dashboard2', 'adminDashboard2')->name('admin-dashboard2');
         Route::get('/word/{slug}', 'word')->name('word');
+        Route::get('browse-alphabetically', 'browseAlphabetically')->name('browse-alphabetically');
         Route::get('/word-of-the-day', 'wordOfTheDay')->name('word-of-the-day');
 
     });

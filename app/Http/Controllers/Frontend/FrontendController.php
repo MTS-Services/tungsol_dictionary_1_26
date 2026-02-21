@@ -154,6 +154,10 @@ class FrontendController extends Controller
                'word' => $word,
           ]);
      }
+     public function browseAlphabetically(): Response
+     {
+          return Inertia::render('frontend/browse-alphabetically');
+     }
 
      public function wordOfTheDay(){
 
