@@ -27,7 +27,7 @@ class ArticleManagementController extends Controller
             'sortable' => ['id', 'title', 'category', 'is_published', 'published_at', 'created_at'],
         ]);
 
-        return Inertia::render('admin/article-management/index', [
+        return Inertia::render('admin/article-management/Index', [
             'articles' => $result['data'],
             'pagination' => $result['pagination'],
             'offset' => $result['offset'],
@@ -43,7 +43,7 @@ class ArticleManagementController extends Controller
         $authors = User::select('id', 'name', 'email')->get();
         $words = Word::select('id', 'word')->where('is_approved', true)->get();
 
-        return Inertia::render('admin/article-management/create', [
+        return Inertia::render('admin/article-management/Create', [
             'authors' => $authors,
             'words' => $words,
         ]);
@@ -69,7 +69,7 @@ class ArticleManagementController extends Controller
             $article->words()->attach($data['word_ids']);
         }
 
-        return redirect()->route('admin.am.articles.index');
+        return redirect()->route('admin.am.articles.Index');
     }
 
     public function edit(string $id): Response
@@ -83,7 +83,7 @@ class ArticleManagementController extends Controller
         $authors = User::select('id', 'name', 'email')->get();
         $words = Word::select('id', 'word')->where('is_approved', true)->get();
 
-        return Inertia::render('admin/article-management/edit', [
+        return Inertia::render('admin/article-management/Edit', [
             'article' => $article,
             'authors' => $authors,
             'words' => $words,
@@ -116,7 +116,7 @@ class ArticleManagementController extends Controller
             $article->words()->sync($data['word_ids']);
         }
 
-        return redirect()->route('admin.am.articles.index');
+        return redirect()->route('admin.am.articles.Index');
     }
 
     public function destroy(string $id)
@@ -127,7 +127,7 @@ class ArticleManagementController extends Controller
         }
         $this->articleService->delete($id);
 
-        return redirect()->route('admin.am.articles.index');
+        return redirect()->route('admin.am.articles.Index');
     }
 
     public function show(string $id): Response
