@@ -45,12 +45,12 @@ const adminNavItems: NavItemType[] = [
         icon: WholeWord,
         slug: 'part-of-speech-management',
     },
-     {
-        title: 'Categories',
-        href: route('admin.cm.categories.index'),
-        icon: Tags,
-        slug: 'category-management',
-    },
+    //  {
+    //     title: 'Categories',
+    //     href: route('admin.cm.categories.index'),
+    //     icon: Tags,
+    //     slug: 'category-management',
+    // },
     {
         title: 'Words',
         href: route('admin.wm.words.index'),
@@ -75,12 +75,7 @@ const adminNavItems: NavItemType[] = [
         icon: WholeWord,
         slug: 'examples',
     },
-    {
-        title: 'Synonyms',
-        href: route('admin.sm.synonyms.index'),
-        icon: WholeWord,
-        slug: 'synonyms',
-    },
+  
     {
         title: 'Related Words',
         href: route('admin.rwm.related-words.index'),
@@ -92,14 +87,19 @@ const adminNavItems: NavItemType[] = [
         href: route('admin.am.antonyms.index'),
         icon: WholeWord,
         slug: 'antonyms',
+    },  {
+        title: 'Synonyms',
+        href: route('admin.sm.synonyms.index'),
+        icon: WholeWord,
+        slug: 'synonyms',
     },
    
-    {
-        title: 'Articles',
-        href: route('admin.am.articles.index'),
-        icon: BookOpen,
-        slug: 'article-management',
-    },
+    // {
+    //     title: 'Articles',
+    //     href: route('admin.am.articles.index'),
+    //     icon: BookOpen,
+    //     slug: 'article-management',
+    // },
     {
         title: 'Word of the Day',
         href: route('admin.wotdm.word-of-the-day.index'),

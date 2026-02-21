@@ -54,11 +54,11 @@ export default function Word({ word }: Props) {
                     </div>
                     <div className="relative z-10 w-full max-w-6xl space-y-4 bg-white p-4">
                         <div className="mb-6 flex items-center gap-2 text-xs font-medium text-slate-500">
-                            <span className="text-cofy-gray font-arial text-sm font-medium">
+                            <Link href={route('home')} className="text-cofy-gray font-arial text-sm font-medium">
                                 Home
-                            </span>
+                            </Link>
                             <svg
-                                className="h-3 w-3"
+                       i        className="h-3 w-3"
                                 fill="none"
                                 stroke="currentColor"
                                 viewBox="0 0 24 24"
@@ -70,9 +70,9 @@ export default function Word({ word }: Props) {
                                     d="M9 5l7 7-7 7"
                                 />
                             </svg>
-                            <span className="text-cofy-gray font-arial text-sm font-medium">
+                            <Link href={route('dictionary')} className="text-cofy-gray font-arial text-sm font-medium">
                                 Dictionary
-                            </span>
+                            </Link>
                             <svg
                                 className="h-3 w-3"
                                 fill="none"
