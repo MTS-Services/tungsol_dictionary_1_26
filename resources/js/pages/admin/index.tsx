@@ -2,7 +2,6 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import AdminLayout from '@/layouts/admin-layout';
 import { Link } from '@inertiajs/react';
 import { BarChart } from 'lucide-react';
-import { Search } from '@/components/search/search';
 
 interface Word {
     id: number;
@@ -15,6 +14,7 @@ interface Props {
     totalDefinitions: number;
     totalInquiries: number;
     words: Word[];
+    totalRelatedWords: number;
 }
 
 export default function index({
@@ -22,6 +22,7 @@ export default function index({
     totalDefinitions,
     totalInquiries,
     words,
+    totalRelatedWords,
 }: Props) {
     return (
         <AdminLayout>
@@ -98,33 +99,35 @@ export default function index({
                         </Card>
                     </Link>
 
-                    <Card className="p-6">
-                        <div className="flex items-center">
-                            <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-orange-100">
-                                <svg
-                                    className="h-6 w-6 text-orange-600"
-                                    fill="none"
-                                    stroke="currentColor"
-                                    viewBox="0 0 24 24"
-                                >
-                                    <path
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        strokeWidth={2}
-                                        d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
-                                    />
-                                </svg>
+                    <Link href={route('admin.rwm.related-words.index')}>
+                        <Card className="p-6">
+                            <div className="flex items-center">
+                                <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-orange-100">
+                                    <svg
+                                        className="h-6 w-6 text-orange-600"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        viewBox="0 0 24 24"
+                                    >
+                                        <path
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                            strokeWidth={2}
+                                            d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"
+                                        />
+                                    </svg>
+                                </div>
+                                <div className="ml-4">
+                                    <p className="text-sm font-medium text-gray-600">
+                                        Related Words
+                                    </p>
+                                    <p className="text-2xl font-bold text-gray-900">
+                                        {totalRelatedWords}
+                                    </p>
+                                </div>
                             </div>
-                            <div className="ml-4">
-                                <p className="text-sm font-medium text-gray-600">
-                                    Today's Searches
-                                </p>
-                                <p className="text-2xl font-bold text-gray-900">
-                                    -
-                                </p>
-                            </div>
-                        </div>
-                    </Card>
+                        </Card>
+                    </Link>
                     <Link href={route('admin.cu.contact-us.index')}>
                         <Card className="p-6">
                             <div className="flex items-center">
@@ -151,27 +154,27 @@ export default function index({
                         <CardHeader>
                             <CardTitle>Word Search Trends</CardTitle>
                         </CardHeader>
-                         <div className="space-y-4 p-4">
-                                {words  ? (
-                                    <div className="grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-4">
-                                        {words.map((word) => (
-                                            <Link
-                                                key={word.id}
-                                                href={route('word', {
-                                                    slug: word.slug,
-                                                })}
-                                                className="group flex items-center justify-between rounded-lg bg-gray-100 px-6 py-4 font-medium text-gray-800 transition-colors hover:bg-blue-100"
-                                            >
-                                                <span>{word.word}</span>
-                                            </Link>
-                                        ))}
-                                    </div>
-                                ) : (
-                                    <div className="py-8 text-center text-gray-500">
-                                        No words found starting with 
-                                    </div>
-                                )}
-                            </div>
+                        <div className="space-y-4 p-4">
+                            {words ? (
+                                <div className="grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-4">
+                                    {words.map((word) => (
+                                        <Link
+                                            key={word.id}
+                                            href={route('word', {
+                                                slug: word.slug,
+                                            })}
+                                            className="group flex items-center justify-between rounded-lg bg-gray-100 px-6 py-4 font-medium text-gray-800 transition-colors hover:bg-blue-100"
+                                        >
+                                            <span>{word.word}</span>
+                                        </Link>
+                                    ))}
+                                </div>
+                            ) : (
+                                <div className="py-8 text-center text-gray-500">
+                                    No words found starting with
+                                </div>
+                            )}
+                        </div>
                     </Card>
                 </div>
 
@@ -182,176 +185,204 @@ export default function index({
                     </CardHeader>
                     <CardContent>
                         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-5">
-                            
-                                <Link href={route('admin.lm.languages.create')} className="flex items-center justify-center rounded-lg border border-gray-300 bg-white px-4 py-3 text-sm font-medium text-gray-700 hover:bg-gray-50">
-                                    <svg
-                                        className="mr-2 h-4 w-4"
-                                        fill="none"
-                                        stroke="currentColor"
-                                        viewBox="0 0 24 24"
-                                    >
-                                        <path
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                            strokeWidth={2}
-                                            d="M12 4v16m8-8H4"
-                                        />
-                                    </svg>
-                                    Add Language
-                                </Link>
-                            
-                            
-                                <Link href={route('admin.wm.words.create')} className="flex items-center justify-center rounded-lg border border-gray-300 bg-white px-4 py-3 text-sm font-medium text-gray-700 hover:bg-gray-50">
-                                    <svg
-                                        className="mr-2 h-4 w-4"
-                                        fill="none"
-                                        stroke="currentColor"
-                                        viewBox="0 0 24 24"
-                                    >
-                                        <path
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                            strokeWidth={2}
-                                            d="M12 4v16m8-8H4"
-                                        />
-                                    </svg>
-                                    Add New Word
-                                </Link>
-                            
-                            
-                                <Link href={route('admin.posm.parts-of-speech.create')} className="flex items-center justify-center rounded-lg border border-gray-300 bg-white px-4 py-3 text-sm font-medium text-gray-700 hover:bg-gray-50">
-                                    <svg
-                                        className="mr-2 h-4 w-4"
-                                        fill="none"
-                                        stroke="currentColor"
-                                        viewBox="0 0 24 24"
-                                    >
-                                        <path
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                            strokeWidth={2}
-                                            d="M12 4v16m8-8H4"
-                                        />
-                                    </svg>
-                                    Add Parts of Speech
-                                </Link>
-                            
-                            
-                                <Link href={route('admin.wm.words-entries.create')} className="flex items-center justify-center rounded-lg border border-gray-300 bg-white px-4 py-3 text-sm font-medium text-gray-700 hover:bg-gray-50">
-                                    <svg
-                                        className="mr-2 h-4 w-4"
-                                        fill="none"
-                                        stroke="currentColor"
-                                        viewBox="0 0 24 24"
-                                    >
-                                        <path
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                            strokeWidth={2}
-                                            d="M12 4v16m8-8H4"
-                                        />
-                                    </svg>
-                                    Add Word Entries
-                                </Link>
-                            
+                            <Link
+                                href={route('admin.lm.languages.create')}
+                                className="flex items-center justify-center rounded-lg border border-gray-300 bg-white px-4 py-3 text-sm font-medium text-gray-700 hover:bg-gray-50"
+                            >
+                                <svg
+                                    className="mr-2 h-4 w-4"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    viewBox="0 0 24 24"
+                                >
+                                    <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        strokeWidth={2}
+                                        d="M12 4v16m8-8H4"
+                                    />
+                                </svg>
+                                Add Language
+                            </Link>
 
-                                <Link href={route('admin.wm.definitions.create')} className="flex items-center justify-center rounded-lg border border-gray-300 bg-white px-4 py-3 text-sm font-medium text-gray-700 hover:bg-gray-50">
-                                    <svg
-                                        className="mr-2 h-4 w-4"
-                                        fill="none"
-                                        stroke="currentColor"
-                                        viewBox="0 0 24 24"
-                                    >
-                                        <path
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                            strokeWidth={2}
-                                            d="M12 4v16m8-8H4"
-                                        />
-                                    </svg>
-                                    Add Word Definitions
-                                </Link>
-                                <Link href={route('admin.em.examples.create')} className="flex items-center justify-center rounded-lg border border-gray-300 bg-white px-4 py-3 text-sm font-medium text-gray-700 hover:bg-gray-50">
-                                    <svg
-                                        className="mr-2 h-4 w-4"
-                                        fill="none"
-                                        stroke="currentColor"
-                                        viewBox="0 0 24 24"
-                                    >
-                                        <path
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                            strokeWidth={2}
-                                            d="M12 4v16m8-8H4"
-                                        />
-                                    </svg>
-                                    Add Word Examples
-                                </Link>
-                                <Link href={route('admin.sm.synonyms.create')} className="flex items-center justify-center rounded-lg border border-gray-300 bg-white px-4 py-3 text-sm font-medium text-gray-700 hover:bg-gray-50">
-                                    <svg
-                                        className="mr-2 h-4 w-4"
-                                        fill="none"
-                                        stroke="currentColor"
-                                        viewBox="0 0 24 24"
-                                    >
-                                        <path
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                            strokeWidth={2}
-                                            d="M12 4v16m8-8H4"
-                                        />
-                                    </svg>
-                                    Add Synonyms
-                                </Link>
-                                <Link href={route('admin.rwm.related-words.create')} className="flex items-center justify-center rounded-lg border border-gray-300 bg-white px-4 py-3 text-sm font-medium text-gray-700 hover:bg-gray-50">
-                                    <svg
-                                        className="mr-2 h-4 w-4"
-                                        fill="none"
-                                        stroke="currentColor"
-                                        viewBox="0 0 24 24"
-                                    >
-                                        <path
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                            strokeWidth={2}
-                                            d="M12 4v16m8-8H4"
-                                        />
-                                    </svg>
-                                    Add Related Words
-                                </Link>
-                                <Link href={route('admin.am.antonyms.create')} className="flex items-center justify-center rounded-lg border border-gray-300 bg-white px-4 py-3 text-sm font-medium text-gray-700 hover:bg-gray-50">
-                                    <svg
-                                        className="mr-2 h-4 w-4"
-                                        fill="none"
-                                        stroke="currentColor"
-                                        viewBox="0 0 24 24"
-                                    >
-                                        <path
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                            strokeWidth={2}
-                                            d="M12 4v16m8-8H4"
-                                        />
-                                    </svg>
-                                    Add Antonyms
-                                </Link>
-                                <Link href={route('admin.wotdm.word-of-the-day.create')} className="flex items-center justify-center rounded-lg border border-gray-300 bg-white px-4 py-3 text-sm font-medium text-gray-700 hover:bg-gray-50">
-                                    <svg
-                                        className="mr-2 h-4 w-4"
-                                        fill="none"
-                                        stroke="currentColor"
-                                        viewBox="0 0 24 24"
-                                    >
-                                        <path
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                            strokeWidth={2}
-                                            d="M12 4v16m8-8H4"
-                                        />
-                                    </svg>
-                                    Add Word of the Day
-                                </Link>
-                            
+                            <Link
+                                href={route('admin.wm.words.create')}
+                                className="flex items-center justify-center rounded-lg border border-gray-300 bg-white px-4 py-3 text-sm font-medium text-gray-700 hover:bg-gray-50"
+                            >
+                                <svg
+                                    className="mr-2 h-4 w-4"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    viewBox="0 0 24 24"
+                                >
+                                    <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        strokeWidth={2}
+                                        d="M12 4v16m8-8H4"
+                                    />
+                                </svg>
+                                Add New Word
+                            </Link>
+
+                            <Link
+                                href={route(
+                                    'admin.posm.parts-of-speech.create',
+                                )}
+                                className="flex items-center justify-center rounded-lg border border-gray-300 bg-white px-4 py-3 text-sm font-medium text-gray-700 hover:bg-gray-50"
+                            >
+                                <svg
+                                    className="mr-2 h-4 w-4"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    viewBox="0 0 24 24"
+                                >
+                                    <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        strokeWidth={2}
+                                        d="M12 4v16m8-8H4"
+                                    />
+                                </svg>
+                                Add Parts of Speech
+                            </Link>
+
+                            <Link
+                                href={route('admin.wm.words-entries.create')}
+                                className="flex items-center justify-center rounded-lg border border-gray-300 bg-white px-4 py-3 text-sm font-medium text-gray-700 hover:bg-gray-50"
+                            >
+                                <svg
+                                    className="mr-2 h-4 w-4"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    viewBox="0 0 24 24"
+                                >
+                                    <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        strokeWidth={2}
+                                        d="M12 4v16m8-8H4"
+                                    />
+                                </svg>
+                                Add Word Entries
+                            </Link>
+
+                            <Link
+                                href={route('admin.wm.definitions.create')}
+                                className="flex items-center justify-center rounded-lg border border-gray-300 bg-white px-4 py-3 text-sm font-medium text-gray-700 hover:bg-gray-50"
+                            >
+                                <svg
+                                    className="mr-2 h-4 w-4"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    viewBox="0 0 24 24"
+                                >
+                                    <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        strokeWidth={2}
+                                        d="M12 4v16m8-8H4"
+                                    />
+                                </svg>
+                                Add Word Definitions
+                            </Link>
+                            <Link
+                                href={route('admin.em.examples.create')}
+                                className="flex items-center justify-center rounded-lg border border-gray-300 bg-white px-4 py-3 text-sm font-medium text-gray-700 hover:bg-gray-50"
+                            >
+                                <svg
+                                    className="mr-2 h-4 w-4"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    viewBox="0 0 24 24"
+                                >
+                                    <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        strokeWidth={2}
+                                        d="M12 4v16m8-8H4"
+                                    />
+                                </svg>
+                                Add Word Examples
+                            </Link>
+                            <Link
+                                href={route('admin.sm.synonyms.create')}
+                                className="flex items-center justify-center rounded-lg border border-gray-300 bg-white px-4 py-3 text-sm font-medium text-gray-700 hover:bg-gray-50"
+                            >
+                                <svg
+                                    className="mr-2 h-4 w-4"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    viewBox="0 0 24 24"
+                                >
+                                    <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        strokeWidth={2}
+                                        d="M12 4v16m8-8H4"
+                                    />
+                                </svg>
+                                Add Synonyms
+                            </Link>
+                            <Link
+                                href={route('admin.rwm.related-words.create')}
+                                className="flex items-center justify-center rounded-lg border border-gray-300 bg-white px-4 py-3 text-sm font-medium text-gray-700 hover:bg-gray-50"
+                            >
+                                <svg
+                                    className="mr-2 h-4 w-4"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    viewBox="0 0 24 24"
+                                >
+                                    <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        strokeWidth={2}
+                                        d="M12 4v16m8-8H4"
+                                    />
+                                </svg>
+                                Add Related Words
+                            </Link>
+                            <Link
+                                href={route('admin.am.antonyms.create')}
+                                className="flex items-center justify-center rounded-lg border border-gray-300 bg-white px-4 py-3 text-sm font-medium text-gray-700 hover:bg-gray-50"
+                            >
+                                <svg
+                                    className="mr-2 h-4 w-4"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    viewBox="0 0 24 24"
+                                >
+                                    <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        strokeWidth={2}
+                                        d="M12 4v16m8-8H4"
+                                    />
+                                </svg>
+                                Add Antonyms
+                            </Link>
+                            <Link
+                                href={route(
+                                    'admin.wotdm.word-of-the-day.create',
+                                )}
+                                className="flex items-center justify-center rounded-lg border border-gray-300 bg-white px-4 py-3 text-sm font-medium text-gray-700 hover:bg-gray-50"
+                            >
+                                <svg
+                                    className="mr-2 h-4 w-4"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    viewBox="0 0 24 24"
+                                >
+                                    <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        strokeWidth={2}
+                                        d="M12 4v16m8-8H4"
+                                    />
+                                </svg>
+                                Add Word of the Day
+                            </Link>
                         </div>
                     </CardContent>
                 </Card>

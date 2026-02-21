@@ -11,6 +11,7 @@ use Inertia\Response;
 use App\Concerns\PasswordValidationRules;
 use App\Models\Contact;
 use App\Services\DefinitionService;
+use App\Services\RelatedWordService;
 use App\Services\SearchService;
 use App\Services\WordService;
 use Illuminate\Support\Facades\Hash;
@@ -26,6 +27,7 @@ class AdminController extends Controller
         protected WordService $wordService,
         protected SearchService $searchService,
         protected DefinitionService $definitionService,
+        protected RelatedWordService $relatedWordService,
         ){}
 
     public function index(): Response
@@ -38,6 +40,7 @@ class AdminController extends Controller
         $totalWords = $this->wordService->countTotalWords();
        $totalDefinitions = $this->definitionService->countTotalDefinitions();
        $searchTrends = $this->wordService->getTrendingWords(20);
+       $totalRelatedWords = $this->relatedWordService->countRelatedWords();
 
     //    dd($searchTrends);
         
@@ -45,7 +48,8 @@ class AdminController extends Controller
             'totalWords' => $totalWords,
             'totalDefinitions' => $totalDefinitions,
             'totalInquiries' => $totalInquiries,
-            'words' => $searchTrends
+            'words' => $searchTrends,
+            'totalRelatedWords' => $totalRelatedWords
         ]);
     }
 
