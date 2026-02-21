@@ -1,5 +1,6 @@
 import FrontendLayout from '@/layouts/frontend-layout';
 import { useForm } from '@inertiajs/react';
+import { Send } from 'lucide-react';
 import { toast } from 'sonner';
 
 export default function Contact() {
@@ -191,7 +192,7 @@ export default function Contact() {
                                         type="submit"
                                         className="flex w-full transform items-center justify-center gap-2 rounded-xl bg-blue-600 px-6 py-4 font-arial font-medium text-white shadow-lg shadow-blue-200 transition duration-300 hover:-translate-y-1 hover:bg-blue-700"
                                     >
-                                        <svg
+                                        {/* <svg
                                             className="h-5 w-5"
                                             fill="none"
                                             stroke="currentColor"
@@ -203,7 +204,8 @@ export default function Contact() {
                                                 strokeWidth={2}
                                                 d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"
                                             />
-                                        </svg>
+                                        </svg> */}
+                                        <Send />
                                         {processing ? 'Sending...' : 'Send Message'}
                                     </button>
                                 </form>

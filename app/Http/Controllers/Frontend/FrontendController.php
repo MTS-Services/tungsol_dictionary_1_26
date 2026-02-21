@@ -110,7 +110,7 @@ class FrontendController extends Controller
      public function contactSubmit(Request $request)
      {
           // Validate the request
-          $data = $validated = $request->validate([
+          $data  = $request->validate([
                'name' => 'required|string|max:255',
                'email' => 'required|email|max:255',
                'subject' => 'required|string|max:255',
@@ -120,7 +120,7 @@ class FrontendController extends Controller
           $key = 'contact-form:' . $request->ip();
 
           if (RateLimiter::tooManyAttempts($key, 5)) {
-               return redirect()->back()->with('error', 'You have exceeded the maximum number of attempts. Please try again later.');
+               return back();
           }
 
           if (RateLimiter::remaining($key, 1) === 0) {
@@ -137,11 +137,11 @@ class FrontendController extends Controller
           // Mail::to('admin@example.com')->send(new ContactMail($data));
           
           // Dispatch job
-          ContactJob::dispatch($data);
+          // ContactJob::dispatch($data);
 
           RateLimiter::hit($key, 3600);
 
-          return redirect()->back()->with('success', 'Contact form submitted successfully!');
+          return back()->with('success', 'Contact form submitted successfully!');
      }
 
      public function word($slug){
