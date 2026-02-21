@@ -75,7 +75,7 @@ export default function Dictionary({ trendingWords }: DictionaryProps) {
                       {["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"].map((letter) => (
                         <a
                           key={letter}
-                          href={`#${letter}`}
+                          href={route('browse-alphabetically', { letter })}
                           className="w-12 h-12 flex items-center justify-center border border-gray-200 rounded-lg text-lg font-medium text-gray-700 hover:border-blue-500 hover:text-blue-500 hover:bg-blue-50 transition-all duration-200"
                         >
                           {letter}
