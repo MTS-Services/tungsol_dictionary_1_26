@@ -11,7 +11,7 @@ export function useDataTable(options: UseDataTableProps = {}) {
     const {
         preserveState = true,
         preserveScroll = true,
-        only = ['users', 'pagination', 'offset', 'filters', 'search', 'sortBy', 'sortOrder'],
+        only,
     } = options;
 
     const [isLoading, setIsLoading] = useState(false);
@@ -23,15 +23,20 @@ export function useDataTable(options: UseDataTableProps = {}) {
             const currentRoute = route().current();
             if (!currentRoute) return;
 
+            const requestOptions: Parameters<typeof router.get>[2] = {
+                preserveState,
+                preserveScroll,
+                onFinish: () => setIsLoading(false),
+            };
+
+            if (only && only.length > 0) {
+                requestOptions.only = only;
+            }
+
             router.get(
                 route(currentRoute),
                 params,
-                {
-                    preserveState,
-                    preserveScroll,
-                    only,
-                    onFinish: () => setIsLoading(false),
-                }
+                requestOptions
             );
         },
         [preserveState, preserveScroll, only]
