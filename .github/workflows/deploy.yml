@@ -1,8 +1,8 @@
-ame: Deploy Laravel App
+name: Deploy Laravel App
 
 on:
   push:
-    branches: [ main ] # Change this if your default branch is 'master'
+    branches: [ main ]
 
 jobs:
   deploy:
