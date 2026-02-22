@@ -9,8 +9,8 @@ interface AppLogoProps extends React.ImgHTMLAttributes<HTMLImageElement> {
 export default function AppLogo({ className, favicon, ...props }: AppLogoProps) {
     return (
         <img
-            src={'/assets/images/image 7.png'}
-            alt={'WordWise Logo'}
+            src={'/assets/images/logo.png'}
+            alt={'Site Logo'}
             // Added className here, merging potential props with custom sizes
             className={className}
             {...props}
