@@ -127,7 +127,7 @@ export default function Word({ word }: Props) {
                                         </svg>
                                     </button> */}
 
-                                    <button className="text-md rounded-full p-2 font-arial text-foreground hover:bg-slate-100">
+                                    {/* <button className="text-md rounded-full p-2 font-arial text-foreground hover:bg-slate-100">
                                         <svg
                                             className="h-5 w-5"
                                             fill="none"
@@ -137,7 +137,7 @@ export default function Word({ word }: Props) {
                                         >
                                             <path d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
                                         </svg>
-                                    </button>
+                                    </button> */}
                                 </div>
                             </div>
                             <p className="text-md font-inter text-gray-500">
