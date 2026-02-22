@@ -25,7 +25,7 @@ export default function index({
     totalRelatedWords,
 }: Props) {
     return (
-        <AdminLayout>
+        <AdminLayout activeSlug={'dashboard'}>
             <div className="space-y-6">
                 {/* Page Header */}
                 <div>
