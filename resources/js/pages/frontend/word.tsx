@@ -19,9 +19,9 @@ interface WordEntry {
     audio_url: string;
     pronunciation_ipa: string;
     definitions: Definition[];
-    part_of_speech: PartOfSpeech[];
-    synonyms?: string[];
-    antonyms?: string[];
+    part_of_speech: PartOfSpeech;
+    synonyms: string[];
+    antonyms: string[];
 }
 interface RelatedWord {
     related_word: Word;
@@ -38,7 +38,7 @@ interface Props {
     word: Word;
 }
 export default function Word({ word }: Props) {
-   
+
     return (
         <FrontendLayout>
             <>
@@ -58,7 +58,7 @@ export default function Word({ word }: Props) {
                                 Home
                             </Link>
                             <svg
-                       i        className="h-3 w-3"
+                                i className="h-3 w-3"
                                 fill="none"
                                 stroke="currentColor"
                                 viewBox="0 0 24 24"
@@ -97,7 +97,7 @@ export default function Word({ word }: Props) {
                                     {word.word}
                                 </h1>
                                 <div className="flex gap-2">
-                                    <AudioPlayer 
+                                    <AudioPlayer
                                         audioUrl={word.word_entries[0]?.audio_url}
                                         className="text-md rounded-full p-2 font-arial text-blue-500 hover:bg-slate-100"
                                     />
@@ -127,7 +127,7 @@ export default function Word({ word }: Props) {
                                         </svg>
                                     </button> */}
 
-                                    <button className="text-md rounded-full p-2 font-arial text-foreground hover:bg-slate-100">
+                                    {/* <button className="text-md rounded-full p-2 font-arial text-foreground hover:bg-slate-100">
                                         <svg
                                             className="h-5 w-5"
                                             fill="none"
@@ -137,7 +137,7 @@ export default function Word({ word }: Props) {
                                         >
                                             <path d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
                                         </svg>
-                                    </button>
+                                    </button> */}
                                 </div>
                             </div>
                             <p className="text-md font-inter text-gray-500">
@@ -152,17 +152,17 @@ export default function Word({ word }: Props) {
 
                             <div className="space-y-6 px-4">
                                 {word.word_entries.map((entry, index) => (
-                                    
+
                                     <div key={index}>
                                         <span className="rounded bg-slate-100 px-2 py-0.5 text-[10px] font-bold text-slate-500 uppercase">
                                             {entry.part_of_speech?.name}
                                         </span>
-                                       
+
                                         {entry.definitions.map(
 
                                             (definition, index) => (
                                                 <>
-                                                 <p className="mt-3 font-arial font-medium text-slate-700">
+                                                    <p className="mt-3 font-arial font-medium text-slate-700">
                                                         {definition.definition}
                                                     </p>
                                                     {definition.examples.map(
@@ -196,13 +196,19 @@ export default function Word({ word }: Props) {
                                     Synonyms
                                 </h3>
                                 <div className="flex flex-wrap gap-2">
-                                    {word.word_entries[0]?.synonyms?.map((synonym, index) => (
-                                        <span key={index} className="rounded-full border border-green-100 bg-green-50 px-3 py-1 text-xs font-medium text-green-500">
-                                            {synonym}
-                                        </span>
-                                    )) || (
-                                        <span className="text-gray-400 text-sm">No synonyms available</span>
-                                    )}
+                                    {(() => {
+                                        const allSynonyms = word.word_entries.flatMap(entry => entry.synonyms || []);
+                                        const uniqueSynonyms = [...new Set(allSynonyms)];
+                                        return uniqueSynonyms.length > 0 ? (
+                                            uniqueSynonyms.map((synonym, index) => (
+                                                <span key={index} className="rounded-full border border-green-100 bg-green-50 px-3 py-1 text-xs font-medium text-green-500">
+                                                    {synonym}
+                                                </span>
+                                            ))
+                                        ) : (
+                                            <span className="text-gray-400 text-sm">No synonyms available</span>
+                                        );
+                                    })()}
                                 </div>
                             </div>
                             <div className="rounded-2xl bg-white p-6 shadow-sm">
@@ -210,13 +216,19 @@ export default function Word({ word }: Props) {
                                     Antonyms
                                 </h3>
                                 <div className="flex flex-wrap gap-2">
-                                    {word.word_entries[0]?.antonyms?.map((antonym, index) => (
-                                        <span key={index} className="rounded-full border border-red-100 bg-red-50 px-3 py-1 text-xs font-medium text-red-500">
-                                            {antonym}
-                                        </span>
-                                    )) || (
-                                        <span className="text-gray-400 text-sm">No antonyms available</span>
-                                    )}
+                                    {(() => {
+                                        const allAntonyms = word.word_entries.flatMap(entry => entry.antonyms || []);
+                                        const uniqueAntonyms = [...new Set(allAntonyms)];
+                                        return uniqueAntonyms.length > 0 ? (
+                                            uniqueAntonyms.map((antonym, index) => (
+                                                <span key={index} className="rounded-full border border-red-100 bg-red-50 px-3 py-1 text-xs font-medium text-red-500">
+                                                    {antonym}
+                                                </span>
+                                            ))
+                                        ) : (
+                                            <span className="text-gray-400 text-sm">No antonyms available</span>
+                                        );
+                                    })()}
                                 </div>
                             </div>
                         </div>
@@ -227,7 +239,7 @@ export default function Word({ word }: Props) {
                             </h3>
                             <div className="divide-y divide-slate-50">
                                 {word.related_words.map((relatedWord) => (
-                                    
+
                                     <Link key={relatedWord.related_word.slug} href={route('word', { slug: relatedWord.related_word.slug })} className="group flex w-full items-center justify-between py-3 text-left font-arial text-sm font-medium text-slate-700 hover:text-blue-500">
                                         {relatedWord.related_word.word} →
                                     </Link>

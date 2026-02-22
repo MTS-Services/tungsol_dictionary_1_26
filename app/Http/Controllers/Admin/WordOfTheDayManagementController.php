@@ -19,7 +19,7 @@ class WordOfTheDayManagementController extends Controller
         $queryBody = WordOfTheDay::with('word');
 
         $result = $this->dataTableService->process($queryBody, request(), [
-            'searchable' => [],
+            'searchable' => ['date'],
             'sortable' => ['id', 'date', 'created_at'],
         ]);
 

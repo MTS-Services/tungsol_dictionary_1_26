@@ -9,6 +9,7 @@ import { Input } from '@/components/ui/input';
 import InputError from '@/components/input-error';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Button } from '@/components/ui/button';
+import { toast } from 'sonner';
 
 interface WordOfTheDay {
     id: number;
@@ -38,7 +39,11 @@ export default function EditWordOfTheDay({ wordOfTheDay, words }: Props) {
 
     function handleSubmit(e: React.FormEvent) {
         e.preventDefault();
-        put(route('admin.wotdm.word-of-the-day.update', wordOfTheDay.id));
+        put(route('admin.wotdm.word-of-the-day.update', wordOfTheDay.id), {
+            onSuccess: () => {
+                toast.success('Word of the Day updated successfully.');
+            }
+        });
     }
 
 
