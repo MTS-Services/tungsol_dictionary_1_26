@@ -444,26 +444,24 @@ class WordEntriesController extends Controller
 
                 $word = $this->createOrGetWordForLanguage($wordValue, $language);
 
-                $wordEntry = WordEntry::create([
-                    'word_id' => $word->id,
-                    'part_of_speech_id' => $partOfSpeech->id,
-                    'etymology' => $row['etymology'] ?? null,
-                    'pronunciation_ipa' => $row['pronunciation_ipa'] ?? null,
-                    'pronunciation_audio' => $row['pronunciation_audio'] ?? null,
-                    'syllables' => $row['syllables'] ?? null,
-                    'sort_order' => 0,
-                ]);
+                // Reuse existing entry for the same word + part of speech + details, or create it once.
+                $wordEntry = $this->createOrGetWordEntryForImport($word, $partOfSpeech, $row);
 
                 if (! empty(trim((string) ($row['definition'] ?? '')))) {
-                    $definition = Definition::create([
-                        'word_entry_id' => $wordEntry->id,
-                        'definition' => trim((string) $row['definition']),
-                        'sort_order' => ! empty($row['definition_sort_order']) ? (int) $row['definition_sort_order'] : 0,
-                        'register' => $row['register'] ?? null,
-                        'domain' => $row['domain'] ?? null,
-                        'region' => $row['region'] ?? null,
-                        'usage_note' => $row['usage_note'] ?? null,
-                    ]);
+                    // Ensure we only have one Definition record per (word_entry, definition text).
+                    $definition = Definition::firstOrCreate(
+                        [
+                            'word_entry_id' => $wordEntry->id,
+                            'definition' => trim((string) $row['definition']),
+                        ],
+                        [
+                            'sort_order' => ! empty($row['definition_sort_order']) ? (int) $row['definition_sort_order'] : 0,
+                            'register' => $row['register'] ?? null,
+                            'domain' => $row['domain'] ?? null,
+                            'region' => $row['region'] ?? null,
+                            'usage_note' => $row['usage_note'] ?? null,
+                        ]
+                    );
 
                     if (! empty(trim((string) ($row['example_sentence'] ?? '')))) {
                         Example::create([
@@ -489,11 +487,20 @@ class WordEntriesController extends Controller
 
                             $synWord = $this->createOrGetWordForLanguage($synonymWord, $language);
 
-                            Synonym::create([
-                                'definition_id' => $definition->id,
-                                'synonym_word_id' => $synWord->id,
-                                'relevance_score' => isset($synonymScores[$idx]) ? (int) $synonymScores[$idx] : 100,
-                            ]);
+                            // If this synonym word is already linked anywhere, skip creating another record.
+                            if (Synonym::where('synonym_word_id', $synWord->id)->exists()) {
+                                continue;
+                            }
+
+                            Synonym::firstOrCreate(
+                                [
+                                    'definition_id' => $definition->id,
+                                    'synonym_word_id' => $synWord->id,
+                                ],
+                                [
+                                    'relevance_score' => isset($synonymScores[$idx]) ? (int) $synonymScores[$idx] : 100,
+                                ]
+                            );
                         }
                     }
 
@@ -510,11 +517,20 @@ class WordEntriesController extends Controller
 
                             $antWord = $this->createOrGetWordForLanguage($antonymWord, $language);
 
-                            Antonym::create([
-                                'definition_id' => $definition->id,
-                                'antonym_word_id' => $antWord->id,
-                                'relevance_score' => isset($antonymScores[$idx]) ? (int) $antonymScores[$idx] : 100,
-                            ]);
+                            // If this antonym word is already linked anywhere, skip creating another record.
+                            if (Antonym::where('antonym_word_id', $antWord->id)->exists()) {
+                                continue;
+                            }
+
+                            Antonym::firstOrCreate(
+                                [
+                                    'definition_id' => $definition->id,
+                                    'antonym_word_id' => $antWord->id,
+                                ],
+                                [
+                                    'relevance_score' => isset($antonymScores[$idx]) ? (int) $antonymScores[$idx] : 100,
+                                ]
+                            );
                         }
                     }
                 }
@@ -532,11 +548,18 @@ class WordEntriesController extends Controller
 
                         $relWord = $this->createOrGetWordForLanguage($relatedWord, $language);
 
-                        RelatedWord::create([
-                            'word_id' => $word->id,
-                            'related_word_id' => $relWord->id,
-                            'relation_type' => isset($relationTypes[$idx]) ? $relationTypes[$idx] : 'related',
-                        ]);
+                        // If this related word is already linked anywhere, skip creating another record.
+                        if (RelatedWord::where('related_word_id', $relWord->id)->exists()) {
+                            continue;
+                        }
+
+                        RelatedWord::firstOrCreate(
+                            [
+                                'word_id' => $word->id,
+                                'related_word_id' => $relWord->id,
+                                'relation_type' => isset($relationTypes[$idx]) ? $relationTypes[$idx] : 'related',
+                            ]
+                        );
                     }
                 }
 
@@ -556,17 +579,18 @@ class WordEntriesController extends Controller
     {
         $text = trim($text);
 
-        return Word::firstOrCreate(
-            [
-                'word' => $text,
-                'language_id' => $language->id,
-            ],
-            [
-                'slug' => $this->generateUniqueSlug($text),
-                'is_approved' => true,
-                'search_count' => 0,
-            ]
-        );
+        // Keep words globally unique by spelling: if a word already exists anywhere, reuse it.
+        if ($existing = Word::where('word', $text)->first()) {
+            return $existing;
+        }
+
+        return Word::create([
+            'word' => $text,
+            'language_id' => $language->id,
+            'slug' => $this->generateUniqueSlug($text),
+            'is_approved' => true,
+            'search_count' => 0,
+        ]);
     }
 
     /**
@@ -589,5 +613,26 @@ class WordEntriesController extends Controller
         }
 
         return $slug;
+    }
+
+    /**
+     * Find an existing word entry for the given word + part of speech + details, or create a new one.
+     * This prevents duplicate WordEntry rows when the same data is imported multiple times.
+     */
+    protected function createOrGetWordEntryForImport(Word $word, PartOfSpeech $partOfSpeech, array $row): WordEntry
+    {
+        return WordEntry::firstOrCreate(
+            [
+                'word_id' => $word->id,
+                'part_of_speech_id' => $partOfSpeech->id,
+                'etymology' => $row['etymology'] ?? null,
+                'pronunciation_ipa' => $row['pronunciation_ipa'] ?? null,
+                'pronunciation_audio' => $row['pronunciation_audio'] ?? null,
+                'syllables' => $row['syllables'] ?? null,
+            ],
+            [
+                'sort_order' => 0,
+            ]
+        );
     }
 }
