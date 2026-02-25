@@ -29,6 +29,10 @@ interface PreviewRow {
     pronunciation_ipa: string;
     syllables: string;
     definition: string;
+    synonyms?: string | null;
+    antonyms?: string | null;
+    related_words?: string | null;
+    relation_types?: string | null;
     valid: boolean;
     errors: string[];
 }
@@ -244,8 +248,8 @@ export default function ImportWordEntries({ languages, partsOfSpeech, previewRow
             </div>
 
             {/* Upload + Preview */}
-            <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
-                <div className="lg:col-span-1">
+            <div className="grid grid-cols-1 gap-6">
+                <div className="max-w-md">
                     <Card>
                         <CardHeader>
                             <CardTitle>Upload Excel File</CardTitle>
@@ -278,12 +282,12 @@ export default function ImportWordEntries({ languages, partsOfSpeech, previewRow
                     </Card>
                 </div>
 
-                <div className="lg:col-span-2">
-                    <Card>
+                <div className="w-full min-w-0">
+                    <Card className="w-full">
                         <CardHeader>
                             <CardTitle>Preview</CardTitle>
                         </CardHeader>
-                        <CardContent>
+                        <CardContent className="w-full min-w-0 overflow-hidden">
                             {!hasPreview && (
                                 <div className="flex flex-col items-center justify-center py-10 text-center text-gray-400">
                                     <FileSpreadsheet className="mb-3 h-10 w-10 opacity-30" />
@@ -311,8 +315,8 @@ export default function ImportWordEntries({ languages, partsOfSpeech, previewRow
                                         </Button>
                                     </div>
 
-                                    <div className="max-h-[500px] overflow-auto rounded-md border">
-                                        <table className="min-w-full text-left text-sm">
+                                    <div className="w-full max-h-[500px] overflow-auto rounded-md border">
+                                        <table className="w-full min-w-full text-left text-sm">
                                             <thead className="sticky top-0 bg-gray-50">
                                                 <tr>
                                                     <th className="px-3 py-2 text-xs font-semibold text-gray-500">#</th>
@@ -321,6 +325,9 @@ export default function ImportWordEntries({ languages, partsOfSpeech, previewRow
                                                     <th className="px-3 py-2 text-xs font-semibold text-gray-500">Part of Speech</th>
                                                     <th className="px-3 py-2 text-xs font-semibold text-gray-500">IPA</th>
                                                     <th className="px-3 py-2 text-xs font-semibold text-gray-500">Definition</th>
+                                                    <th className="px-3 py-2 text-xs font-semibold text-gray-500">Synonyms</th>
+                                                    <th className="px-3 py-2 text-xs font-semibold text-gray-500">Antonyms</th>
+                                                    <th className="px-3 py-2 text-xs font-semibold text-gray-500">Related words</th>
                                                     <th className="px-3 py-2 text-xs font-semibold text-gray-500">Status</th>
                                                 </tr>
                                             </thead>
@@ -344,6 +351,15 @@ export default function ImportWordEntries({ languages, partsOfSpeech, previewRow
                                                         </td>
                                                         <td className="border-t px-3 py-2 max-w-xs truncate text-xs">
                                                             {row.definition || '—'}
+                                                        </td>
+                                                        <td className="border-t px-3 py-2 max-w-[120px] truncate text-xs text-gray-600">
+                                                            {row.synonyms || '—'}
+                                                        </td>
+                                                        <td className="border-t px-3 py-2 max-w-[120px] truncate text-xs text-gray-600">
+                                                            {row.antonyms || '—'}
+                                                        </td>
+                                                        <td className="border-t px-3 py-2 max-w-[120px] truncate text-xs text-gray-600">
+                                                            {row.related_words || '—'}
                                                         </td>
                                                         <td className="border-t px-3 py-2">
                                                             {row.errors.length === 0 ? (

@@ -495,16 +495,22 @@ class WordEntriesController extends Controller
                             if (empty($synonymWord)) {
                                 continue;
                             }
-                            $synWord = Word::where('word', $synonymWord)
-                                ->where('language_id', $language->id)
-                                ->first();
-                            if ($synWord) {
-                                Synonym::create([
-                                    'definition_id' => $definition->id,
-                                    'synonym_word_id' => $synWord->id,
-                                    'relevance_score' => isset($synonymScores[$idx]) ? (int) $synonymScores[$idx] : 100,
-                                ]);
-                            }
+                            $synWord = Word::firstOrCreate(
+                                [
+                                    'word' => $synonymWord,
+                                    'language_id' => $language->id,
+                                ],
+                                [
+                                    'slug' => Str::slug($synonymWord),
+                                    'is_approved' => true,
+                                    'search_count' => 0,
+                                ]
+                            );
+                            Synonym::create([
+                                'definition_id' => $definition->id,
+                                'synonym_word_id' => $synWord->id,
+                                'relevance_score' => isset($synonymScores[$idx]) ? (int) $synonymScores[$idx] : 100,
+                            ]);
                         }
                     }
 
@@ -517,16 +523,22 @@ class WordEntriesController extends Controller
                             if (empty($antonymWord)) {
                                 continue;
                             }
-                            $antWord = Word::where('word', $antonymWord)
-                                ->where('language_id', $language->id)
-                                ->first();
-                            if ($antWord) {
-                                Antonym::create([
-                                    'definition_id' => $definition->id,
-                                    'antonym_word_id' => $antWord->id,
-                                    'relevance_score' => isset($antonymScores[$idx]) ? (int) $antonymScores[$idx] : 100,
-                                ]);
-                            }
+                            $antWord = Word::firstOrCreate(
+                                [
+                                    'word' => $antonymWord,
+                                    'language_id' => $language->id,
+                                ],
+                                [
+                                    'slug' => Str::slug($antonymWord),
+                                    'is_approved' => true,
+                                    'search_count' => 0,
+                                ]
+                            );
+                            Antonym::create([
+                                'definition_id' => $definition->id,
+                                'antonym_word_id' => $antWord->id,
+                                'relevance_score' => isset($antonymScores[$idx]) ? (int) $antonymScores[$idx] : 100,
+                            ]);
                         }
                     }
                 }
@@ -540,16 +552,22 @@ class WordEntriesController extends Controller
                         if (empty($relatedWord)) {
                             continue;
                         }
-                        $relWord = Word::where('word', $relatedWord)
-                            ->where('language_id', $language->id)
-                            ->first();
-                        if ($relWord) {
-                            RelatedWord::create([
-                                'word_id' => $word->id,
-                                'related_word_id' => $relWord->id,
-                                'relation_type' => isset($relationTypes[$idx]) ? $relationTypes[$idx] : 'related',
-                            ]);
-                        }
+                        $relWord = Word::firstOrCreate(
+                            [
+                                'word' => $relatedWord,
+                                'language_id' => $language->id,
+                            ],
+                            [
+                                'slug' => Str::slug($relatedWord),
+                                'is_approved' => true,
+                                'search_count' => 0,
+                            ]
+                        );
+                        RelatedWord::create([
+                            'word_id' => $word->id,
+                            'related_word_id' => $relWord->id,
+                            'relation_type' => isset($relationTypes[$idx]) ? $relationTypes[$idx] : 'related',
+                        ]);
                     }
                 }
 

@@ -76,6 +76,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
             // Bulk word entry import routes (must be before resource to avoid {words_entry} catching "import")
             Route::get('words-entries/import', [WordEntriesController::class, 'importForm'])->name('words-entries.import');
             Route::get('words-entries/import/template', [WordEntriesController::class, 'downloadTemplate'])->name('words-entries.import.template');
+            Route::get('words-entries/import/preview', fn () => redirect()->route('admin.wm.words-entries.import'))->name('words-entries.import.preview.get');
             Route::post('words-entries/import/preview', [WordEntriesController::class, 'previewImport'])->name('words-entries.import.preview');
             Route::post('words-entries/import/confirm', [WordEntriesController::class, 'confirmImport'])->name('words-entries.import.confirm');
             Route::resource( 'words-entries',WordEntriesController::class)->only('index','create', 'store', 'edit', 'show', 'update', 'destroy');
