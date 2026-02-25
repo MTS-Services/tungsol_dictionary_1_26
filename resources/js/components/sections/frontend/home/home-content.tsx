@@ -22,7 +22,7 @@ const HomeContent = ({ trendingWords, wordOfTheDay }: HomeContentProps) => {
   return (
     <div className="min-h-screen bg-white">
       {/* --- HERO SECTION --- */}
-      <section className="relative  z-12 lg:py-20 py-8 px-4 overflow-hidden">
+      <section className="relative  z-12 lg:py-20 py-8 px-4 ">
         {/* Desktop Background Layer: Hidden on mobile, visible on LG screens */}
         <div 
           className="hidden lg:block absolute inset-0 z-0 bg-cover bg-center"
@@ -82,7 +82,9 @@ const HomeContent = ({ trendingWords, wordOfTheDay }: HomeContentProps) => {
               />
             </div>
             <h2 className="text-3xl font-arial font-regular text-text-primary mb-2">
+              <Link href={route('word', { slug: wordOfTheDay.word.slug })}>
               {wordOfTheDay.word.word}
+              </Link>
             </h2>
             <p className="text-text-secondary text-sm mb-4">
               <span className="font-regular italic">

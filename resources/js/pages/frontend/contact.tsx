@@ -34,8 +34,8 @@ export default function Contact() {
         {
             title: 'Email Us',
             description: 'For general inquiries and support',
-            link: 'mailto:support@wordwise.com',
-            linkText: 'support@wordwise.com',
+            link: 'mailto:support@zbcdictionary.com',
+            linkText: 'support@zbcdictionary.com',
             icon: (
                 <path
                     strokeLinecap="round"

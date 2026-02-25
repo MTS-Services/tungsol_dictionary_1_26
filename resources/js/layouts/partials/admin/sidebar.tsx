@@ -157,13 +157,13 @@ export const AdminSidebar = React.memo<AdminSidebarProps>(
                         className="flex items-center gap-2 transition-opacity hover:opacity-80"
                     >
                         {isCollapsed ? (
-                          <AppLogo className="text-base! bg-btn-primary p-3 rounded-lg" favicon={true} />
+                          <AppLogo className="h-12 w-12 shrink-0 object-contain rounded-lg bg-btn-primary p-2" />
                         ) : (
-                           <div className='grid grid-cols-3 items-center gap-4'>
-                             <AppLogo className="text-base! bg-btn-primary p-3 rounded-lg" favicon={true} />
-                             <div className='col-span-2'>
-                             <h1 className="text-lg font-semibold text-admin-text-primary">Admin Panel</h1>
-                             <p className="text-sm text-admin-text-secondary/70">Dashboard</p>
+                           <div className='grid grid-cols-[auto_1fr] items-center gap-3'>
+                             <AppLogo className="h-14 w-14 shrink-0 object-contain rounded-lg bg-primary" />
+                             <div className='min-w-0'>
+                             <h1 className="truncate text-lg font-semibold text-admin-text-primary">Admin Panel</h1>
+                             <p className="truncate text-sm text-admin-text-secondary/70">Dashboard</p>
                             </div>
                            </div>
                         )}
