@@ -442,17 +442,7 @@ class WordEntriesController extends Controller
                     continue;
                 }
 
-                $word = Word::firstOrCreate(
-                    [
-                        'word' => $wordValue,
-                        'language_id' => $language->id,
-                    ],
-                    [
-                        'slug' => Str::slug($wordValue),
-                        'is_approved' => true,
-                        'search_count' => 0,
-                    ]
-                );
+                $word = $this->createOrGetWordForLanguage($wordValue, $language);
 
                 $wordEntry = WordEntry::create([
                     'word_id' => $word->id,
@@ -491,21 +481,14 @@ class WordEntriesController extends Controller
                         $synonymScores = ! empty($row['synonym_scores'])
                             ? array_map('trim', explode(',', $row['synonym_scores']))
                             : [];
+
                         foreach ($synonymWords as $idx => $synonymWord) {
-                            if (empty($synonymWord)) {
+                            if ($synonymWord === '') {
                                 continue;
                             }
-                            $synWord = Word::firstOrCreate(
-                                [
-                                    'word' => $synonymWord,
-                                    'language_id' => $language->id,
-                                ],
-                                [
-                                    'slug' => Str::slug($synonymWord),
-                                    'is_approved' => true,
-                                    'search_count' => 0,
-                                ]
-                            );
+
+                            $synWord = $this->createOrGetWordForLanguage($synonymWord, $language);
+
                             Synonym::create([
                                 'definition_id' => $definition->id,
                                 'synonym_word_id' => $synWord->id,
@@ -519,21 +502,14 @@ class WordEntriesController extends Controller
                         $antonymScores = ! empty($row['antonym_scores'])
                             ? array_map('trim', explode(',', $row['antonym_scores']))
                             : [];
+
                         foreach ($antonymWords as $idx => $antonymWord) {
-                            if (empty($antonymWord)) {
+                            if ($antonymWord === '') {
                                 continue;
                             }
-                            $antWord = Word::firstOrCreate(
-                                [
-                                    'word' => $antonymWord,
-                                    'language_id' => $language->id,
-                                ],
-                                [
-                                    'slug' => Str::slug($antonymWord),
-                                    'is_approved' => true,
-                                    'search_count' => 0,
-                                ]
-                            );
+
+                            $antWord = $this->createOrGetWordForLanguage($antonymWord, $language);
+
                             Antonym::create([
                                 'definition_id' => $definition->id,
                                 'antonym_word_id' => $antWord->id,
@@ -548,21 +524,14 @@ class WordEntriesController extends Controller
                     $relationTypes = ! empty($row['relation_types'])
                         ? array_map('trim', explode(',', $row['relation_types']))
                         : [];
+
                     foreach ($relatedWords as $idx => $relatedWord) {
-                        if (empty($relatedWord)) {
+                        if ($relatedWord === '') {
                             continue;
                         }
-                        $relWord = Word::firstOrCreate(
-                            [
-                                'word' => $relatedWord,
-                                'language_id' => $language->id,
-                            ],
-                            [
-                                'slug' => Str::slug($relatedWord),
-                                'is_approved' => true,
-                                'search_count' => 0,
-                            ]
-                        );
+
+                        $relWord = $this->createOrGetWordForLanguage($relatedWord, $language);
+
                         RelatedWord::create([
                             'word_id' => $word->id,
                             'related_word_id' => $relWord->id,
@@ -578,5 +547,47 @@ class WordEntriesController extends Controller
         return redirect()
             ->route('admin.wm.words-entries.index')
             ->with('success', "Import completed. Imported {$imported} word entries, skipped {$skipped} rows.");
+    }
+
+    /**
+     * Find an existing word for the given language, or create a new one with a unique slug.
+     */
+    protected function createOrGetWordForLanguage(string $text, Language $language): Word
+    {
+        $text = trim($text);
+
+        return Word::firstOrCreate(
+            [
+                'word' => $text,
+                'language_id' => $language->id,
+            ],
+            [
+                'slug' => $this->generateUniqueSlug($text),
+                'is_approved' => true,
+                'search_count' => 0,
+            ]
+        );
+    }
+
+    /**
+     * Generate a slug that is unique across all words.
+     */
+    protected function generateUniqueSlug(string $text): string
+    {
+        $base = Str::slug($text);
+
+        if ($base === '') {
+            $base = (string) Str::uuid();
+        }
+
+        $slug = $base;
+        $suffix = 1;
+
+        while (Word::where('slug', $slug)->exists()) {
+            $slug = $base.'-'.$suffix;
+            $suffix++;
+        }
+
+        return $slug;
     }
 }
