@@ -9,7 +9,7 @@ import {
 } from '@/components/ui/sheet';
 import { type SharedData } from '@/types';
 import { Link, usePage } from '@inertiajs/react';
-import { Menu, XIcon } from 'lucide-react';
+import { FaBars, FaTimes } from 'react-icons/fa';
 import { useState } from 'react';
 
 export function FrontendHeader() {
@@ -68,10 +68,11 @@ export function FrontendHeader() {
                             <SheetTrigger asChild>
                                 <Button
                                     variant="ghost"
-                                    size="icon"
-                                    className="md:hidden"
+                                    size="lg"
+                                    className="md:hidden h-14 w-14 !p-0 text-white hover:bg-white/20 hover:text-white"
+                                    aria-label="Open menu"
                                 >
-                                    <Menu className="h-5 w-5" />
+                                    <FaBars className="h-full w-full shrink-0" style={{ width: '40px', height: '40px' }} />
                                 </Button>
                             </SheetTrigger>
                             <SheetContent
@@ -85,9 +86,9 @@ export function FrontendHeader() {
                                             <Button
                                                 variant="ghost"
                                                 size="icon"
-                                                className="rounded-full"
+                                                className="rounded-full text-white hover:bg-white/20 hover:text-white"
                                             >
-                                                <XIcon className="h-5 w-5" />
+                                                <FaTimes className="h-5 w-5" style={{ width: '40px', height: '40px' }} />
                                             </Button>
                                         </SheetClose>
                                     </div>
