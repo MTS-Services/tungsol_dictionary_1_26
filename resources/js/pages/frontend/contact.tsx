@@ -1,4 +1,5 @@
 import FrontendLayout from '@/layouts/frontend-layout';
+import { HeroSection } from '@/components/sections/frontend/common/hero-section';
 import { useForm } from '@inertiajs/react';
 import { Send } from 'lucide-react';
 import { toast } from 'sonner';
@@ -62,16 +63,8 @@ export default function Contact() {
 
     return (
         <FrontendLayout>
+            <HeroSection />
             <section className="relative min-h-screen overflow-hidden bg-[var(--mobilebg)] px-4 py-8 lg:py-20">
-                {/* Desktop Background Layer */}
-                <div
-                    className="absolute inset-0 z-0 hidden bg-cover bg-center lg:block"
-                    style={{
-                        backgroundImage:
-                            'linear-gradient(to bottom right, rgba(147, 196, 253, 0.37), rgb(0, 64, 201)), url("assets/images/backgrounds.png")',
-                    }}
-                />
-
                 <div className="relative z-10 mx-auto max-w-6xl">
                     <div className="mb-12 text-center">
                         <div className="mb-6 flex justify-center">
