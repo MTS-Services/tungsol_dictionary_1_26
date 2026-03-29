@@ -71,7 +71,7 @@ export function FrontendHeader() {
                                     size="icon"
                                     className="md:hidden"
                                 >
-                                    <Menu className="h-5 w-5" />
+                                    <Menu className="h-5 w-5 text-white hover:text-red-500" />
                                 </Button>
                             </SheetTrigger>
                             <SheetContent
