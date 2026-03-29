@@ -3,7 +3,7 @@ import AppLogo from '@/components/app-logo';
 
 export function FrontendFooter() {
     return (
-         <footer className="bg-btn-primary text-white py-8 px-2">
+         <footer className="bg-primary text-white py-8 px-2">
     <div className="max-w-7xl mx-auto">
       <div className="flex flex-col md:flex-row justify-between items-center gap-6">
         <div className="flex items-center gap-2">

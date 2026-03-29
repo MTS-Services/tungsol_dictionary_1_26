@@ -1,19 +1,12 @@
 import FrontendLayout from '@/layouts/frontend-layout'
+import { HeroSection } from '@/components/sections/frontend/common/hero-section'
 import React from 'react'
 
 export default function Game() {
   return (
     <FrontendLayout>
+      <HeroSection />
       <section className="relative lg:py-20 py-8 px-4 overflow-hidden min-h-screen bg-[var(--mobilebg)]">
-        {/* Background Overlay */}
-        <div
-          className="hidden lg:block absolute inset-0 z-0 bg-cover bg-center"
-          style={{
-            backgroundImage:
-              'linear-gradient(to bottom right, rgba(147, 196, 253, 0.37), rgb(0, 64, 201)), url("assets/images/backgrounds.png")'
-          }}
-        />
-        
         {/* Main Content Container */}
         <div className="max-w-5xl container mx-auto relative z-10">
           <div className="text-center mb-12">

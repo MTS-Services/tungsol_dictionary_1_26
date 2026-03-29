@@ -140,9 +140,14 @@ export default function Index({
         <AdminLayout activeSlug="word-management">
             <Head title="Words" />
 
-            <div className="flex justify-end mb-6">
+            <div className="mb-6 flex flex-col gap-3 justify-end sm:flex-row">
+                <Link href={route('admin.wm.words-entries.import')}>
+                    <Button variant="outline" className="w-full sm:w-auto cursor-pointer">
+                        Import from Excel
+                    </Button>
+                </Link>
                 <Link href={route('admin.wm.words.create')}>
-                    <Button>Create Word</Button>
+                    <Button className="w-full sm:w-auto cursor-pointer">Create Word</Button>
                 </Link>
             </div>
 

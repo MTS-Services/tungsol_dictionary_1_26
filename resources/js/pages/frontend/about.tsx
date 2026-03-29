@@ -1,4 +1,5 @@
 import FrontendLayout from "@/layouts/frontend-layout";
+import { HeroSection } from "@/components/sections/frontend/common/hero-section";
 import React from "react";
 
 // 1. Extract feature data to keep the JSX clean
@@ -36,15 +37,8 @@ const FEATURES = [
 export default function About() {
   return (
     <FrontendLayout>
+      <HeroSection />
       <section className="relative lg:py-20 py-8 px-4 overflow-hidden bg-[var(--mobilebg)]">
-        {/* Desktop Background Layer */}
-        <div
-          className="hidden lg:block absolute inset-0 z-0 bg-cover bg-center"
-          style={{
-            backgroundImage: 'linear-gradient(to bottom right, rgba(147, 196, 253, 0.37), rgb(0, 64, 201)), url("assets/images/backgrounds.png")'
-          }}
-        />
-
         <div className="max-w-6xl mx-auto relative z-10">
           <div className="text-center mb-16">
             <div className="flex justify-center mb-6">

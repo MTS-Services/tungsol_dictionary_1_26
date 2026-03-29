@@ -32,14 +32,17 @@ interface SearchResponse {
 interface Props {
     className?: string;
     placeholder?: string;
+    variant?: 'full' | 'header';
 }
 
 function Search({
     className,
     placeholder = 'Search for synonyms and antonyms',
+    variant = 'full',
 }: Props) {
-    
-   
+    const isHeader = variant === 'header';
+
+
     const [query, setQuery] = useState('');
     const [isOpen, setIsOpen] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
@@ -54,9 +57,9 @@ function Search({
     const dropdownRef = useRef<HTMLDivElement>(null);
     const observerRef = useRef<IntersectionObserver | null>(null);
     const loadMoreRef = useRef<HTMLDivElement>(null);
-    const {app_url} = usePage().props;
+    const { app_url } = usePage().props;
 
-    const {data, setData, post } = useForm({
+    const { data, setData, post } = useForm({
         _method: 'PUT',
     });
 
@@ -73,9 +76,9 @@ function Search({
 
         const url = `/search?${params}`;
         console.log('Searching URL:', url); // Debug log
-        
+
         const response = await fetch(url);
-        
+
         if (!response.ok) {
             console.error('Search failed:', response.status, response.statusText);
             throw new Error('Search failed');
@@ -83,7 +86,7 @@ function Search({
 
         const data = await response.json();
         console.log('Search response:', data); // Debug log
-        
+
         return data;
     };
 
@@ -92,7 +95,7 @@ function Search({
         try {
             // Track the click and navigate to word page using Inertia
             await router.put(route('search.track-click', wordId));
-            
+
             // toast.success('Word Count Increased');
         } catch (error) {
             console.error('Failed to track word click:', error);
@@ -105,7 +108,7 @@ function Search({
     // Handle search with debouncing
     useEffect(() => {
         console.log('Search effect triggered with query:', query); // Debug log
-        
+
         if (searchTimeoutRef.current) {
             clearTimeout(searchTimeoutRef.current);
         }
@@ -152,12 +155,12 @@ function Search({
     // Load more results
     const loadMoreResults = useCallback(async () => {
         if (isLoadingMore || !hasMore || !query.trim()) return;
-        
+
         setIsLoadingMore(true);
         try {
             const nextPage = currentPage + 1;
             const response = await apiSearch(query, nextPage);
-            
+
             setSearchResults(prev => [...prev, ...response.data]);
             setCurrentPage(response.current_page);
             setHasMore(response.has_more);
@@ -220,21 +223,31 @@ function Search({
     return (
         <div
             className={cn(
-                'flex flex-col gap-3 rounded-lg sm:flex-row lg:p-4 relative',
+                'relative',
+                isHeader
+                    ? 'flex items-center w-full'
+                    : 'flex flex-col gap-3 rounded-lg sm:flex-row lg:p-4',
                 className,
             )}
         >
-            <div className="flex justify-center gap-3">
-                <button className="cursor-pointer rounded-lg bg-btn-secondary px-6 py-3 font-arial text-sm font-normal text-text-white lg:text-base">
-                    Dictionary
-                </button>
-                {/* <button className="cursor-pointer rounded-lg bg-btn-primary px-6 py-3.5 font-arial text-sm font-normal text-text-white lg:text-base">
-                    Thesaurus
-                </button> */}
-            </div>
-            <div className="relative flex-1">
+            {!isHeader && (
+                <div className="flex justify-center gap-3">
+                    <button className="cursor-pointer rounded-lg bg-btn-secondary px-6 py-3 font-arial text-sm font-normal text-text-white lg:text-base">
+                        Dictionary
+                    </button>
+                    {/* <button className="cursor-pointer rounded-lg bg-btn-primary px-6 py-3.5 font-arial text-sm font-normal text-text-white lg:text-base">
+                        Thesaurus
+                    </button> */}
+                </div>
+            )}
+            <div className={cn('relative', isHeader ? 'w-full' : 'flex-1')}>
                 <svg
-                    className="absolute top-1/2 right-3 h-5 w-5 -translate-y-1/2 transform text-text-secondary"
+                    className={cn(
+                        'absolute top-1/2 -translate-y-1/2 transform',
+                        isHeader
+                            ? 'left-3 h-5 w-5 text-gray-300'
+                            : 'right-3 h-5 w-5 text-text-secondary',
+                    )}
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
                     viewBox="0 0 24 24"
@@ -250,20 +263,26 @@ function Search({
                 <input
                     ref={inputRef}
                     type="text"
-                    placeholder={placeholder}
+                    placeholder={isHeader ? 'Search words...' : placeholder}
                     value={query}
                     onChange={handleInputChange}
                     onFocus={handleInputFocus}
                     onBlur={handleInputBlur}
-                    className="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                    className={cn(
+                        'w-full rounded-lg border bg-white text-sm focus:outline-none',
+                        isHeader
+                            ? 'border-white/20 bg-white/20 py-2.5 pl-10 pr-4 text-white placeholder-gray-300 focus:border-blue-400 focus:ring-1 focus:ring-blue-400 text-base'
+                            : 'border-gray-300 px-4 py-3 focus:ring-2 focus:ring-blue-500',
+                    )}
                 />
             </div>
-            
+
             {/* Search Results Dropdown */}
             <div
                 ref={dropdownRef}
                 className={cn(
-                    'absolute top-full left-0 w-full  bg-white border border-gray-200 rounded-lg shadow-lg z-15 mt-2 transition-all duration-300 ease-in-out origin-top',
+                    'absolute left-0 w-full bg-white border border-gray-200 rounded-lg shadow-lg transition-all duration-300 ease-in-out origin-top',
+                    isHeader ? 'top-full mt-1 z-[60]' : 'top-full z-15 mt-2',
                     isOpen ? 'opacity-100 scale-100 visible' : 'opacity-0 scale-95 invisible',
                     'max-h-96 overflow-y-auto'
                 )}
@@ -274,7 +293,7 @@ function Search({
                         <span className="ml-2 text-gray-600">Searching...</span>
                     </div>
                 )}
-                
+
                 {!isLoading && showResults && searchResults.length > 0 && (
                     <div className="p-4">
                         <div className="text-sm text-gray-500 mb-3 sticky top-0 bg-white pb-2 border-b border-gray-100">
@@ -317,7 +336,7 @@ function Search({
                                 </div>
                             </div>
                         ))}
-                        
+
                         {/* Load more trigger */}
                         {hasMore && (
                             <div
@@ -336,7 +355,7 @@ function Search({
                                 )}
                             </div>
                         )}
-                        
+
                         {!hasMore && searchResults.length > 0 && (
                             <div className="py-3 text-center text-sm text-gray-500 border-t border-gray-100">
                                 End of results ({searchResults.length} total)
@@ -344,13 +363,13 @@ function Search({
                         )}
                     </div>
                 )}
-                
+
                 {!isLoading && showResults && searchResults.length === 0 && query.trim() && (
                     <div className="p-4 text-center text-gray-500">
                         No results found for "{query}"
                     </div>
                 )}
-                
+
                 {!isLoading && !showResults && isOpen && (
                     <div className="p-4 text-center text-gray-400 text-sm">
                         Start typing to search...

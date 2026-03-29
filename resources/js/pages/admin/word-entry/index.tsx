@@ -5,7 +5,7 @@ import { useDataTable } from "@/hooks/use-data-table";
 import AdminLayout from "@/layouts/admin-layout";
 import { ActionConfig, ColumnConfig, PaginationData } from "@/types/data-table.types";
 import { Head, Link, router } from "@inertiajs/react";
-import { CheckCircle, Eye, Pencil, Trash2, XCircle } from "lucide-react";
+import { CheckCircle, Eye, Pencil, Trash2, XCircle, Upload } from "lucide-react";
 import React from "react";
 
 interface WordEntry {
@@ -73,7 +73,7 @@ export default function Index({
           {wordEntry.word.word}
         </div>
       ),
-    },{
+    }, {
       key: "id",
       label: "Part of Speech",
       sortable: true,
@@ -82,7 +82,7 @@ export default function Index({
           {wordEntry.part_of_speech.name}
         </div>
       ),
-    },{
+    }, {
       key: "etymology",
       label: "Etymology",
       sortable: true,
@@ -91,23 +91,13 @@ export default function Index({
           {wordEntry.etymology}
         </div>
       ),
-    },{
+    }, {
       key: "syllables",
       label: "syllables",
       sortable: true,
       render: (wordEntry) => (
         <div className="font-medium text-gray-900 dark:text-gray-100">
           {wordEntry.syllables}
-        </div>
-      ),
-    },
-    {
-      key: "pronunciation_audio",
-      label: "Pronunciation",
-      sortable: false,
-      render: (wordEntry) => (
-        <div className="font-medium text-gray-900 dark:text-gray-100">
-          <audio src={wordEntry.audio_url} controls></audio>
         </div>
       ),
     },
@@ -164,7 +154,13 @@ export default function Index({
     <AdminLayout activeSlug="word-entries-management">
       <Head title="Words" />
 
-      <div className="flex justify-end mb-6">
+      <div className="flex justify-end gap-3 mb-6">
+        <Link href={route("admin.wm.words-entries.import")}>
+          <Button variant="outline">
+            <Upload className="mr-2 h-4 w-4" />
+            Import from Excel
+          </Button>
+        </Link>
         <Link href={route("admin.wm.words-entries.create")}>
           <Button>Create Word Entry</Button>
         </Link>

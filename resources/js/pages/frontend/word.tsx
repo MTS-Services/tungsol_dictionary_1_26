@@ -201,9 +201,9 @@ export default function Word({ word }: Props) {
                                         const uniqueSynonyms = [...new Set(allSynonyms)];
                                         return uniqueSynonyms.length > 0 ? (
                                             uniqueSynonyms.map((synonym, index) => (
-                                                <span key={index} className="rounded-full border border-green-100 bg-green-50 px-3 py-1 text-xs font-medium text-green-500">
+                                                <Link key={index} href={route('word', { slug: synonym })} className="rounded-full border border-green-100 bg-green-50 px-3 py-1 text-xs font-medium text-green-500 transition-colors hover:bg-green-100 hover:border-green-200">
                                                     {synonym}
-                                                </span>
+                                                </Link>
                                             ))
                                         ) : (
                                             <span className="text-gray-400 text-sm">No synonyms available</span>
@@ -221,9 +221,9 @@ export default function Word({ word }: Props) {
                                         const uniqueAntonyms = [...new Set(allAntonyms)];
                                         return uniqueAntonyms.length > 0 ? (
                                             uniqueAntonyms.map((antonym, index) => (
-                                                <span key={index} className="rounded-full border border-red-100 bg-red-50 px-3 py-1 text-xs font-medium text-red-500">
+                                                <Link key={index} href={route('word', { slug: antonym })} className="rounded-full border border-red-100 bg-red-50 px-3 py-1 text-xs font-medium text-red-500 transition-colors hover:bg-red-100 hover:border-red-200">
                                                     {antonym}
-                                                </span>
+                                                </Link>
                                             ))
                                         ) : (
                                             <span className="text-gray-400 text-sm">No antonyms available</span>
