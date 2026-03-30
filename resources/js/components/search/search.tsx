@@ -219,15 +219,36 @@ function Search({
     const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Enter' && query.trim()) {
             e.preventDefault();
-            // Navigate to search results page
-            router.visit(route('search.results'), {
-                method: 'get',
-                data: {
-                    q: query.trim(),
-                    sort: 'popularity',
-                    order: 'desc',
+            handleSearch();
+        }
+    };
+
+    const handleSearch = async () => {
+        if (query.trim()) {
+            try {
+                // First, search for results
+                const response = await apiSearch(query.trim(), 1);
+                
+                if (response.data && response.data.length > 0) {
+                    // If results found, navigate to first result's detail page
+                    const firstResult = response.data[0];
+                    await trackWordClick(firstResult.id, firstResult.word, firstResult.slug);
+                } else {
+                    // If no results, navigate to no-results page
+                    const params = new URLSearchParams({
+                        q: query.trim(),
+                    });
+                    router.visit(`/search/no-results?${params.toString()}`);
                 }
-            });
+            } catch (error) {
+                console.error('Search error:', error);
+                // Fallback to no-results page on error
+                const params = new URLSearchParams({
+                    q: query.trim(),
+                });
+                router.visit(`/search/no-results?${params.toString()}`);
+            }
+            
             setIsOpen(false);
             setShowResults(false);
         }
@@ -263,7 +284,7 @@ function Search({
                         'absolute top-1/2 -translate-y-1/2 transform',
                         isHeader
                             ? 'left-3 h-5 w-5 text-gray-300'
-                            : 'right-3 h-5 w-5 text-text-secondary',
+                            : 'right-12 h-5 w-5 text-text-secondary',
                     )}
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -289,10 +310,22 @@ function Search({
                     className={cn(
                         'w-full rounded-lg border bg-white text-sm focus:outline-none',
                         isHeader
-                            ? 'border-white/20 bg-white/20 py-2.5 pl-10 pr-4 text-white placeholder-gray-300 focus:border-blue-400 focus:ring-1 focus:ring-blue-400 text-base'
-                            : 'border-gray-300 px-4 py-3 focus:ring-2 focus:ring-blue-500',
+                            ? 'border-white/20 bg-white/20 py-2.5 pl-10 pr-24 text-white placeholder-gray-300 focus:border-blue-400 focus:ring-1 focus:ring-blue-400 text-base'
+                            : 'border-gray-300 px-4 py-3 pr-24 focus:ring-2 focus:ring-blue-500',
                     )}
                 />
+                <button
+                    onClick={handleSearch}
+                    disabled={!query.trim()}
+                    className={cn(
+                        'absolute top-1/2 -translate-y-1/2 transform rounded-md px-4 py-2 text-sm font-medium transition-colors',
+                        isHeader
+                            ? 'right-2 bg-blue-500 text-white hover:bg-blue-600 disabled:bg-gray-400 disabled:cursor-not-allowed'
+                            : 'right-2 bg-btn-primary text-text-white hover:bg-blue-600 disabled:bg-gray-400 disabled:cursor-not-allowed',
+                    )}
+                >
+                    Search
+                </button>
             </div>
 
             {/* Search Results Dropdown */}

@@ -77,6 +77,35 @@ class SearchController extends Controller
     }
 
     /**
+     * Display no results page with trending searches
+     */
+    public function noResults(Request $request): InertiaResponse
+    {
+        $request->validate([
+            'q' => 'required|string|min:1|max:100',
+        ]);
+
+        $query = $request->input('q');
+
+        // Get trending searches
+        $trendingSearches = $this->searchService->getPopularSerach(10);
+        
+        // Convert trending searches to proper format
+        $trendingWords = [];
+        foreach ($trendingSearches as $trendingSearch) {
+            $trendingWords[] = [
+                'word' => $trendingSearch,
+                'slug' => strtolower(str_replace(' ', '-', $trendingSearch)),
+            ];
+        }
+
+        return Inertia::render('frontend/no-results', [
+            'query' => $query,
+            'trendingWords' => $trendingWords,
+        ]);
+    }
+
+    /**
      * Display search results page
      */
     public function searchResults(Request $request): InertiaResponse
@@ -87,6 +116,7 @@ class SearchController extends Controller
             'per_page' => 'sometimes|integer|min:1|max:50',
             'sort' => 'sometimes|string|in:popularity,word,created_at',
             'order' => 'sometimes|string|in:asc,desc',
+            'show_trending' => 'sometimes|boolean',
         ]);
 
         $query = $request->input('q');
@@ -94,6 +124,7 @@ class SearchController extends Controller
         $perPage = $request->input('per_page', 20);
         $sort = $request->input('sort', 'popularity');
         $order = $request->input('order', 'desc');
+        $showTrending = $request->boolean('show_trending', false);
 
         // Record search history
         $this->searchService->recordSearchHistory($query);
@@ -112,13 +143,20 @@ class SearchController extends Controller
                 'cache_ttl' => 900, // 15 minutes
             ];
 
-            return Inertia::render('frontend/search', [
+            // Get trending items if no results found
+            $trendingItems = null;
+            if ($showTrending || (empty($results['data']))) {
+                $trendingItems = $this->searchService->getPopularSerach(10);
+            }
+
+            return Inertia::render('Search', [
                 'searchResults' => $results,
                 'query' => $query,
                 'currentPage' => $page,
                 'perPage' => $perPage,
                 'sort' => $sort,
                 'order' => $order,
+                'trendingItems' => $trendingItems,
             ]);
 
         } catch (\Exception $e) {
@@ -128,10 +166,14 @@ class SearchController extends Controller
                 'user_id' => Auth::id(),
             ]);
 
+            // Get trending items even on error
+            $trendingItems = $this->searchService->getPopularSerach(10);
+
             return Inertia::render('Search', [
                 'searchResults' => null,
                 'query' => $query,
                 'error' => 'Search temporarily unavailable. Please try again later.',
+                'trendingItems' => $trendingItems,
             ]);
         }
     }

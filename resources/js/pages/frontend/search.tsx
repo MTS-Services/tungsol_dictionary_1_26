@@ -36,10 +36,11 @@ interface Props {
     perPage: number;
     sort: string;
     order: string;
+    trendingItems?: string[] | null;
     error?: string;
 }
 
-const Search: React.FC<Props> = ({ searchResults, query, currentPage, perPage, sort, order, error }) => {
+const Search: React.FC<Props> = ({ searchResults, query, currentPage, perPage, sort, order, trendingItems, error }) => {
     const [loading, setLoading] = useState(false);
 
     const trackWordClick = async (wordId: number, word: string, slug: string) => {
@@ -55,20 +56,17 @@ const Search: React.FC<Props> = ({ searchResults, query, currentPage, perPage, s
         if (page === currentPage) return;
         
         setLoading(true);
-        router.get(
-            route('search.results'),
-            {
-                q: query,
-                page: page,
-                per_page: perPage,
-                sort: sort,
-                order: order,
-            },
-            {
-                preserveState: true,
-                onFinish: () => setLoading(false),
-            }
-        );
+        const params = new URLSearchParams({
+            q: query,
+            page: page.toString(),
+            per_page: perPage.toString(),
+            sort: sort,
+            order: order,
+        });
+        router.visit(`/search/results?${params.toString()}`, {
+            preserveState: true,
+            onFinish: () => setLoading(false),
+        });
     };
 
     const renderPagination = () => {
@@ -177,6 +175,31 @@ const Search: React.FC<Props> = ({ searchResults, query, currentPage, perPage, s
                             <div className="text-center py-12">
                                 <p className="text-gray-500 text-lg">No results found for "{query}"</p>
                                 <p className="text-gray-400 mt-2">Try different keywords or check your spelling</p>
+                                
+                                {trendingItems && trendingItems.length > 0 && (
+                                    <div className="mt-8">
+                                        <h3 className="text-xl font-semibold text-gray-700 mb-4">Trending Searches</h3>
+                                        <div className="flex flex-wrap justify-center gap-2">
+                                            {trendingItems.map((trendingItem, index) => (
+                                                <button
+                                                    key={index}
+                                                    onClick={() => {
+                                                        // Navigate to search results for trending item
+                                                        const params = new URLSearchParams({
+                                                            q: trendingItem,
+                                                            sort: 'popularity',
+                                                            order: 'desc',
+                                                        });
+                                                        router.visit(`/search/results?${params.toString()}`);
+                                                    }}
+                                                    className="px-4 py-2 bg-blue-100 text-blue-700 rounded-full hover:bg-blue-200 transition-colors text-sm font-medium"
+                                                >
+                                                    {trendingItem}
+                                                </button>
+                                            ))}
+                                        </div>
+                                    </div>
+                                )}
                             </div>
                         ) : (
                             <>
