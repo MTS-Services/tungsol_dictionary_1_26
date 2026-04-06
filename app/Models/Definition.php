@@ -61,7 +61,7 @@ class Definition extends Model
         return $this->image;
       }
       
-      return Storage::url($this->image);
+      return url($this->image);
     }
 
     protected $appends = ['image_url'];
