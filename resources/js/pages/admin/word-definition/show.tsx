@@ -3,6 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import AdminLayout from '@/layouts/admin-layout';
 import { ArrowLeft, Edit } from 'lucide-react';
+import { useEffect, useState } from 'react';
 
 interface WordDefinition {
     id: number;
@@ -10,6 +11,8 @@ interface WordDefinition {
         id: number;
         word: string;
     } | null;
+    image_url: string | null;
+    video_url: string | null;
     definition: string;
     register: string;
     domain: string;
@@ -24,6 +27,23 @@ interface Props {
 }
 
 const show = ({ wordDefinition }: Props) => {
+
+
+    const [videoId, setVideoId] = useState<string>('');
+
+    useEffect(() => {
+        if (wordDefinition.video_url) {
+            const url = new URL(wordDefinition.video_url);
+            const id = url.searchParams.get('v');
+            if (id) {
+                setVideoId(id);
+            }
+        }
+    }, [wordDefinition.video_url]);
+    
+
+
+
     return (
         <AdminLayout activeSlug="word-definition-management">
             <CardHeader className="flex flex-row items-center justify-between">
@@ -37,7 +57,10 @@ const show = ({ wordDefinition }: Props) => {
                     </ActionButton>
                     <ActionButton
                         IconNode={Edit}
-                        href={route('admin.wm.definitions.edit', wordDefinition?.id)}
+                        href={route(
+                            'admin.wm.definitions.edit',
+                            wordDefinition?.id,
+                        )}
                     >
                         Edit
                     </ActionButton>
@@ -48,53 +71,83 @@ const show = ({ wordDefinition }: Props) => {
                     <div className="space-y-6 lg:col-span-2">
                         <Card>
                             <CardHeader>
-                                <CardTitle>Word Definition Information</CardTitle>
+                                <CardTitle>
+                                    Word Definition Information
+                                </CardTitle>
                             </CardHeader>
                             <CardContent className="space-y-4">
                                 <Card className="p-4">
                                     <div className="grid gap-2">
-                                    <Label htmlFor="code">Word Definition</Label>
+                                        <Label htmlFor="code">
+                                            Word Definition
+                                        </Label>
 
-                                    <p>{wordDefinition.wordEntry?.word}</p>
-                                </div>
+                                        <p>{wordDefinition.wordEntry?.word}</p>
+                                    </div>
                                 </Card>
 
                                 <Card className="p-4">
                                     <div className="grid gap-2">
-                                    <Label htmlFor="name">Definition</Label>
+                                        <Label htmlFor="name">Definition</Label>
 
-                                    <p>{wordDefinition.definition}</p>
-                                </div>
+                                        <p>{wordDefinition.definition}</p>
+                                    </div>
+                                </Card>
+
+
+                                {wordDefinition.image_url && (
+                                    <Card className="p-4">
+                                        <div className="grid gap-2">
+                                            <Label htmlFor="name">Image</Label>
+
+                                            <img
+                                                src={wordDefinition.image_url}
+                                                alt="Image"
+                                            />
+                                        </div>
+                                    </Card>
+                                )}
+
+                                {/* {wordDefinition.video_url && (
+                                    <Card className="p-4">
+                                        <iframe
+                                            className='w-full min-h-100'
+                                            src={`https://www.youtube-nocookie.com/embed/${videoId}`}
+                                            title="YouTube video player"
+                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                            referrerPolicy="strict-origin-when-cross-origin"
+                                            allowFullScreen
+                                        ></iframe>
+                                    </Card>
+                                )} */}
+
+                                <Card className="p-4">
+                                    <div className="grid gap-2">
+                                        <Label htmlFor="name">Registered</Label>
+
+                                        <p>{wordDefinition.register}</p>
+                                    </div>
                                 </Card>
                                 <Card className="p-4">
                                     <div className="grid gap-2">
-                                    <Label htmlFor="name">Registered</Label>
+                                        <Label htmlFor="name">domain</Label>
 
-                                    <p>{wordDefinition.register}</p>
-                                </div>
+                                        <p>{wordDefinition.domain}</p>
+                                    </div>
                                 </Card>
                                 <Card className="p-4">
                                     <div className="grid gap-2">
-                                    <Label htmlFor="name">
-                                        domain
-                                    </Label>
+                                        <Label htmlFor="name">region</Label>
 
-                                    <p>{wordDefinition.domain}</p>
-                                </div>
+                                        <p>{wordDefinition.region}</p>
+                                    </div>
                                 </Card>
                                 <Card className="p-4">
                                     <div className="grid gap-2">
-                                    <Label htmlFor="name">region</Label>
+                                        <Label htmlFor="name">Usage Note</Label>
 
-                                    <p>{wordDefinition.region}</p>
-                                </div>
-                                </Card>
-                                <Card className="p-4">
-                                    <div className="grid gap-2">
-                                    <Label htmlFor="name">Usage Note</Label>
-
-                                    <p>{wordDefinition.usage_note}</p>
-                                </div>
+                                        <p>{wordDefinition.usage_note}</p>
+                                    </div>
                                 </Card>
                             </CardContent>
                         </Card>

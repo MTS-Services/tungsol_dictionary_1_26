@@ -66,9 +66,13 @@ class DefinitionController extends Controller
             'register' => ['nullable', 'string'],
             'domain' => ['nullable', 'string'],
             'region' => ['nullable', 'string'],
+            'video_url' => ['nullable', 'string', 'url'],
+            'image' => ['nullable', 'file', 'mimes:jpeg,png,jpg,webp', 'max:10240'],
             'usage_note' => ['nullable', 'string'],
         ]);
 
+
+       
         $this->definitionService->create($data);
 
         return redirect()->route('admin.wm.definitions.index');
@@ -128,6 +132,9 @@ class DefinitionController extends Controller
             'register' => ['nullable', 'string'],
             'domain' => ['nullable', 'string'],
             'region' => ['nullable', 'string'],
+            'delete_existing_image' => ['nullable', 'boolean'],
+            'image' => ['nullable', 'file', 'mimes:jpeg,png,jpg,webp', 'max:10240'],
+            'video_url' => ['nullable', 'string', 'url'],
             'usage_note' => ['nullable', 'string'],
         ]);
 
@@ -141,6 +148,8 @@ class DefinitionController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $this->definitionService->delete($id);
+        
+        return redirect()->route('admin.wm.definitions.index');
     }
 }
