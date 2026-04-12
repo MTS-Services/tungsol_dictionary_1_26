@@ -140,7 +140,7 @@ class DefinitionController extends Controller
 
         $this->definitionService->update($id, $data);
 
-        return redirect()->route('admin.wm.definitions.index');
+        return redirect()->route('admin.wm.definitions.show', $id);
     }
 
     /**

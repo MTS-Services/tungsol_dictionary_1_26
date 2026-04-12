@@ -77,6 +77,10 @@ class DefinitionService
             }
             $data['image'] = null;
         }
+        if(!$data['image'] && isset($data['delete_existing_image']) && !$data['delete_existing_image']){
+            unset($data['delete_existing_image']);
+            unset($data['image']);
+        }
         
         return $this->model->where('id', $id)->update($data);
     }
