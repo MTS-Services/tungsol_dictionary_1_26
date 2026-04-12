@@ -106,7 +106,7 @@ export default function Index({
       label: "Delete",
       icon: <Trash2 className="h-4 w-4" />,
       onClick: (wordDefinition) => {
-        if (confirm(`Are you sure you want to delete ${wordDefinition.id}?`)) {
+        if (confirm(`Are you sure you want to delete "${wordDefinition.definition}" ? All the related examples and associated data with this definition will be deleted too.`)) {
           router.delete(route("admin.wm.definitions.destroy", wordDefinition.id));
         }
       },

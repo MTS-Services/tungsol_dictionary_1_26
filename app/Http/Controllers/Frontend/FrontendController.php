@@ -163,6 +163,7 @@ class FrontendController extends Controller
             $antonyms = [];
 
             foreach ($entry->definitions as $definition) {
+               
                 foreach ($definition->synonyms as $synonym) {
                     if ($synonym->synonymWord) {
                         $synonyms[] = $synonym->synonymWord->word;

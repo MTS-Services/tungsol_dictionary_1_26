@@ -216,6 +216,23 @@ function Search({
         }, 200);
     };
 
+    const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === 'Enter' && query.trim()) {
+            e.preventDefault();
+            // Navigate to search results page
+            router.visit(route('search.results'), {
+                method: 'get',
+                data: {
+                    q: query.trim(),
+                    sort: 'popularity',
+                    order: 'desc',
+                }
+            });
+            setIsOpen(false);
+            setShowResults(false);
+        }
+    };
+
     const handleWordClick = (word: SearchResult) => {
         trackWordClick(word.id, word.word, word.slug);
     };
@@ -268,6 +285,7 @@ function Search({
                     onChange={handleInputChange}
                     onFocus={handleInputFocus}
                     onBlur={handleInputBlur}
+                    onKeyDown={handleKeyDown}
                     className={cn(
                         'w-full rounded-lg border bg-white text-sm focus:outline-none',
                         isHeader

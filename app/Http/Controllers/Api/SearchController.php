@@ -3,13 +3,11 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\Word;
 use App\Services\SearchService;
 use App\Services\WordService;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
@@ -79,6 +77,66 @@ class SearchController extends Controller
     }
 
     /**
+     * Display search results page
+     */
+    public function searchResults(Request $request): InertiaResponse
+    {
+        $request->validate([
+            'q' => 'required|string|min:1|max:100',
+            'page' => 'sometimes|integer|min:1',
+            'per_page' => 'sometimes|integer|min:1|max:50',
+            'sort' => 'sometimes|string|in:popularity,word,created_at',
+            'order' => 'sometimes|string|in:asc,desc',
+        ]);
+
+        $query = $request->input('q');
+        $page = $request->input('page', 1);
+        $perPage = $request->input('per_page', 20);
+        $sort = $request->input('sort', 'popularity');
+        $order = $request->input('order', 'desc');
+
+        // Record search history
+        $this->searchService->recordSearchHistory($query);
+
+        // Start timer for performance monitoring
+        $startTime = microtime(true);
+
+        try {
+            // Get search results
+            $results = $this->searchService->searchWords($query, $page, $perPage, $sort, $order);
+
+            // Add performance metadata
+            $results['meta'] = [
+                'query' => $query,
+                'search_time' => round(microtime(true) - $startTime, 3),
+                'cache_ttl' => 900, // 15 minutes
+            ];
+
+            return Inertia::render('frontend/search', [
+                'searchResults' => $results,
+                'query' => $query,
+                'currentPage' => $page,
+                'perPage' => $perPage,
+                'sort' => $sort,
+                'order' => $order,
+            ]);
+
+        } catch (\Exception $e) {
+            Log::error('Search results page error: ' . $e->getMessage(), [
+                'query' => $query,
+                'page' => $page,
+                'user_id' => Auth::id(),
+            ]);
+
+            return Inertia::render('Search', [
+                'searchResults' => null,
+                'query' => $query,
+                'error' => 'Search temporarily unavailable. Please try again later.',
+            ]);
+        }
+    }
+
+    /**
      * Get search suggestions (autocomplete)
      */
     public function suggestions(Request $request): JsonResponse
@@ -103,7 +161,7 @@ class SearchController extends Controller
      */
     public function trending(): JsonResponse
     {
-        $trending = $this->searchService->getTrendingSearches(10);
+        $trending = $this->searchService->getPopularSerach(10);
 
         return response()->json([
             'trending' => $trending,

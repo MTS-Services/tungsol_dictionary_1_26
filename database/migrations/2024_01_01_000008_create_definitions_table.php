@@ -14,6 +14,8 @@ return new class extends Migration
                   ->constrained('word_entries')
                   ->cascadeOnDelete();
             $table->text('definition')->comment('Full definition text');
+            $table->text('video_url')->nullable()->comment('Youtube Video URL');
+            $table->text('image')->nullable()->comment('image');
             $table->unsignedTinyInteger('sort_order')->default(0)->comment('Order within the entry');
             $table->string('register', 50)->nullable()->comment('formal, informal, archaic, slang, etc.');
             $table->string('domain', 100)->nullable()->comment('Subject label e.g. Law, Medicine, Computing');

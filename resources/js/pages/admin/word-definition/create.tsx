@@ -2,6 +2,7 @@ import InputError from "@/components/input-error";
 import { ActionButton } from "@/components/ui/action-button";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import FileUpload from "@/components/ui/file-upload";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -67,6 +68,8 @@ export default function Create({ word_entries }: Props) {
     domain: "",
     region: "",
     usage_note: "",
+    video_url: "",
+    image: null as File | null,
   });
 
   function handleSubmit(e: React.FormEvent) {
@@ -140,6 +143,28 @@ export default function Create({ word_entries }: Props) {
                     </Textarea>
                     <InputError message={errors.definition} />
                   </div>
+{/* 
+                  <div className="grid gap-2">
+                    <Label htmlFor="video_url" className="p">Youtube Video URL</Label>
+                    <Input
+                      id="video_url"
+                      placeholder="Youtube Video URL"
+                      value={data.video_url}
+                      onChange={(e) => setData("video_url", e.target.value)}
+                    />
+                    <InputError message={errors.video_url} />
+                  </div> */}
+
+
+                  <div className="grid gap-2">
+                    <Label htmlFor="image">Image</Label>
+                   <FileUpload
+                    onChange={(file) => setData("image", file as File | null)}
+                    multiple={false}
+                    accept="image/*"
+                    />
+                    <InputError message={errors.image} />
+                  </div>
 
                   <div className="grid gap-2">
                     <Label htmlFor="register">Register</Label>
@@ -176,12 +201,12 @@ export default function Create({ word_entries }: Props) {
 
                   <div className="grid gap-2">
                     <Label htmlFor="name">Usege Note</Label>
-                    <Input
-                      id="name"
-                      placeholder="Usage Note"
-                      value={data.usage_note}
-                      onChange={(e) => setData("usage_note", e.target.value)}
-                    />
+                      <Input
+                        id="name"
+                        placeholder="Usage Note"
+                        value={data.usage_note}
+                        onChange={(e) => setData("usage_note", e.target.value)}
+                      />
                     <InputError message={errors.usage_note} />
                   </div>
                 </CardContent>
