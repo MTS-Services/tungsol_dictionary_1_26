@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class Definition extends Model
@@ -61,7 +60,7 @@ class Definition extends Model
         return $this->image;
       }
       
-      return Storage::url($this->image);
+      return url($this->image);
     }
 
     protected $appends = ['image_url'];
