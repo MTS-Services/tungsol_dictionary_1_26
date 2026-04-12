@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Str;
 
 class Definition extends Model
 {
@@ -19,6 +20,8 @@ class Definition extends Model
         'domain',
         'region',
         'usage_note',
+        'video_url',
+        'image',
     ];
 
     protected function casts(): array
@@ -47,4 +50,18 @@ class Definition extends Model
     {
         return $this->hasMany(Antonym::class);
     }
+
+    public function getImageUrlAttribute(): ?string
+    {
+       if(!$this->image) {
+         return null;
+       }
+      if(Str::startsWith($this->image, 'http') || Str::startsWith($this->image, 'https')) {
+        return $this->image;
+      }
+      
+      return url($this->image);
+    }
+
+    protected $appends = ['image_url'];
 }

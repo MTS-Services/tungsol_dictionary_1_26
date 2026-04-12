@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Route;
 // Public search routes - no authentication required
 Route::prefix('search')->group(function () {
     Route::get('/', [SearchController::class, 'search'])->name('search');
+    Route::get('/results', [SearchController::class, 'searchResults'])->name('search.results');
     Route::get('/suggestions', [SearchController::class, 'suggestions'])->name('search.suggestions');
     Route::get('/trending', [SearchController::class, 'trending'])->name('search.trending');
     Route::put('/track-click/{id}', [SearchController::class, 'trackWordClick'])->name('search.track-click');
