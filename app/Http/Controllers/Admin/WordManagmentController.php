@@ -57,7 +57,23 @@ class WordManagmentController extends Controller
             'category_ids.*' => ['exists:categories,id'],
         ]);
 
-        $data['slug'] = Str::slug($data['word']);
+
+        $baseSlug = Str::slug($data['word']);
+
+        
+        $slug = $baseSlug;
+        $counter = 1;
+
+        while (Word::where('slug', $slug)->exists()) {
+            $slug = $baseSlug . '-' . $counter;
+            $counter++;
+        }
+
+
+        
+        $data['slug'] = $slug;
+
+     
 
         $word = Word::create($data);
 
@@ -93,8 +109,18 @@ class WordManagmentController extends Controller
             'category_ids.*' => ['exists:categories,id'],
         ]);
 
-        $data['slug'] = Str::slug($data['word']);
+       
 
+        $baseSlug = Str::slug($data['word']);
+        $slug = $baseSlug;
+        $counter = 1;
+
+        while (Word::where('slug', $slug)->where('id', '!=', $word->id)->exists()) {
+            $slug = $baseSlug . '-' . $counter;
+            $counter++;
+        }
+        
+    
         $word->update($data);
 
         if (isset($data['category_ids'])) {
