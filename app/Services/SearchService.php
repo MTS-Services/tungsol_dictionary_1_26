@@ -23,7 +23,7 @@ class SearchService
                 ->where('is_approved', true)
                 ->where(function ($q) use ($query) {
                     // Search in word field
-                    $q->where('word', 'LIKE', "%{$query}%");
+                    $q->where('word', 'LIKE', "{$query}%");
                 });
 
             // Apply sorting
