@@ -14,7 +14,7 @@ class UserManagementController extends Controller
      */
     public function index(): Response
     {
-        
+
         return Inertia::render('admin/word-management/index');
     }
 
@@ -40,7 +40,6 @@ class UserManagementController extends Controller
     public function show(string $id)
     {
         //
-        dd('test');
     }
 
     /**
@@ -48,7 +47,7 @@ class UserManagementController extends Controller
      */
     public function edit(string $id)
     {
-       return Inertia::render('admin/word-management/edit');
+        return Inertia::render('admin/word-management/edit');
     }
 
     /**
