@@ -23,11 +23,8 @@ Route::prefix('search')->group(function () {
     Route::put('/track-click/{id}', [SearchController::class, 'trackWordClick'])->name('search.track-click');
 });
 
-
-
-//Include Frontend Route
+// Include Frontend Route
 
 include __DIR__.'/frontend.php';
 include __DIR__.'/admin.php';
 include __DIR__.'/user.php';
-include __DIR__.'/debug.php';
